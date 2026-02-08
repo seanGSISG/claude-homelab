@@ -1,0 +1,136 @@
+# =============================================================================
+# HOMELAB .gitignore
+# =============================================================================
+
+# Environment Variables (CRITICAL - NEVER COMMIT)
+# Only .env.example is allowed - all other .env files are ignored
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Configuration Files (may contain secrets)
+config.json
+**/config.json
+
+# Credentials and Secrets
+credentials/
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+# NOTE: Don't ignore our shell lib/ directory - only Python lib dirs
+# lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# TypeScript
+*.tsbuildinfo
+dist/
+build/
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.classpath
+.settings/
+
+# Docker
+docker-compose.override.yml
+
+# Cache and Temporary Files
+.cache/
+*.log
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Session and Documentation Directories
+.docs/
+.serena/
+
+# Debug and Dump Files
+*_debug.json
+*_dump.json
+*debug*.json
+*dump*.json
+
+# Archive Files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Session Logs (keep structure, ignore sensitive content if needed)
+# .docs/sessions/*.md
+
+# Script Debug Files
+skills/*/scripts/*_debug.json

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Gotify CLI wrapper for cronjob notifications
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Parse command
+COMMAND="${1:-}"
+shift || true
+
+case "$COMMAND" in
+    push|send)
+        # Translate notify.sh args to send.sh args
+        TITLE=""
+        MESSAGE=""
+        PRIORITY=5
+        
+        while [[ $# -gt 0 ]]; do
+            case $1 in
+                --title)
+                    TITLE="$2"
+                    shift 2
+                    ;;
+                --message)
+                    MESSAGE="$2"
+                    shift 2
+                    ;;
+                --priority)
+                    PRIORITY="$2"
+                    shift 2
+                    ;;
+                *)
+                    shift
+                    ;;
+            esac
+        done
+        
+        "$SCRIPT_DIR/send.sh" --title "$TITLE" --message "$MESSAGE" --priority "$PRIORITY"
+        ;;
+    *)
+        echo "Usage: gotify push --title <title> --message <message> [--priority <0-10>]" >&2
+        exit 1
+        ;;
+esac

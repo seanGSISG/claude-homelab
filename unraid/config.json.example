@@ -1,0 +1,4 @@
+{
+  "url": "https://your-unraid-server/graphql",
+  "apiKey": "your-api-key-here"
+}
