@@ -334,7 +334,7 @@ All wrapper scripts source credentials from `~/claude-homelab/.env`.
 
 ```bash
 # Scrape single URL
-cd ~/workspace/homelab/skills/firecrawl
+cd ~/claude-homelab/skills/firecrawl
 ./scripts/scrape.sh https://example.com
 ./scripts/scrape.sh https://example.com output.md
 
@@ -373,13 +373,13 @@ fi
 
 ```bash
 # Daily site scrape
-0 2 * * * cd ~/workspace/homelab/skills/firecrawl && ./scripts/scrape.sh https://example.com > /tmp/daily-scrape.md
+0 2 * * * cd ~/claude-homelab/skills/firecrawl && ./scripts/scrape.sh https://example.com > /tmp/daily-scrape.md
 
 # Weekly site crawl
-0 3 * * 0 cd ~/workspace/homelab/skills/firecrawl && ./scripts/crawl-site.sh https://example.com 500 5
+0 3 * * 0 cd ~/claude-homelab/skills/firecrawl && ./scripts/crawl-site.sh https://example.com 500 5
 
 # Hourly news search
-0 * * * * cd ~/workspace/homelab/skills/firecrawl && ./scripts/search-scrape.sh "AI news" 10 > ~/news/$(date +\%Y\%m\%d-\%H).json
+0 * * * * cd ~/claude-homelab/skills/firecrawl && ./scripts/search-scrape.sh "AI news" 10 > ~/news/$(date +\%Y\%m\%d-\%H).json
 ```
 
 ## Quick Comparison

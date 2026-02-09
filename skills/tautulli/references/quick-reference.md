@@ -10,7 +10,7 @@ TAUTULLI_URL="http://192.168.1.100:8181"
 TAUTULLI_API_KEY="your-api-key-here"
 
 # Navigate to skill directory
-cd ~/workspace/homelab/skills/tautulli
+cd ~/claude-homelab/skills/tautulli
 ```
 
 ## Quick Commands
@@ -347,7 +347,7 @@ Add to your `~/.bashrc` or `~/.zshrc`:
 
 ```bash
 # Tautulli shortcuts
-alias tautulli='cd ~/workspace/homelab/skills/tautulli && ./scripts/tautulli-api.sh'
+alias tautulli='cd ~/claude-homelab/skills/tautulli && ./scripts/tautulli-api.sh'
 alias tautulli-activity='tautulli activity | jq ".response.data.sessions[] | {user: .friendly_name, title: .full_title, progress: .progress_percent}"'
 alias tautulli-history='tautulli history | jq -r ".response.data.data[] | \"\(.date | strftime(\"%Y-%m-%d %H:%M\")) - \(.friendly_name) - \(.full_title)\""'
 alias tautulli-users='tautulli user-stats | jq -r ".response.data[] | \"\(.friendly_name): \(.plays) plays\""'

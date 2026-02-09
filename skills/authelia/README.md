@@ -63,7 +63,7 @@ AUTHELIA_API_TOKEN=""  # Optional: leave empty for cookie auth
 ### 3. Test Connection
 
 ```bash
-cd ~/workspace/homelab/skills/authelia
+cd ~/claude-homelab/skills/authelia
 ./scripts/authelia-api.sh health
 ```
 
@@ -196,7 +196,7 @@ Integrate with homelab monitoring scripts:
 
 ```bash
 # Add to cron for periodic health checks
-0 * * * * /home/user/workspace/homelab/skills/authelia/scripts/authelia-api.sh health | jq -r '.status'
+0 * * * * /home/user/claude-homelab/skills/authelia/scripts/authelia-api.sh health | jq -r '.status'
 ```
 
 ## Troubleshooting

@@ -193,7 +193,7 @@ Response: {"status":"KO","message":"Authentication failed."}
 
 1. **Test credentials directly:**
    ```bash
-   cd ~/workspace/homelab/skills/authelia
+   cd ~/claude-homelab/skills/authelia
    source ~/claude-homelab/.env
 
    curl -sk -X POST "$AUTHELIA_URL/api/firstfactor" \
@@ -561,7 +561,7 @@ ERROR: AUTHELIA_URL must be set in .env
 
 **Symptoms:**
 ```
-ERROR: .env file not found at /home/user/workspace/homelab/.env
+ERROR: .env file not found at /home/user/claude-homelab/.env
 ```
 
 **Causes:**

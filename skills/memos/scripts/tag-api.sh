@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Load credentials from .env
-ENV_FILE="$HOME/workspace/homelab/.env"
+ENV_FILE="$HOME/claude-homelab/.env"
 if [[ ! -f "$ENV_FILE" ]]; then
     echo '{"error": "Environment file not found", "path": "'"$ENV_FILE"'"}' >&2
     exit 1

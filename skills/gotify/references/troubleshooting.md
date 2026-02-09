@@ -435,7 +435,7 @@ bash: ./send.sh: Permission denied
 
 Make script executable:
 ```bash
-chmod +x ~/workspace/homelab/skills/gotify/scripts/send.sh
+chmod +x ~/claude-homelab/skills/gotify/scripts/send.sh
 ```
 
 ## Debugging Tips

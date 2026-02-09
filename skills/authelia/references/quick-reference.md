@@ -263,13 +263,13 @@ fi
 # Add to crontab: crontab -e
 
 # Check health every 5 minutes
-*/5 * * * * cd ~/workspace/homelab/skills/authelia && ./scripts/authelia-api.sh health >> /tmp/authelia-health.log 2>&1
+*/5 * * * * cd ~/claude-homelab/skills/authelia && ./scripts/authelia-api.sh health >> /tmp/authelia-health.log 2>&1
 
 # Daily session report at 9 AM
-0 9 * * * cd ~/workspace/homelab/skills/authelia && ./scripts/authelia-api.sh dashboard > /tmp/authelia-report-$(date +\%Y\%m\%d).json
+0 9 * * * cd ~/claude-homelab/skills/authelia && ./scripts/authelia-api.sh dashboard > /tmp/authelia-report-$(date +\%Y\%m\%d).json
 
 # Alert on health failure (every 5 minutes)
-*/5 * * * * cd ~/workspace/homelab/skills/authelia && [[ $(./scripts/authelia-api.sh health | jq -r .status) != "UP" ]] && /usr/local/bin/send-alert "Authelia down"
+*/5 * * * * cd ~/claude-homelab/skills/authelia && [[ $(./scripts/authelia-api.sh health | jq -r .status) != "UP" ]] && /usr/local/bin/send-alert "Authelia down"
 ```
 
 ---
@@ -308,7 +308,7 @@ curl -k "$(grep AUTHELIA_URL ~/claude-homelab/.env | cut -d= -f2 | tr -d '"')/ap
 
 ### Morning Security Check
 ```bash
-cd ~/workspace/homelab/skills/authelia
+cd ~/claude-homelab/skills/authelia
 
 # 1. Check health
 echo "=== Health Status ==="
@@ -410,7 +410,7 @@ done
 
 ## Notes
 
-- All commands assume you're in the `~/workspace/homelab/skills/authelia/` directory
+- All commands assume you're in the `~/claude-homelab/skills/authelia/` directory
 - Cookie file is stored at `/tmp/authelia-cookies-$USER.txt`
 - Cookies auto-renew when expired (seamless re-authentication)
 - Use `jq -r` for raw output (no quotes)

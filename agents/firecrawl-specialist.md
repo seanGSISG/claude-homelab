@@ -72,7 +72,7 @@ You use the `firecrawl` CLI directly (NOT wrapper scripts). Key commands:
 
 **IMPORTANT**: All scrape/crawl operations auto-embed to Qdrant by default. This means every page you scrape becomes searchable via `firecrawl query`.
 
-**Environment**: The firecrawl CLI reads credentials from `~/workspace/homelab/.env` (FIRECRAWL_API_KEY, QDRANT_URL, etc.)
+**Environment**: The firecrawl CLI reads credentials from `~/claude-homelab/.env` (FIRECRAWL_API_KEY, QDRANT_URL, etc.)
 
 ## Methodology
 

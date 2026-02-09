@@ -70,7 +70,7 @@
 1. Delete cached cookie and retry:
    ```bash
    unset UNIFI_COOKIE_FILE
-   cd ~/workspace/homelab/skills/unifi
+   cd ~/claude-homelab/skills/unifi
    bash scripts/health.sh
    ```
 2. Verify credentials are correct
@@ -385,7 +385,7 @@ All scripts automatically scope to site defined in `UNIFI_SITE`. Verify site nam
 Enable detailed curl output for debugging:
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 
 # Show full curl commands
 bash -x scripts/devices.sh 2>&1 | grep curl
@@ -421,7 +421,7 @@ curl -vsk -c /tmp/unifi-cookie.txt \
 ## Useful Debug Commands
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 source scripts/unifi-api.sh
 
 # Test login

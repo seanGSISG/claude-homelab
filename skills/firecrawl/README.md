@@ -73,7 +73,7 @@ firecrawl --version
 #### 4. Test It
 
 ```bash
-cd ~/workspace/homelab/skills/firecrawl
+cd ~/claude-homelab/skills/firecrawl
 firecrawl https://example.com --only-main-content
 ```
 

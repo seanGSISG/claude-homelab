@@ -47,7 +47,7 @@ MEMOS_API_TOKEN="eyJhbGciOiJIUzI1NiIsImtpZCI6InYxIiwidHlwIjoiSldUIn0..."
 Link the skill to Claude's skills directory:
 
 ```bash
-ln -sf ~/workspace/homelab/skills/memos ~/.claude/skills/memos
+ln -sf ~/claude-homelab/skills/memos ~/.claude/skills/memos
 ```
 
 ## Usage Examples

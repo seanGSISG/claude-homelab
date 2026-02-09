@@ -8,7 +8,7 @@ Effective patterns for finding information in your memos.
 
 **Find all memos mentioning "kubernetes":**
 ```bash
-cd ~/workspace/homelab/skills/memos
+cd ~/claude-homelab/skills/memos
 bash scripts/search-api.sh "kubernetes"
 ```
 
@@ -256,10 +256,10 @@ Add to your `~/.bashrc` or `~/.zshrc`:
 
 ```bash
 # Memos search aliases
-alias memos-search='cd ~/workspace/homelab/skills/memos && bash scripts/search-api.sh'
-alias memos-recent='cd ~/workspace/homelab/skills/memos && bash scripts/search-api.sh "" --from "$(date -d "7 days ago" +%Y-%m-%d)"'
-alias memos-work='cd ~/workspace/homelab/skills/memos && bash scripts/tag-api.sh search work'
-alias memos-tags='cd ~/workspace/homelab/skills/memos && bash scripts/tag-api.sh list'
+alias memos-search='cd ~/claude-homelab/skills/memos && bash scripts/search-api.sh'
+alias memos-recent='cd ~/claude-homelab/skills/memos && bash scripts/search-api.sh "" --from "$(date -d "7 days ago" +%Y-%m-%d)"'
+alias memos-work='cd ~/claude-homelab/skills/memos && bash scripts/tag-api.sh search work'
+alias memos-tags='cd ~/claude-homelab/skills/memos && bash scripts/tag-api.sh list'
 ```
 
 Usage after sourcing:

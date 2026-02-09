@@ -6,7 +6,7 @@ Common operations and copy-paste examples.
 
 ```bash
 # Navigate to skill directory
-cd ~/workspace/homelab/skills/memos
+cd ~/claude-homelab/skills/memos
 
 # All scripts source credentials from ~/claude-homelab/.env
 # No additional configuration needed

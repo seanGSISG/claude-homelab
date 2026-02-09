@@ -285,7 +285,7 @@ Node.js:
 import { readFile } from 'fs/promises';
 
 async function loadEnv() {
-    const envPath = `${process.env.HOME}/workspace/homelab/.env`;
+    const envPath = `${process.env.HOME}/claude-homelab/.env`;
     const content = await readFile(envPath, 'utf8');
 
     for (const line of content.split('\n')) {
@@ -391,7 +391,7 @@ main "$@"
 #!/usr/bin/env node
 import { readFile } from 'fs/promises';
 
-const ENV_PATH = `${process.env.HOME}/workspace/homelab/.env`;
+const ENV_PATH = `${process.env.HOME}/claude-homelab/.env`;
 
 async function loadEnv() {
     try {
@@ -1141,7 +1141,7 @@ For existing skills that need updating to match current patterns:
 - [ ] Scripts support `--help` flag
 - [ ] Scripts return JSON output where appropriate
 - [ ] **Migrated credentials from JSON config files to `.env`** (SERVICE_URL, SERVICE_API_KEY variables)
-- [ ] Removed `~/workspace/homelab/credentials/<service>/` directory
+- [ ] Removed `~/claude-homelab/credentials/<service>/` directory
 - [ ] Scripts load credentials from `.env` with validation
 - [ ] References directory exists with appropriate reference file (api-endpoints.md for REST APIs, command-reference.md for CLI tools), quick-reference.md, troubleshooting.md
 - [ ] Destructive operations require explicit confirmation

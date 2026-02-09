@@ -76,7 +76,7 @@ TAUTULLI_API_KEY="YOUR_API_KEY_HERE"
 ### 5. Test It
 
 ```bash
-cd ~/workspace/homelab/skills/tautulli
+cd ~/claude-homelab/skills/tautulli
 ./scripts/tautulli-api.sh server-info
 ```
 

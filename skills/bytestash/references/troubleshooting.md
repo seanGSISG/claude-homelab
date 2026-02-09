@@ -69,5 +69,5 @@ Some ByteStash deployments require JWT auth for share endpoints instead of API k
 
 ### Fix
 ```bash
-chmod +x ~/workspace/homelab/skills/bytestash/scripts/bytestash-api.sh
+chmod +x ~/claude-homelab/skills/bytestash/scripts/bytestash-api.sh
 ```

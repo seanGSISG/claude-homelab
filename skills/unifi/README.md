@@ -40,7 +40,7 @@ UNIFI_SITE="default"
 ### 3. Test It
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 source ./scripts/unifi-api.sh && unifi_get "stat/health"
 ```
 

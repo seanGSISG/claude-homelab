@@ -84,13 +84,13 @@ curl -X POST "$GOTIFY_URL/message?token=$GOTIFY_TOKEN" \
 ### Basic Message
 
 ```bash
-bash ~/workspace/homelab/skills/gotify/scripts/send.sh "Task completed"
+bash ~/claude-homelab/skills/gotify/scripts/send.sh "Task completed"
 ```
 
 ### With Title and Priority
 
 ```bash
-bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+bash ~/claude-homelab/skills/gotify/scripts/send.sh \
   -t "Build Complete" \
   -m "All tests passed" \
   -p 7
@@ -99,7 +99,7 @@ bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
 ### Markdown Support
 
 ```bash
-bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+bash ~/claude-homelab/skills/gotify/scripts/send.sh \
   --markdown \
   -t "Daily Report" \
   -m "
@@ -152,7 +152,7 @@ send_alert() {
   local message="$2"
   local priority="${3:-10}"
 
-  bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+  bash ~/claude-homelab/skills/gotify/scripts/send.sh \
     -t "$title" \
     -m "$message" \
     -p "$priority"
@@ -194,7 +194,7 @@ THRESHOLD=90
 USAGE=$(df -h / | awk 'NR==2 {print $5}' | sed 's/%//')
 
 if [ "$USAGE" -gt "$THRESHOLD" ]; then
-  bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+  bash ~/claude-homelab/skills/gotify/scripts/send.sh \
     -t "⚠️ Disk Space Alert" \
     -m "Root partition is ${USAGE}% full" \
     -p 10

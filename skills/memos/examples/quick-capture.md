@@ -8,7 +8,7 @@ Real-world examples of capturing information from Claude conversations into Memo
 
 **Command:**
 ```bash
-cd ~/workspace/homelab/skills/memos
+cd ~/claude-homelab/skills/memos
 
 bash scripts/memo-api.sh create "$(cat <<'EOF'
 Useful Docker cleanup command:

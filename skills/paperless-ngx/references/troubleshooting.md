@@ -532,7 +532,7 @@ curl --version
 ```json
 {
   "error": "Environment file not found",
-  "path": "/home/user/workspace/homelab/.env"
+  "path": "/home/user/claude-homelab/.env"
 }
 ```
 

@@ -276,13 +276,13 @@ jq --version
 
 ```bash
 # Convert line endings
-dos2unix ~/workspace/homelab/skills/tautulli/scripts/tautulli-api.sh
+dos2unix ~/claude-homelab/skills/tautulli/scripts/tautulli-api.sh
 
 # Or use sed
-sed -i 's/\r$//' ~/workspace/homelab/skills/tautulli/scripts/tautulli-api.sh
+sed -i 's/\r$//' ~/claude-homelab/skills/tautulli/scripts/tautulli-api.sh
 
 # Ensure executable
-chmod +x ~/workspace/homelab/skills/tautulli/scripts/tautulli-api.sh
+chmod +x ~/claude-homelab/skills/tautulli/scripts/tautulli-api.sh
 ```
 
 ### Error: Permission denied
@@ -293,10 +293,10 @@ chmod +x ~/workspace/homelab/skills/tautulli/scripts/tautulli-api.sh
 
 ```bash
 # Make executable
-chmod +x ~/workspace/homelab/skills/tautulli/scripts/tautulli-api.sh
+chmod +x ~/claude-homelab/skills/tautulli/scripts/tautulli-api.sh
 
 # Verify
-ls -l ~/workspace/homelab/skills/tautulli/scripts/tautulli-api.sh
+ls -l ~/claude-homelab/skills/tautulli/scripts/tautulli-api.sh
 # Should show: -rwxr-xr-x
 ```
 

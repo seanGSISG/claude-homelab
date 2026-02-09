@@ -20,7 +20,7 @@ UNIFI_SITE="default"
 Comprehensive view of all network stats (health, devices, clients, networks, DPI, etc.):
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 bash scripts/dashboard.sh
 ```
 
@@ -41,7 +41,7 @@ bash scripts/dashboard.sh json
 Shows all UniFi devices (APs, switches, gateway):
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 bash scripts/devices.sh
 ```
 
@@ -87,7 +87,7 @@ bash scripts/devices.sh json | jq -r '.data[] | "\(.name): \((.uptime / 86400 | 
 Shows who's currently connected to the network:
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 bash scripts/clients.sh
 ```
 
@@ -137,7 +137,7 @@ bash scripts/clients.sh json | jq '.data[] | select(.is_wired != true)'
 Site-wide health status:
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 bash scripts/health.sh
 ```
 
@@ -169,7 +169,7 @@ bash scripts/health.sh json | jq '.data[] | select(.status != "ok")'
 Shows top bandwidth consumers by application (via Deep Packet Inspection):
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 bash scripts/top-apps.sh
 ```
 
@@ -212,7 +212,7 @@ unifi_get stat/sitedpi | jq -r '.data[0].by_cat[] | "\(.cat): \(((.rx_bytes + .t
 Shows recent alarms and events:
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 bash scripts/alerts.sh
 ```
 
@@ -248,7 +248,7 @@ unifi_get stat/alarm | jq '.data[] | select(.key | contains("Disconnected") or c
 ### Network Configuration
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 source scripts/unifi-api.sh
 
 # List all networks
@@ -308,7 +308,7 @@ unifi_get stat/rogueap | jq '.data[] | {ssid, bssid, channel, signal}'
 ### Workflow: Full Network Health Check
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 
 echo "=== Health Status ==="
 bash scripts/health.sh
@@ -323,7 +323,7 @@ bash scripts/alerts.sh 10
 ### Workflow: Client Troubleshooting
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 
 # Find client by hostname/IP
 CLIENT_NAME="phone-john"
@@ -336,7 +336,7 @@ bash scripts/clients.sh json | jq --arg name "$CLIENT_NAME" '.data[] | select(.h
 ### Workflow: Bandwidth Analysis
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 
 echo "=== Top Applications ==="
 bash scripts/top-apps.sh 10
@@ -349,7 +349,7 @@ unifi_get stat/stadpi | jq -r '.data | sort_by(-.tx_bytes + -.rx_bytes) | .[:10]
 ### Workflow: Device Adoption Check
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 
 # Check for unadopted devices
 bash scripts/devices.sh json | jq '.data[] | select(.state != 1) | {name, mac, state, state_name}'
@@ -361,7 +361,7 @@ bash scripts/health.sh json | jq '.data[] | {subsystem, adopted: .num_adopted, d
 ### Workflow: Export Network Configuration
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 source scripts/unifi-api.sh
 
 # Export all configuration to JSON files
@@ -378,7 +378,7 @@ echo "Configuration exported to /tmp/"
 For operations not covered by existing scripts, use the `unifi-api.sh` helper:
 
 ```bash
-cd ~/workspace/homelab/skills/unifi
+cd ~/claude-homelab/skills/unifi
 source scripts/unifi-api.sh
 
 # Generic GET request (automatically handles login and site path)

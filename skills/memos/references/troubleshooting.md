@@ -30,7 +30,7 @@ Common issues and their solutions.
 
 3. Test authentication:
    ```bash
-   cd ~/workspace/homelab/skills/memos
+   cd ~/claude-homelab/skills/memos
    bash scripts/user-api.sh whoami
    ```
 
@@ -150,7 +150,7 @@ curl: (60) SSL certificate problem: unable to get local issuer certificate
 
 **Error Message:**
 ```json
-{"error": "Environment file not found", "path": "/home/user/workspace/homelab/.env"}
+{"error": "Environment file not found", "path": "/home/user/claude-homelab/.env"}
 ```
 
 **Solution:**
@@ -211,7 +211,7 @@ bash: ./scripts/memo-api.sh: Permission denied
 
 **Solution:** Make scripts executable:
 ```bash
-chmod +x ~/workspace/homelab/skills/memos/scripts/*.sh
+chmod +x ~/claude-homelab/skills/memos/scripts/*.sh
 ```
 
 ## Data Issues

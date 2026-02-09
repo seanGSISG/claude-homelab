@@ -98,7 +98,7 @@ bash scripts/send.sh --title "Deploy Summary" --markdown --message "
 
 ```bash
 # Run long task
-./deploy.sh && bash ~/workspace/homelab/skills/gotify/scripts/send.sh "Deploy finished"
+./deploy.sh && bash ~/claude-homelab/skills/gotify/scripts/send.sh "Deploy finished"
 ```
 
 ### Option 2: Hook Integration (Future)
@@ -109,7 +109,7 @@ When Clawdbot supports task completion hooks, this skill can be triggered automa
 # Example hook configuration (conceptual)
 {
   "on": "task_complete",
-  "run": "bash ~/workspace/homelab/skills/gotify/scripts/send.sh 'Task: {{task_name}} completed in {{duration}}'"
+  "run": "bash ~/claude-homelab/skills/gotify/scripts/send.sh 'Task: {{task_name}} completed in {{duration}}'"
 }
 ```
 
@@ -167,7 +167,7 @@ bash scripts/send.sh --markdown -t "Daily Summary" -m "
 
 1. **Long Running Task Completes (>5 min)**
    ```bash
-   bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+   bash ~/claude-homelab/skills/gotify/scripts/send.sh \
      -t "Task Complete" \
      -m "Project: $(basename $PWD)
    Task: [description]
@@ -178,7 +178,7 @@ bash scripts/send.sh --markdown -t "Daily Summary" -m "
 
 2. **Plan Implementation Finishes**
    ```bash
-   bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+   bash ~/claude-homelab/skills/gotify/scripts/send.sh \
      -t "Plan Complete" \
      -m "Project: $(basename $PWD)
    Task: [plan description]
@@ -189,7 +189,7 @@ bash scripts/send.sh --markdown -t "Daily Summary" -m "
 
 3. **Blocked - Need User Input**
    ```bash
-   bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+   bash ~/claude-homelab/skills/gotify/scripts/send.sh \
      -t "Input Required" \
      -m "Project: $(basename $PWD)
    Task: [current task]
@@ -200,7 +200,7 @@ bash scripts/send.sh --markdown -t "Daily Summary" -m "
 
 4. **Task Transition - Need Review/Approval**
    ```bash
-   bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+   bash ~/claude-homelab/skills/gotify/scripts/send.sh \
      -t "Ready to Proceed" \
      -m "Project: $(basename $PWD)
    Completed: [current phase]

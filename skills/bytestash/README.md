@@ -43,7 +43,7 @@ chmod 600 ~/claude-homelab/.env
 Test the connection:
 
 ```bash
-cd ~/workspace/homelab/skills/bytestash
+cd ~/claude-homelab/skills/bytestash
 ./scripts/bytestash-api.sh list
 ```
 
@@ -257,7 +257,7 @@ All commands return JSON, making them easy to process with `jq`:
 **Problem:** "command not found" when running scripts
 
 **Solutions:**
-1. Ensure you're in the right directory: `cd ~/workspace/homelab/skills/bytestash`
+1. Ensure you're in the right directory: `cd ~/claude-homelab/skills/bytestash`
 2. Make script executable: `chmod +x scripts/bytestash-api.sh`
 3. Use relative path: `./scripts/bytestash-api.sh list`
 

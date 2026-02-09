@@ -475,10 +475,10 @@ Add to your shell config (`.bashrc` or `.zshrc`):
 
 ```bash
 # Paperless shortcuts
-alias pls='cd ~/workspace/homelab/skills/paperless-ngx && ./scripts/paperless-api.sh'
-alias ptag='cd ~/workspace/homelab/skills/paperless-ngx && ./scripts/tag-api.sh'
-alias pcorr='cd ~/workspace/homelab/skills/paperless-ngx && ./scripts/correspondent-api.sh'
-alias pbulk='cd ~/workspace/homelab/skills/paperless-ngx && ./scripts/bulk-api.sh'
+alias pls='cd ~/claude-homelab/skills/paperless-ngx && ./scripts/paperless-api.sh'
+alias ptag='cd ~/claude-homelab/skills/paperless-ngx && ./scripts/tag-api.sh'
+alias pcorr='cd ~/claude-homelab/skills/paperless-ngx && ./scripts/correspondent-api.sh'
+alias pbulk='cd ~/claude-homelab/skills/paperless-ngx && ./scripts/bulk-api.sh'
 
 # Quick search
 psearch() { pls search "$@" | jq -r '.results[] | "\(.id): \(.title)"'; }

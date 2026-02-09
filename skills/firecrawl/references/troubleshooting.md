@@ -745,7 +745,7 @@ df -h
 
 2. Clean up old files:
 ```bash
-rm -rf ~/workspace/homelab/skills/firecrawl/output/*
+rm -rf ~/claude-homelab/skills/firecrawl/output/*
 ```
 
 3. Use streaming output:

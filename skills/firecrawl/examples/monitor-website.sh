@@ -257,7 +257,7 @@ check_page() {
             fi
 
             # Or use Gotify (if configured)
-            # bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+            # bash ~/claude-homelab/skills/gotify/scripts/send.sh \
             #     -t "Website Monitor" \
             #     -m "Changes detected on $url" \
             #     -p 7
@@ -316,7 +316,7 @@ if [[ $CHANGES_DETECTED -gt 0 ]]; then
         done
 
         # Send Gotify notification
-        bash ~/workspace/homelab/skills/gotify/scripts/send.sh \
+        bash ~/claude-homelab/skills/gotify/scripts/send.sh \
             -t "Website Changes Detected" \
             -m "$MESSAGE" \
             -p 7
