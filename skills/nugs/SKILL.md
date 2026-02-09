@@ -2,7 +2,7 @@
 name: nugs
 version: 2.0.0
 description: Download and manage live music from Nugs.net with video-first support - browse 13,000+ concerts with media type indicators (🎵 audio, 🎬 video, 📹 both), download shows in multiple formats, find missing albums by media type, track collection coverage. Supports audio-only, video-only, or comprehensive both-format workflows. Use when the user asks to "download a show", "download video", "list nugs artists", "find Billy Strings shows", "download Grateful Dead", "check video gaps", "nugs catalog", "latest shows", "latest videos", "download coverage", "add to nugs", "browse concerts", or mentions Nugs.net, live music downloads, video downloads, or concert collection management.
-homepage: https://github.com/jmagar/nugs-cli
+homepage: https://github.com/jmagar/claude-homelab
 keywords: nugs, live music, concerts, downloads, video, audio, gap detection, coverage, catalog
 tags: [music, video, downloads, concerts, nugs.net, collection-management]
 ---
@@ -59,7 +59,7 @@ This skill provides **read and write** access to Nugs.net for downloading and ma
 
 **1. Install Nugs CLI:**
 
-The binary is already installed at `/home/jmagar/workspace/nugs/nugs`.
+The binary is already installed at `nugs`.
 
 **2. Configure credentials in `~/.nugs/config.json`:**
 
@@ -92,7 +92,7 @@ chmod 600 ~/.nugs/config.json
 **4. Update catalog cache (first run):**
 
 ```bash
-/home/jmagar/workspace/nugs/nugs update
+nugs update
 ```
 
 **Optional - Rclone Integration:**
@@ -111,98 +111,98 @@ Add to config.json for automatic cloud uploads:
 
 ## Commands
 
-All commands use the nugs binary at `/home/jmagar/workspace/nugs/nugs`.
+All commands use the nugs binary at `nugs`.
 
 ### Catalog Commands
 
 ```bash
 # Update catalog cache (fetch latest from Nugs.net)
-/home/jmagar/workspace/nugs/nugs update
+nugs update
 
 # View cache status and metadata
-/home/jmagar/workspace/nugs/nugs cache
+nugs cache
 
 # Show catalog statistics (top artists, date ranges, counts)
-/home/jmagar/workspace/nugs/nugs stats
+nugs stats
 
 # View latest additions (default: 15 shows)
-/home/jmagar/workspace/nugs/nugs latest
-/home/jmagar/workspace/nugs/nugs latest 50
+nugs latest
+nugs latest 50
 
 # Configure auto-refresh
-/home/jmagar/workspace/nugs/nugs refresh enable
-/home/jmagar/workspace/nugs/nugs refresh disable
-/home/jmagar/workspace/nugs/nugs refresh set
+nugs refresh enable
+nugs refresh disable
+nugs refresh set
 ```
 
 ### Browse & Search
 
 ```bash
 # List all artists
-/home/jmagar/workspace/nugs/nugs list
+nugs list
 
 # Filter artists by show count
-/home/jmagar/workspace/nugs/nugs list ">100"
-/home/jmagar/workspace/nugs/nugs list "<=50"
+nugs list ">100"
+nugs list "<=50"
 
 # List all shows for an artist
-/home/jmagar/workspace/nugs/nugs list 1125    # Billy Strings
-/home/jmagar/workspace/nugs/nugs list 461     # Grateful Dead
+nugs list 1125    # Billy Strings
+nugs list 461     # Grateful Dead
 
 # Filter shows by venue
-/home/jmagar/workspace/nugs/nugs list 461 "Red Rocks"
-/home/jmagar/workspace/nugs/nugs list 1125 "Ryman"
+nugs list 461 "Red Rocks"
+nugs list 1125 "Ryman"
 
 # Get artist's latest N shows
-/home/jmagar/workspace/nugs/nugs list 1125 latest 5
+nugs list 1125 latest 5
 ```
 
 ### Download Shows
 
 ```bash
 # Download single show
-/home/jmagar/workspace/nugs/nugs grab 23329
-/home/jmagar/workspace/nugs/nugs grab https://play.nugs.net/release/23329
+nugs grab 23329
+nugs grab https://play.nugs.net/release/23329
 
 # Download multiple shows
-/home/jmagar/workspace/nugs/nugs grab 23329 23790 24105
+nugs grab 23329 23790 24105
 
 # Download from text file (one ID per line)
-/home/jmagar/workspace/nugs/nugs /path/to/show-ids.txt
+nugs /path/to/show-ids.txt
 
 # Download artist's latest shows
-/home/jmagar/workspace/nugs/nugs grab 1125 latest    # Billy Strings
-/home/jmagar/workspace/nugs/nugs grab 461 latest     # Grateful Dead
+nugs grab 1125 latest    # Billy Strings
+nugs grab 461 latest     # Grateful Dead
 
 # Download entire artist catalog
-/home/jmagar/workspace/nugs/nugs 1125 full           # All Billy Strings shows
-/home/jmagar/workspace/nugs/nugs 461 full            # All Grateful Dead shows
+nugs 1125 full           # All Billy Strings shows
+nugs 461 full            # All Grateful Dead shows
 
 # Override quality settings
-/home/jmagar/workspace/nugs/nugs grab -f 3 23329     # MQA quality
-/home/jmagar/workspace/nugs/nugs -F 5 video-url      # 4K video
-/home/jmagar/workspace/nugs/nugs -o /mnt/music 23329 # Custom output path
+nugs grab -f 3 23329     # MQA quality
+nugs -F 5 video-url      # 4K video
+nugs -o /mnt/music 23329 # Custom output path
 ```
 
 ### Gap Detection & Coverage
 
 ```bash
 # Find missing shows for an artist
-/home/jmagar/workspace/nugs/nugs gaps 1125           # Billy Strings
+nugs gaps 1125           # Billy Strings
 
 # Check multiple artists at once
-/home/jmagar/workspace/nugs/nugs gaps 1125 461 1045
+nugs gaps 1125 461 1045
 
 # Get IDs only for piping
-/home/jmagar/workspace/nugs/nugs gaps 1125 --ids-only
+nugs gaps 1125 --ids-only
 
 # Auto-download all missing shows
-/home/jmagar/workspace/nugs/nugs gaps 1125 fill
+nugs gaps 1125 fill
 
 # Check download coverage statistics
-/home/jmagar/workspace/nugs/nugs coverage            # All artists with downloads
-/home/jmagar/workspace/nugs/nugs coverage 1125       # Single artist
-/home/jmagar/workspace/nugs/nugs coverage 1125 461 1045  # Multiple artists
+nugs coverage            # All artists with downloads
+nugs coverage 1125       # Single artist
+nugs coverage 1125 461 1045  # Multiple artists
 ```
 
 ### JSON Output
@@ -211,13 +211,13 @@ All catalog commands support `--json <level>` for machine-readable output:
 
 ```bash
 # Levels: minimal, standard, extended, raw
-/home/jmagar/workspace/nugs/nugs list --json standard
-/home/jmagar/workspace/nugs/nugs list 1125 --json extended
-/home/jmagar/workspace/nugs/nugs cache --json standard
-/home/jmagar/workspace/nugs/nugs stats --json standard
+nugs list --json standard
+nugs list 1125 --json extended
+nugs cache --json standard
+nugs stats --json standard
 
 # Pipe to jq for filtering
-/home/jmagar/workspace/nugs/nugs list 1125 --json standard | jq '.shows[:5]'
+nugs list 1125 --json standard | jq '.shows[:5]'
 ```
 
 ## Workflow

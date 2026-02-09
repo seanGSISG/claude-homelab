@@ -21,14 +21,14 @@ Error: 401 Unauthorized - Invalid or missing API key
 
 1. Check API key in `.env` file:
 ```bash
-cat ~/workspace/homelab/.env | grep FIRECRAWL_API_KEY
+cat ~/claude-homelab/.env | grep FIRECRAWL_API_KEY
 ```
 
 2. Verify API key is correct:
 ```bash
 # Get new key from https://firecrawl.dev/
 # Update .env file
-echo 'FIRECRAWL_API_KEY="fc-your-new-key"' >> ~/workspace/homelab/.env
+echo 'FIRECRAWL_API_KEY="fc-your-new-key"' >> ~/claude-homelab/.env
 ```
 
 3. Test authentication:
@@ -59,7 +59,7 @@ Error: API key required for cloud API
 
 1. Add API key to `.env`:
 ```bash
-echo 'FIRECRAWL_API_KEY="fc-your-api-key"' >> ~/workspace/homelab/.env
+echo 'FIRECRAWL_API_KEY="fc-your-api-key"' >> ~/claude-homelab/.env
 ```
 
 2. Or provide via flag:
@@ -69,8 +69,8 @@ firecrawl https://example.com --api-key fc-YOUR-KEY
 
 3. Or use self-hosted instance (no key required):
 ```bash
-echo 'FIRECRAWL_API_URL="http://localhost:3002"' >> ~/workspace/homelab/.env
-echo 'FIRECRAWL_API_KEY=""' >> ~/workspace/homelab/.env
+echo 'FIRECRAWL_API_URL="http://localhost:3002"' >> ~/claude-homelab/.env
+echo 'FIRECRAWL_API_KEY=""' >> ~/claude-homelab/.env
 ```
 
 ---
@@ -100,7 +100,7 @@ curl http://localhost:3002/health
 
 2. Verify API URL in `.env`:
 ```bash
-cat ~/workspace/homelab/.env | grep FIRECRAWL_API_URL
+cat ~/claude-homelab/.env | grep FIRECRAWL_API_URL
 ```
 
 3. Start service if stopped:
@@ -557,7 +557,7 @@ firecrawl --status
 
 4. Use self-hosted instance:
 ```bash
-echo 'FIRECRAWL_API_URL="http://localhost:3002"' >> ~/workspace/homelab/.env
+echo 'FIRECRAWL_API_URL="http://localhost:3002"' >> ~/claude-homelab/.env
 ```
 
 ---
@@ -602,7 +602,7 @@ firecrawl crawl https://example.com --limit 50 --max-depth 2 --wait
 
 **Error:**
 ```
-ERROR: .env file not found at ~/workspace/homelab/.env
+ERROR: .env file not found at ~/claude-homelab/.env
 ```
 
 **Causes:**
@@ -614,13 +614,13 @@ ERROR: .env file not found at ~/workspace/homelab/.env
 
 1. Create `.env` file:
 ```bash
-touch ~/workspace/homelab/.env
-chmod 600 ~/workspace/homelab/.env
+touch ~/claude-homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 2. Add credentials:
 ```bash
-cat >> ~/workspace/homelab/.env <<EOF
+cat >> ~/claude-homelab/.env <<EOF
 FIRECRAWL_API_KEY="fc-your-api-key"
 FIRECRAWL_API_URL="https://api.firecrawl.dev"
 EOF
@@ -628,12 +628,12 @@ EOF
 
 3. Verify file exists:
 ```bash
-ls -la ~/workspace/homelab/.env
+ls -la ~/claude-homelab/.env
 ```
 
 4. Check file permissions:
 ```bash
-chmod 600 ~/workspace/homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 ---
@@ -654,21 +654,21 @@ Using credentials from .env but getting auth errors
 
 1. Check `.env` syntax:
 ```bash
-cat ~/workspace/homelab/.env
+cat ~/claude-homelab/.env
 # Look for syntax errors (quotes, spacing)
 ```
 
 2. Source manually to test:
 ```bash
 set -a
-source ~/workspace/homelab/.env
+source ~/claude-homelab/.env
 set +a
 echo $FIRECRAWL_API_KEY
 ```
 
 3. Verify variable names:
 ```bash
-grep FIRECRAWL ~/workspace/homelab/.env
+grep FIRECRAWL ~/claude-homelab/.env
 # Should be FIRECRAWL_API_KEY and FIRECRAWL_API_URL
 ```
 

@@ -4,7 +4,7 @@ This directory contains complete, runnable example scripts demonstrating real-wo
 
 ## Prerequisites
 
-1. **Credentials**: Set `FIRECRAWL_API_KEY` in `~/workspace/homelab/.env`
+1. **Credentials**: Set `FIRECRAWL_API_KEY` in `~/claude-homelab/.env`
 2. **RAG Infrastructure** (optional, for RAG examples):
    - `QDRANT_URL` - Vector database endpoint
    - `TEI_URL` - Text Embeddings Inference endpoint
@@ -193,7 +193,7 @@ All examples are designed to be easily customizable:
 ## Troubleshooting
 
 ### "FIRECRAWL_API_KEY must be set"
-**Solution**: Add `FIRECRAWL_API_KEY=fc-...` to `~/workspace/homelab/.env`
+**Solution**: Add `FIRECRAWL_API_KEY=fc-...` to `~/claude-homelab/.env`
 
 ### "RAG infrastructure not configured"
 **Solution**: Set up Qdrant and TEI (see [../SKILL.md Setup](../SKILL.md#setup))

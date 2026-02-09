@@ -5,7 +5,7 @@ Copy-paste ready commands for common Tautulli operations.
 ## Setup
 
 ```bash
-# Add to ~/workspace/homelab/.env
+# Add to ~/claude-homelab/.env
 TAUTULLI_URL="http://192.168.1.100:8181"
 TAUTULLI_API_KEY="your-api-key-here"
 

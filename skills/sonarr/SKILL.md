@@ -1,7 +1,9 @@
 ---
 name: sonarr
-version: 1.3.0
-description: Search and add TV shows to Sonarr with monitor options and search-on-add. Use when the user asks to "add a TV show", "search Sonarr", "find a series", "add to Sonarr", "remove a show", "check if show exists", "Sonarr library", or mentions TV show management.
+version: 1.4.0
+description: This skill should be used when managing TV shows in Sonarr. Use when the user asks to "add a TV show", "search Sonarr", "find a series", "add to Sonarr", "remove a show", "check if show exists", "Sonarr library", "TVDB lookup", or mentions TV show management or Sonarr operations.
+homepage: https://github.com/jmagar/claude-homelab
+---
 
 # Sonarr TV Show Management Skill
 
@@ -30,7 +32,7 @@ Operations include both read and write actions. **Always confirm before removing
 
 ## Setup
 
-Add credentials to `.env` file: `~/workspace/homelab/.env`
+Add credentials to `.env` file: `~/claude-homelab/.env`
 
 ```bash
 SONARR_URL="http://localhost:8989"

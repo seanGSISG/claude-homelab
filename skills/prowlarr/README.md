@@ -20,7 +20,7 @@ Search across all your indexers and manage Prowlarr from Clawdbot.
 
 ### 2. Add Credentials to .env
 
-Add the following to `~/workspace/homelab/.env`:
+Add the following to `~/claude-homelab/.env`:
 
 ```bash
 PROWLARR_URL="http://localhost:9696"
@@ -94,7 +94,7 @@ prowlarr-api.sh sync
 
 ## Environment Variables
 
-The skill loads credentials from `~/workspace/homelab/.env`. You can also override them temporarily:
+The skill loads credentials from `~/claude-homelab/.env`. You can also override them temporarily:
 
 ```bash
 PROWLARR_URL="https://prowlarr.example.com" \
@@ -113,7 +113,7 @@ Detailed API documentation is available in the `references/` directory:
 ## Troubleshooting
 
 **"Missing URL or API key"**
-→ Check your `.env` file exists at `~/workspace/homelab/.env` and contains `PROWLARR_URL` and `PROWLARR_API_KEY`
+→ Check your `.env` file exists at `~/claude-homelab/.env` and contains `PROWLARR_URL` and `PROWLARR_API_KEY`
 
 **Connection refused**
 → Verify your Prowlarr URL is correct and accessible

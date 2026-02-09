@@ -20,7 +20,7 @@ API keys can have different scopes:
 
 ## Quick Start
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 
 ```bash
 TAILSCALE_API_KEY="tskey-api-xxxxx"
@@ -31,7 +31,7 @@ Scripts automatically load these variables. For manual curl commands:
 
 ```bash
 # Load from .env
-source ~/workspace/homelab/.env
+source ~/claude-homelab/.env
 
 # Test connection - list devices
 curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/devices" \

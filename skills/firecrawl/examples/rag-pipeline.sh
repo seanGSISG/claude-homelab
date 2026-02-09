@@ -10,10 +10,10 @@ set -euo pipefail
 # ============================================================================
 
 # Load credentials from .env file
-if [[ -f ~/workspace/homelab/.env ]]; then
-    source ~/workspace/homelab/.env
+if [[ -f ~/claude-homelab/.env ]]; then
+    source ~/claude-homelab/.env
 else
-    echo "ERROR: .env file not found at ~/workspace/homelab/.env" >&2
+    echo "ERROR: .env file not found at ~/claude-homelab/.env" >&2
     exit 1
 fi
 

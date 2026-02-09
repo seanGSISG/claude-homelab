@@ -42,7 +42,7 @@ docker run -p 8080:80 ghcr.io/huggingface/text-embeddings-inference:latest \
 
 ## Configuration
 
-Add to `~/workspace/homelab/.env`:
+Add to `~/claude-homelab/.env`:
 
 ```bash
 # Qdrant Vector Database

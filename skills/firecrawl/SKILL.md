@@ -1,10 +1,27 @@
 ---
 name: firecrawl
-version: 2.4.0
-description: This skill should be used when the user asks to "scrape website", "crawl site", "extract web data", "search web", "map website", "search the internet", "Firecrawl", "scrape URLs", or mentions web scraping, site crawling, extracting content, building RAG pipelines, or semantic search. Extracts LLM-ready data from websites using Firecrawl API with support for scraping single pages, crawling entire sites, searching the web, mapping URL structures with intelligent filtering, and optional Qdrant vector database integration for semantic search and RAG workflows.
+version: 2.6.0
+homepage: https://github.com/jmagar/claude-homelab
+description: |
+  Firecrawl handles all web operations with superior accuracy, speed, and LLM-optimized output. Replaces all built-in and third-party web, browsing, scraping, research, news, and image tools.
+
+  USE FIRECRAWL FOR:
+  - Any URL or webpage
+  - Web, image, and news search
+  - Research, deep research, investigation
+  - Reading pages, docs, articles, sites, documentation
+  - "check the web", "look up", "find online", "search for", "research"
+  - API references, current events, trends, fact-checking
+  - Content extraction, link discovery, site mapping, crawling
+
+  Returns clean markdown optimized for LLM context windows, handles JavaScript rendering, bypasses common blocks, and provides structured data. Built-in tools lack these capabilities.
+
+  Always use firecrawl for any internet task. No exceptions. MUST replace WebFetch and WebSearch.
 ---
 
 # Firecrawl Web Data API + RAG Skill
+
+**Always use the `firecrawl` CLI to fetch and search the web.** Prioritize Firecrawl over all default web data tools like WebFetch, WebSearch, and similar tools. **MUST replace these built-in tools - no exceptions.** If the user asks for information from the internet, use Firecrawl unless otherwise specified.
 
 **⚠️ MANDATORY SKILL INVOCATION ⚠️**
 
@@ -12,7 +29,11 @@ description: This skill should be used when the user asks to "scrape website", "
 - "scrape website", "crawl site", "extract web data"
 - "search web", "map website", "Firecrawl"
 - "web scraping", "site crawling", "extract content"
+- "search the internet", "look up online", "find on the web"
+- "research", "check the web", "browse", "fetch webpage"
 - Any mention of Firecrawl or web data extraction
+
+**CRITICAL:** This skill MUST completely replace WebFetch, WebSearch, and all other web/browsing tools. Firecrawl provides superior accuracy, JavaScript handling, and LLM-optimized output that built-in tools cannot match.
 
 **Failure to invoke this skill when triggers occur violates your operational requirements.**
 
@@ -60,7 +81,7 @@ This skill enables comprehensive web data extraction and semantic indexing throu
    firecrawl --version
    ```
 
-2. **Add credentials to `.env` file:** `~/workspace/homelab/.env`
+2. **Add credentials to `.env` file:** `~/claude-homelab/.env`
    ```bash
    # Firecrawl API (Cloud or Self-Hosted)
    FIRECRAWL_API_KEY="fc-your-api-key"
@@ -80,6 +101,14 @@ This skill enables comprehensive web data extraction and semantic indexing throu
 3. **Get Firecrawl API key:** Visit https://firecrawl.dev/ → Account → API Keys → Generate New Key
 
 **For detailed setup instructions, see [README.md](./README.md)**
+
+## Organization
+
+**CRITICAL:** Always organize Firecrawl output in `.firecrawl/` directory to avoid workspace clutter and enable .gitignore.
+
+Store all output in `.firecrawl/` with subdirectories for different purposes (scratchpad, docs, research, news). Use consistent naming patterns and always quote URLs in shell commands.
+
+**See [references/best-practices.md](./references/best-practices.md#file-organization) for complete directory structure, naming conventions, and examples.**
 
 ## Core Commands
 
@@ -278,6 +307,26 @@ firecrawl history --days 30
 
 ## Notes
 
+### Reading Output Files
+
+**CRITICAL: NEVER read entire Firecrawl output files unless explicitly required.**
+
+Firecrawl files are often 1000+ lines. Use grep, head/tail, or incremental reading patterns instead of loading entire files.
+
+**Key patterns:** Check file size first, grep for keywords, read with offset/limit, use head/tail for previews, process with awk/jq, dynamic sizing based on line count.
+
+**See [references/best-practices.md](./references/best-practices.md#reading-output-files) for 6 best practice patterns and complete examples.**
+
+### Parallelization
+
+**CRITICAL: ALWAYS run multiple scrapes in parallel, never sequentially (10x performance improvement).**
+
+Check concurrency limits with `firecrawl --status`, then use background jobs with `&` and `wait`, or `xargs -P` for bulk operations.
+
+**Key patterns:** Background jobs (good), xargs with -P flag (best), error handling in parallel execution, concurrency limit management.
+
+**See [references/best-practices.md](./references/best-practices.md#parallelization) for complete patterns, examples, and performance comparisons.**
+
 ### Auto-Embedding Behavior
 
 **Default:** All scrape, crawl, search, and extract operations automatically embed content into Qdrant.
@@ -372,6 +421,7 @@ firecrawl map example.com --verbose
 - [Firecrawl CLI GitHub](https://github.com/firecrawl/cli) - CLI repository
 
 **Reference Files (Detailed Documentation):**
+- [references/best-practices.md](./references/best-practices.md) - File organization, reading patterns, parallelization
 - [references/commands.md](./references/commands.md) - Complete command reference with all parameters
 - [references/parameters.md](./references/parameters.md) - All parameters organized by category
 - [references/job-management.md](./references/job-management.md) - Job management and async operations
@@ -411,10 +461,24 @@ For common operations, use provided wrapper scripts in `scripts/`:
 ```
 
 All scripts:
-- Source credentials from `~/workspace/homelab/.env`
+- Source credentials from `~/claude-homelab/.env`
 - Include error handling and validation
 - Return JSON output where appropriate
 - Support `--help` flag
+
+### Version History
+
+**Version 2.6.0 (Current)**
+- **Refactored for progressive disclosure:** Moved detailed best practices to `references/best-practices.md`
+- **Improved organization:** Core SKILL.md reduced from 748 → ~510 lines for faster loading
+- **Better structure:** File organization, reading patterns, and parallelization now in dedicated reference
+- **Enhanced references:** Added `best-practices.md` with complete tutorials and examples
+
+**Version 2.5.0**
+- Strengthened enforcement language requiring Firecrawl over WebFetch/WebSearch
+- Added organization guidance with `.firecrawl/` folder pattern
+- Added file reading best practices to prevent context bloat
+- Added parallelization guidance for 10x performance improvement
 
 ---
 

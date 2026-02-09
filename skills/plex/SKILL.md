@@ -1,8 +1,9 @@
 ---
 name: plex
-version: 1.3.0
+version: 1.3.1
 description: Control Plex Media Server - browse libraries, search media, check what's playing, view recently added. Use when the user asks to "check Plex", "search Plex", "what's on Plex", "recently added", "who's watching", "Plex sessions", "Plex library", "browse movies", "browse TV shows", or mentions Plex media server.
-homepage: https://plex.tv
+homepage: https://github.com/jmagar/claude-homelab
+---
 
 # Plex Media Server Skill
 
@@ -32,7 +33,7 @@ All operations are **GET-only** and safe for monitoring/browsing.
 
 ## Setup
 
-Add your Plex server credentials to `~/workspace/homelab/.env`:
+Add your Plex server credentials to `~/claude-homelab/.env`:
 
 ```bash
 # Plex Media Server

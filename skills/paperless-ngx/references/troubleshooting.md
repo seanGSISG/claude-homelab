@@ -23,7 +23,7 @@ Common issues and solutions when using the Paperless-ngx skill.
 
 **1. Verify token exists in .env:**
 ```bash
-grep PAPERLESS_API_TOKEN ~/workspace/homelab/.env
+grep PAPERLESS_API_TOKEN ~/claude-homelab/.env
 ```
 
 **2. Test token manually:**
@@ -95,7 +95,7 @@ docker ps | grep paperless
 **2. Check URL in .env:**
 ```bash
 # View current URL
-grep PAPERLESS_URL ~/workspace/homelab/.env
+grep PAPERLESS_URL ~/claude-homelab/.env
 
 # Correct format (no trailing slash)
 PAPERLESS_URL="https://paperless.example.com"
@@ -541,25 +541,25 @@ curl --version
 **1. Create .env file:**
 ```bash
 # Create file
-touch ~/workspace/homelab/.env
+touch ~/claude-homelab/.env
 
 # Add credentials
-cat >> ~/workspace/homelab/.env <<EOF
+cat >> ~/claude-homelab/.env <<EOF
 PAPERLESS_URL="https://paperless.example.com"
 PAPERLESS_API_TOKEN="your-token-here"
 EOF
 
 # Set permissions
-chmod 600 ~/workspace/homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 **2. Verify path:**
 ```bash
 # Check file exists
-ls -la ~/workspace/homelab/.env
+ls -la ~/claude-homelab/.env
 
 # View contents (be careful - contains secrets!)
-cat ~/workspace/homelab/.env
+cat ~/claude-homelab/.env
 ```
 
 ## Performance Issues

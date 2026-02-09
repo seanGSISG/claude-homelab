@@ -1,7 +1,9 @@
 ---
 name: radarr
-version: 1.3.0
-description: Search and add movies to Radarr with collection support and search-on-add. Use when the user asks to "add a movie", "search Radarr", "find a film", "add to Radarr", "remove a movie", "add movie collection", "check if movie exists", "Radarr library", or mentions movie management.
+version: 1.4.0
+homepage: https://github.com/jmagar/claude-homelab
+description: This skill should be used when managing movies in Radarr. Use when the user asks to "add a movie", "search Radarr", "find a film", "add to Radarr", "remove a movie", "add movie collection", "check if movie exists", "Radarr library", or mentions movie management, TMDB integration, or Radarr operations.
+---
 
 # Radarr Movie Management Skill
 
@@ -30,7 +32,7 @@ Operations include both read and write actions. **Always confirm before removing
 
 ## Setup
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 
 ```bash
 RADARR_URL="http://localhost:7878"

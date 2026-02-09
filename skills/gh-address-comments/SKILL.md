@@ -1,8 +1,8 @@
 ---
 name: gh-address-comments
-description: Help address review/issue comments on the open GitHub PR for the current branch using gh CLI; verify gh auth first and prompt the user to authenticate if not logged in.
-metadata:
-  short-description: Address comments in a GitHub PR review
+version: 1.1.0
+homepage: https://github.com/jmagar/claude-homelab
+description: This skill should be used when the user asks to "address PR comments", "fix review feedback", "handle GitHub comments", "respond to code review", "fix PR issues", "address feedback", "resolve review comments", "GitHub PR review", or mentions addressing comments on a pull request using gh CLI.
 ---
 
 # PR Comment Handler

@@ -27,7 +27,8 @@ skills/
 │   │   ├── *.mjs                 # Node.js ESM scripts
 │   │   └── *.js                  # Node.js scripts (if needed)
 │   ├── references/               # Reference documentation
-│   │   ├── api-endpoints.md      # Complete API reference
+│   │   ├── api-endpoints.md      # Complete API reference (REST APIs)
+│   │   ├── command-reference.md  # Complete command reference (CLI tools)
 │   │   ├── quick-reference.md    # Quick command examples
 │   │   └── troubleshooting.md    # Common issues and solutions
 │   └── examples/                 # Example usage scripts (optional)
@@ -116,9 +117,10 @@ homepage: https://example.com    # Official project website (optional)
 
 **Purpose:** Detailed documentation loaded as needed by Claude.
 
-**Common reference files:**
-- `references/api-endpoints.md` - Complete API reference
-- `references/commands.md` - All commands with full parameters
+**Common reference files (choose based on skill type):**
+- `references/api-endpoints.md` - Complete API reference (for REST API services)
+- `references/command-reference.md` - Complete command reference (for CLI tools)
+- `references/library-reference.md` - Library/SDK reference (for programming libraries)
 - `references/parameters.md` - Parameters organized by category
 - `references/job-management.md` - Async operations and job handling
 - `references/vector-database.md` - RAG/vector DB specifics
@@ -228,7 +230,7 @@ All skills MUST use `.env` file for credentials. NO JSON config files.
 
 **Required pattern:**
 ```bash
-# In ~/workspace/homelab/.env
+# In ~/claude-homelab/.env
 SERVICE_URL="http://localhost:PORT"
 SERVICE_API_KEY="your-api-key"
 ```
@@ -264,10 +266,10 @@ SERVICE2_API_KEY="key2"
 Bash:
 ```bash
 # Source the .env file
-if [[ -f ~/workspace/homelab/.env ]]; then
-    source ~/workspace/homelab/.env
+if [[ -f ~/claude-homelab/.env ]]; then
+    source ~/claude-homelab/.env
 else
-    echo "ERROR: .env file not found at ~/workspace/homelab/.env" >&2
+    echo "ERROR: .env file not found at ~/claude-homelab/.env" >&2
     exit 1
 fi
 
@@ -298,7 +300,7 @@ async function loadEnv() {
 
 **Security requirements:**
 - ✅ `.env` file is gitignored (NEVER commit)
-- ✅ Set file permissions: `chmod 600 ~/workspace/homelab/.env`
+- ✅ Set file permissions: `chmod 600 ~/claude-homelab/.env`
 - ✅ NEVER log credentials (even in debug mode)
 - ✅ Always validate credentials exist before use
 - ✅ Document exact variable names in Setup section
@@ -431,9 +433,11 @@ main().catch(error => {
 
 All skills SHOULD have reference documentation in the `references/` directory:
 
-#### api-endpoints.md
+#### api-endpoints.md (for REST API services)
 
 **Purpose:** Complete API reference with all available endpoints.
+
+**Use when:** Skill interacts with REST API services (Plex, Overseerr, Radarr, etc.)
 
 **Structure:**
 ```markdown
@@ -461,6 +465,46 @@ All skills SHOULD have reference documentation in the `references/` directory:
 ```bash
 curl -X GET "http://localhost/endpoint?param1=value"
 ```
+```
+
+#### command-reference.md (for CLI tools)
+
+**Purpose:** Complete command syntax reference for CLI tools.
+
+**Use when:** Skill manages CLI tools (ZFS, git, docker, kubectl, etc.)
+
+**Structure:**
+```markdown
+# Tool Command Reference
+
+## Command Categories
+
+### command subcommand
+
+**Purpose:** What this command does
+
+**Syntax:**
+```bash
+command subcommand [options] <required> [optional]
+```
+
+**Options:**
+- `-f, --flag` - Description
+- `-o, --option value` - Description
+
+**Examples:**
+```bash
+# Example 1
+command subcommand --flag value
+
+# Example 2 (with explanation)
+command subcommand -o custom file.txt
+```
+
+**Notes:**
+- Important caveats
+- Platform differences
+- Common pitfalls
 ```
 
 #### quick-reference.md
@@ -732,9 +776,9 @@ chmod +x scripts/*.sh
 ./scripts/list.sh | jq .
 
 # Test error handling (without credentials)
-mv ~/workspace/homelab/.env{,.bak}
+mv ~/claude-homelab/.env{,.bak}
 ./scripts/list.sh  # Should fail gracefully with clear message
-mv ~/workspace/homelab/.env{.bak,}
+mv ~/claude-homelab/.env{.bak,}
 
 # Test with debug logging
 DEBUG=1 ./scripts/list.sh
@@ -796,7 +840,10 @@ DEBUG=1 ./scripts/list.sh
    - Support `--help` flag
 
 6. **Create references:**
-   - `references/api-endpoints.md` — Complete API reference
+   - Choose based on skill type:
+     - `references/api-endpoints.md` — For REST API services
+     - `references/command-reference.md` — For CLI tools
+     - `references/library-reference.md` — For libraries/SDKs
    - `references/quick-reference.md` — Quick examples
    - `references/troubleshooting.md` — Common issues
 
@@ -816,7 +863,7 @@ Skills that support multiple instances of the same service use numbered environm
 
 **Pattern: Multiple servers in .env**
 ```bash
-# In ~/workspace/homelab/.env
+# In ~/claude-homelab/.env
 
 # Server 1
 SERVICE1_URL="http://server1.local:PORT"
@@ -834,7 +881,7 @@ SERVICE3_API_KEY="key3"
 **Script implementation:**
 ```bash
 #!/bin/bash
-source ~/workspace/homelab/.env
+source ~/claude-homelab/.env
 
 # Default to server 1 if SERVER_NUM not specified
 SERVER_NUM="${SERVER_NUM:-1}"
@@ -1096,7 +1143,7 @@ For existing skills that need updating to match current patterns:
 - [ ] **Migrated credentials from JSON config files to `.env`** (SERVICE_URL, SERVICE_API_KEY variables)
 - [ ] Removed `~/workspace/homelab/credentials/<service>/` directory
 - [ ] Scripts load credentials from `.env` with validation
-- [ ] References directory exists with api-endpoints.md, quick-reference.md, troubleshooting.md
+- [ ] References directory exists with appropriate reference file (api-endpoints.md for REST APIs, command-reference.md for CLI tools), quick-reference.md, troubleshooting.md
 - [ ] Destructive operations require explicit confirmation
 - [ ] Workflow section includes decision trees
 - [ ] All commands have copy-paste examples
@@ -1107,7 +1154,7 @@ For existing skills that need updating to match current patterns:
 
 ### General Guidelines
 
-- ✅ **DO:** Store ALL credentials in `~/workspace/homelab/.env` file
+- ✅ **DO:** Store ALL credentials in `~/claude-homelab/.env` file
 - ✅ **DO:** Use environment variable pattern: `SERVICE_URL`, `SERVICE_API_KEY`
 - ✅ **DO:** Include trigger phrases in SKILL.md descriptions
 - ✅ **DO:** Document all commands with copy-paste examples
@@ -1130,7 +1177,7 @@ For existing skills that need updating to match current patterns:
 
 - Never log credentials (even in debug mode)
 - Use ONLY `.env` file for secrets (NO JSON config files)
-- Set restrictive permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set restrictive permissions: `chmod 600 ~/claude-homelab/.env`
 - Include security notes in SKILL.md for sensitive operations
 - Warn users about API key permissions in documentation
 - Always validate environment variables exist before use

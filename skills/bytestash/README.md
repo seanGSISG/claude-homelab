@@ -15,7 +15,7 @@ Manage code snippets in your self-hosted ByteStash instance through Claude Code.
 
 ### 1. Get Your API Key
 
-1. Log in to ByteStash web interface at https://bytestash.tootie.tv
+1. Log in to ByteStash web interface at https://bytestash.example.com
 2. Click your profile → **Settings**
 3. Navigate to **API Keys** section
 4. Click **Create New Key**
@@ -28,14 +28,14 @@ Add your ByteStash credentials to the homelab `.env` file:
 
 ```bash
 # Edit the .env file
-nano ~/workspace/homelab/.env
+nano ~/claude-homelab/.env
 
 # Add these lines:
-BYTESTASH_URL="https://bytestash.tootie.tv"
+BYTESTASH_URL="https://bytestash.example.com"
 BYTESTASH_API_KEY="your-api-key-from-step-1"
 
 # Save and set permissions
-chmod 600 ~/workspace/homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 ### 3. Verify Setup
@@ -140,7 +140,7 @@ rm Dockerfile requirements.txt
 
 Share URLs follow this format:
 ```
-https://bytestash.tootie.tv/s/{share-id}
+https://bytestash.example.com/s/{share-id}
 ```
 
 ### Deleting Snippets
@@ -179,7 +179,7 @@ https://bytestash.tootie.tv/s/{share-id}
    ```bash
    # Create share link
    ./scripts/bytestash-api.sh share 123
-   # Send link: https://bytestash.tootie.tv/s/abc123
+   # Send link: https://bytestash.example.com/s/abc123
    ```
 
 4. **Organize periodically:**
@@ -237,7 +237,7 @@ All commands return JSON, making them easy to process with `jq`:
 **Problem:** "401 Unauthorized" or "API key required"
 
 **Solutions:**
-1. Verify API key in .env: `grep BYTESTASH_API_KEY ~/workspace/homelab/.env`
+1. Verify API key in .env: `grep BYTESTASH_API_KEY ~/claude-homelab/.env`
 2. Check key is valid in ByteStash web UI (Settings → API Keys)
 3. Ensure no extra spaces or quotes in .env file
 4. Try creating a new API key
@@ -247,7 +247,7 @@ All commands return JSON, making them easy to process with `jq`:
 **Problem:** "Connection refused" or timeout errors
 
 **Solutions:**
-1. Verify ByteStash is accessible: `curl https://bytestash.tootie.tv`
+1. Verify ByteStash is accessible: `curl https://bytestash.example.com`
 2. Check URL in .env matches your instance
 3. Verify network connectivity
 4. Check if service is behind VPN/firewall
@@ -324,8 +324,8 @@ Snippets support multiple code fragments (files):
 
 - **API Documentation**: See `references/api-endpoints.md` for complete API reference
 - **Quick Reference**: See `references/quick-reference.md` for command examples
-- **Official Docs**: https://bytestash.tootie.tv/api-docs/
-- **Web Interface**: https://bytestash.tootie.tv
+- **Official Docs**: https://bytestash.example.com/api-docs/
+- **Web Interface**: https://bytestash.example.com
 
 ## Getting Help
 

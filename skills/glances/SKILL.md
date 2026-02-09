@@ -1,7 +1,9 @@
 ---
 name: glances
-version: 1.3.0
+version: 1.3.1
+homepage: https://github.com/jmagar/claude-homelab
 description: Monitor system health via Glances REST API (CPU, memory, disk, network, sensors, containers, processes). Use when the user asks to "check glances", "system stats", "CPU usage", "memory usage", "glances status", "server health via glances", "disk space", "network traffic", "container stats", "process list", "sensor temperatures", or mentions Glances/system monitoring.
+---
 
 # Glances System Monitoring Skill
 
@@ -40,7 +42,7 @@ All operations are **GET-only** and safe for monitoring/reporting.
    glances -w                  # API + Web UI
    ```
 
-2. **Add credentials to .env file**: `~/workspace/homelab/.env`
+2. **Add credentials to .env file**: `~/claude-homelab/.env`
 
 ```bash
 GLANCES_URL="http://localhost:61208"
@@ -216,7 +218,7 @@ When the user asks about system health:
 To monitor multiple Glances servers, use numbered environment variables in `.env`:
 
 ```bash
-# In ~/workspace/homelab/.env
+# In ~/claude-homelab/.env
 GLANCES1_URL="http://server1.local:61208"
 GLANCES1_USERNAME=""
 GLANCES1_PASSWORD=""

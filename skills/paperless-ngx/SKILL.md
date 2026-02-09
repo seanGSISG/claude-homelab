@@ -2,7 +2,7 @@
 name: paperless-ngx
 version: 1.0.0
 description: Manage documents in Paperless-ngx document management system. Use when the user asks to "upload document", "search paperless", "find document", "add to paperless", "tag document", "manage correspondents", "organize documents", "archive document", "export document", "delete document", or mentions Paperless-ngx, document management, OCR, or paperless office.
-homepage: https://docs.paperless-ngx.com
+homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Paperless-ngx Skill
@@ -48,7 +48,7 @@ This skill provides **read-write** access to a self-hosted Paperless-ngx instanc
 
 ### Credential Configuration
 
-Add these variables to `~/workspace/homelab/.env`:
+Add these variables to `~/claude-homelab/.env`:
 
 ```bash
 # Paperless-ngx - Document management system
@@ -65,7 +65,7 @@ PAPERLESS_API_TOKEN="your-api-token-here"
 
 **Security:**
 - `.env` file is gitignored (never commit)
-- Set permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set permissions: `chmod 600 ~/claude-homelab/.env`
 - Token has same permissions as your user account
 
 ## Commands

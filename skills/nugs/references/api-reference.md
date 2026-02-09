@@ -4,7 +4,7 @@ Complete reference for all Nugs CLI commands, flags, and arguments.
 
 ## Binary Location
 
-Primary: `/home/jmagar/workspace/nugs/nugs`
+Primary: `nugs`
 Alternative: `~/.local/bin/nugs` (if installed via Make)
 
 For convenience, examples below use `nugs` assuming it's in your PATH.

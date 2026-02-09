@@ -2,7 +2,7 @@
 name: memos
 version: 1.1.0
 description: Manage notes and memos in self-hosted Memos service. Use when the user asks to "save this to memos", "create a memo", "search my memos", "find notes about X", "what did I write about", "add a note", "capture this", "remember this", "save this thought", or mentions note-taking, knowledge management, or personal notes.
-homepage: https://usememos.com
+homepage: https://github.com/jmagar/claude-homelab
 
 # Memos Skill
 
@@ -45,11 +45,11 @@ This skill provides **read-write** access to a self-hosted Memos instance for qu
 
 ### Credential Configuration
 
-Add these variables to `~/workspace/homelab/.env`:
+Add these variables to `~/claude-homelab/.env`:
 
 ```bash
 # Memos - Self-hosted note-taking service
-MEMOS_URL="https://memos.tootie.tv"
+MEMOS_URL="https://memos.example.com"
 MEMOS_API_TOKEN="your-api-token-here"
 ```
 
@@ -61,7 +61,7 @@ MEMOS_API_TOKEN="your-api-token-here"
 
 **Security:**
 - `.env` file is gitignored (never commit)
-- Set permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set permissions: `chmod 600 ~/claude-homelab/.env`
 - Token has same permissions as your user account
 
 ## Commands
@@ -244,7 +244,7 @@ Memos support full Markdown syntax:
 
 - **Official Docs:** https://usememos.com/docs
 - **API Reference:** https://usememos.com/docs/api
-- **Instance:** https://memos.tootie.tv
+- **Instance:** https://memos.example.com
 - **Scripts:** `skills/memos/scripts/`
 - **Examples:** `skills/memos/examples/`
 - **Troubleshooting:** `skills/memos/references/troubleshooting.md`

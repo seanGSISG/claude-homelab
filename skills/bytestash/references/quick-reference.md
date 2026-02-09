@@ -6,12 +6,12 @@ Quick command examples for common ByteStash operations.
 
 ```bash
 # Add credentials to .env
-cat >> ~/workspace/homelab/.env <<EOF
-BYTESTASH_URL="https://bytestash.tootie.tv"
+cat >> ~/claude-homelab/.env <<EOF
+BYTESTASH_URL="https://bytestash.example.com"
 BYTESTASH_API_KEY="your-api-key-here"
 EOF
 
-chmod 600 ~/workspace/homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 ## Common Tasks
@@ -231,7 +231,7 @@ snippet=$(./scripts/bytestash-api.sh get 123)
 title=$(echo "$snippet" | jq -r '.title')
 
 echo "Check out my snippet: $title"
-echo "Link: https://bytestash.tootie.tv/s/$share_id"
+echo "Link: https://bytestash.example.com/s/$share_id"
 ```
 
 ## jq Filters for Common Operations

@@ -291,7 +291,7 @@ rm -f /tmp/authelia-cookies-$USER.txt
 ### Verify Connection
 ```bash
 # Check if Authelia is accessible
-curl -k "$(grep AUTHELIA_URL ~/workspace/homelab/.env | cut -d= -f2 | tr -d '"')/api/health"
+curl -k "$(grep AUTHELIA_URL ~/claude-homelab/.env | cut -d= -f2 | tr -d '"')/api/health"
 ```
 
 ### Debug Mode

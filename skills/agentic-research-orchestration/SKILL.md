@@ -1,6 +1,7 @@
 ---
 name: agentic-research-orchestration
 version: 1.0.0
+homepage: https://github.com/jmagar/claude-homelab
 description: Orchestrate deep, multi-source research using ExaAI, Firecrawl, and NotebookLM specialist agents. Coordinates a 5-phase methodology (clarification, setup, dispatch, orchestration, synthesis) to produce comprehensive research reports with source citation and quality analysis.
 metadata:
   clawdbot:

@@ -1,7 +1,8 @@
 ---
 name: prowlarr
-version: 1.2.0
+version: 1.2.1
 description: Search indexers and manage Prowlarr. Use when the user asks to "search for a torrent", "search indexers", "find a release", "check indexer status", "list indexers", "prowlarr search", "sync indexers", or mentions Prowlarr/indexer management.
+homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Prowlarr Skill
@@ -31,7 +32,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Credentials are stored in `~/workspace/homelab/.env`:
+Credentials are stored in `~/claude-homelab/.env`:
 
 ```bash
 PROWLARR_URL="http://localhost:9696"

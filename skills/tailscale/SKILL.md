@@ -1,7 +1,8 @@
 ---
 name: tailscale
-version: 1.1.0
-description: Manage Tailscale tailnet via CLI and API. Use when the user asks to "check tailscale status", "list tailscale devices", "ping a device", "send file via tailscale", "tailscale funnel", "create auth key", "check who's online", or mentions Tailscale network management.
+version: 1.2.0
+description: This skill should be used when managing Tailscale mesh VPN networks. Use when the user asks to "check tailscale status", "list tailscale devices", "ping a device", "send file via tailscale", "tailscale funnel", "tailscale serve", "create auth key", "check who's online", "tailscale exit node", "Magic DNS", or mentions Tailscale network management, tailnet operations, or VPN connectivity.
+homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Tailscale Skill
@@ -20,7 +21,7 @@ Hybrid skill using CLI for local operations and API for tailnet-wide management.
 
 ## Setup
 
-API config (optional, for tailnet-wide operations) is stored in `~/workspace/homelab/.env`:
+API config (optional, for tailnet-wide operations) is stored in `~/claude-homelab/.env`:
 
 ```bash
 TAILSCALE_API_KEY="tskey-api-k..."

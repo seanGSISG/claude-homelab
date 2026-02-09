@@ -14,19 +14,27 @@ Manage fail2ban intrusion prevention system running inside the SWAG reverse prox
 
 ## Setup
 
-### Your Environment
+### Environment Configuration
 
-This skill is pre-configured for your specific SWAG setup:
+This skill requires environment variables to be configured. Add these to your `~/claude-homelab/.env` file:
 
-- **Host**: squirts
-- **Container**: swag (LinuxServer.io image)
-- **Container IP**: 10.6.0.100 on jakenet
-- **Compose**: `/mnt/compose/swag`
-- **Appdata**: `/mnt/appdata/swag`
+```bash
+# fail2ban-swag configuration
+SWAG_HOST="your-hostname"                    # Hostname or IP of server running SWAG
+SWAG_CONTAINER_NAME="swag"                   # SWAG container name (default: swag)
+SWAG_APPDATA_PATH="/path/to/appdata/swag"   # Path to SWAG appdata directory
+```
+
+**Example configuration:**
+```bash
+SWAG_HOST="homelab.local"
+SWAG_CONTAINER_NAME="swag"
+SWAG_APPDATA_PATH="/mnt/appdata/swag"
+```
 
 ### Prerequisites
 
-1. **SSH Access**: Ensure you can SSH to squirts without password (SSH keys configured)
+1. **SSH Access**: Ensure you can SSH to your SWAG host without password (SSH keys configured)
 2. **Script Permissions**: Make the wrapper script executable
 
 ```bash
@@ -177,7 +185,7 @@ done
 ### Bans Not Working
 
 **Check:**
-1. fail2ban is running: `ssh squirts "docker exec swag ps aux | grep fail2ban"`
+1. fail2ban is running: `ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME ps aux | grep fail2ban"`
 2. Correct iptables chain: `./scripts/fail2ban-swag.sh iptables | grep DOCKER-USER`
 3. Jail configuration: Verify `chain = DOCKER-USER` in jail.local
 4. Container has NET_ADMIN capability
@@ -230,11 +238,11 @@ done
 - **fail2ban runs INSIDE the SWAG container** - all commands execute via `docker exec`
 - **Uses DOCKER-USER iptables chain** - INPUT chain will NOT work for containers
 - **Requires NET_ADMIN capability** - container needs elevated privileges for iptables
-- **Configuration persists via bind mounts** - stored at `/mnt/appdata/swag/fail2ban/`
+- **Configuration persists via bind mounts** - stored at `${SWAG_APPDATA_PATH}/fail2ban/`
 
-### Active Jails
+### Common Jails
 
-Your SWAG instance currently has 5 active jails:
+Typical SWAG installations include these jails:
 
 1. **nginx-http-auth**: HTTP Basic Auth failures
 2. **nginx-badbots**: Malicious User-Agents
@@ -244,11 +252,11 @@ Your SWAG instance currently has 5 active jails:
 
 ### Whitelisted Networks
 
-These networks are NOT banned by fail2ban:
+Typical networks to whitelist in `ignoreip` configuration:
 
-- 10.1.0.0/24, 10.0.0.0/24 (LANs)
-- 172.18.0.0/24, 172.17.0.0/24 (Docker networks)
-- 98.25.240.21 (external admin IP)
+- 10.0.0.0/24, 192.168.0.0/24 (Private LANs)
+- 172.16.0.0/12 (Docker networks)
+- Your external admin IP (e.g., 203.0.113.10)
 
 ### Security Recommendations
 
@@ -270,8 +278,7 @@ These networks are NOT banned by fail2ban:
 
 ### Research
 
-- **Current Setup**: `../docs/research/swag-fail2ban-integration/current-setup-squirts.md`
-- **NotebookLM Findings**: `../docs/research/swag-fail2ban-integration/findings/notebooklm-findings.md`
+- See `../docs/research/swag-fail2ban-integration/` for detailed setup documentation and research findings
 
 ### Official Resources
 

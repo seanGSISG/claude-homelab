@@ -19,7 +19,7 @@ Common issues and their solutions.
 **Solutions:**
 1. Verify token in `.env` file:
    ```bash
-   grep "^MEMOS_API_TOKEN" ~/workspace/homelab/.env
+   grep "^MEMOS_API_TOKEN" ~/claude-homelab/.env
    ```
 
 2. Regenerate token in Memos UI:
@@ -51,7 +51,7 @@ Common issues and their solutions.
 
 **Error Message:**
 ```bash
-curl: (7) Failed to connect to memos.tootie.tv port 443
+curl: (7) Failed to connect to memos.example.com port 443
 ```
 
 **Causes:**
@@ -62,12 +62,12 @@ curl: (7) Failed to connect to memos.tootie.tv port 443
 **Solutions:**
 1. Verify URL:
    ```bash
-   grep "^MEMOS_URL" ~/workspace/homelab/.env
+   grep "^MEMOS_URL" ~/claude-homelab/.env
    ```
 
 2. Test connectivity:
    ```bash
-   curl -I https://memos.tootie.tv
+   curl -I https://memos.example.com
    ```
 
 3. Check Memos service status:
@@ -156,14 +156,14 @@ curl: (60) SSL certificate problem: unable to get local issuer certificate
 **Solution:**
 1. Create `.env` file:
    ```bash
-   touch ~/workspace/homelab/.env
-   chmod 600 ~/workspace/homelab/.env
+   touch ~/claude-homelab/.env
+   chmod 600 ~/claude-homelab/.env
    ```
 
 2. Add credentials:
    ```bash
-   cat >> ~/workspace/homelab/.env <<'EOF'
-   MEMOS_URL="https://memos.tootie.tv"
+   cat >> ~/claude-homelab/.env <<'EOF'
+   MEMOS_URL="https://memos.example.com"
    MEMOS_API_TOKEN="your-token-here"
    EOF
    ```
@@ -178,7 +178,7 @@ curl: (60) SSL certificate problem: unable to get local issuer certificate
 **Solution:**
 1. Check `.env` contains both variables:
    ```bash
-   grep "^MEMOS" ~/workspace/homelab/.env
+   grep "^MEMOS" ~/claude-homelab/.env
    ```
 
 2. Ensure no typos in variable names (case-sensitive)
@@ -329,7 +329,7 @@ curl: (28) Operation timed out
 2. Check network connectivity
 3. Verify Memos instance is responding:
    ```bash
-   curl -I https://memos.tootie.tv
+   curl -I https://memos.example.com
    ```
 
 ## Debug Mode
@@ -340,7 +340,7 @@ Enable verbose output for troubleshooting:
 # Add -v flag to curl (modify script temporarily)
 # Or run curl directly with -v:
 curl -v -H "Authorization: Bearer $MEMOS_API_TOKEN" \
-  "https://memos.tootie.tv/api/v1/memos"
+  "https://memos.example.com/api/v1/memos"
 ```
 
 ## Getting Help
@@ -357,9 +357,9 @@ curl -v -H "Authorization: Bearer $MEMOS_API_TOKEN" \
 
 3. Verify API access directly:
    ```bash
-   source ~/workspace/homelab/.env
+   source ~/claude-homelab/.env
    curl -H "Authorization: Bearer $MEMOS_API_TOKEN" \
-     "https://memos.tootie.tv/api/v1/users/1"
+     "https://memos.example.com/api/v1/users/1"
    ```
 
 4. Check Memos documentation:

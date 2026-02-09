@@ -17,7 +17,7 @@ This skill provides full read-write access to your Memos instance, allowing you 
 
 ### 1. Prerequisites
 
-- Memos instance running (e.g., `https://memos.tootie.tv`)
+- Memos instance running (e.g., `https://memos.example.com`)
 - System tools: `curl`, `jq`
 
 ### 2. Generate API Token
@@ -29,17 +29,17 @@ This skill provides full read-write access to your Memos instance, allowing you 
 
 ### 3. Configure Credentials
 
-Add your credentials to `~/workspace/homelab/.env`:
+Add your credentials to `~/claude-homelab/.env`:
 
 ```bash
 # Memos - Self-hosted note-taking service
-MEMOS_URL="https://memos.tootie.tv"
+MEMOS_URL="https://memos.example.com"
 MEMOS_API_TOKEN="eyJhbGciOiJIUzI1NiIsImtpZCI6InYxIiwidHlwIjoiSldUIn0..."
 ```
 
 **Security notes:**
 - `.env` file is gitignored (never committed to version control)
-- Set restrictive permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set restrictive permissions: `chmod 600 ~/claude-homelab/.env`
 - API token has same permissions as your user account
 
 ### 4. Create Symlink
@@ -198,7 +198,7 @@ bash scripts/resource-api.sh list
 
 **Error:** `No such file: .env`
 - **Cause:** `.env` file not found
-- **Solution:** Create `.env` file at `~/workspace/homelab/.env` with credentials
+- **Solution:** Create `.env` file at `~/claude-homelab/.env` with credentials
 
 ### API Errors
 

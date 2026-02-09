@@ -15,7 +15,7 @@ Detailed troubleshooting procedures for common fail2ban + SWAG integration issue
 
 **1. Verify fail2ban is running:**
 ```bash
-ssh squirts "docker exec swag ps aux | grep fail2ban"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME ps aux | grep fail2ban"
 ```
 
 Expected output:
@@ -49,7 +49,7 @@ Chain f2b-nginx-http-auth (1 references)
 
 **4. Check jail configuration:**
 ```bash
-ssh squirts "cat /mnt/appdata/swag/fail2ban/jail.local | grep -A 10 nginx-http-auth"
+ssh $SWAG_HOST "cat $SWAG_APPDATA_PATH/fail2ban/jail.local | grep -A 10 nginx-http-auth"
 ```
 
 Verify:
@@ -62,7 +62,7 @@ Verify:
 **Wrong iptables chain:**
 ```bash
 # Edit jail.local
-ssh squirts
+ssh $SWAG_HOST
 
 # Add to each jail:
 chain = DOCKER-USER
@@ -74,22 +74,22 @@ chain = DOCKER-USER
 **Missing NET_ADMIN capability:**
 ```bash
 # Check docker-compose.yaml
-ssh squirts
-cat /mnt/compose/swag/docker-compose.yaml | grep -A 5 cap_add
+ssh $SWAG_HOST
+cat $SWAG_COMPOSE_PATH/docker-compose.yaml | grep -A 5 cap_add
 
 # Should include:
 cap_add:
   - NET_ADMIN
 
 # If missing, add and recreate container
-cd /mnt/compose/swag
+cd $SWAG_COMPOSE_PATH
 docker compose up -d --force-recreate
 ```
 
 **fail2ban not starting:**
 ```bash
 # Check container logs
-ssh squirts "docker logs swag | grep fail2ban"
+ssh $SWAG_HOST "docker logs swag | grep fail2ban"
 
 # Common errors:
 # - "Config file not found" → Check bind mounts
@@ -132,7 +132,7 @@ Compare log format with filter regex.
 
 **3. Check log file path:**
 ```bash
-ssh squirts "ls -la /mnt/appdata/swag/log/nginx/access.log"
+ssh $SWAG_HOST "ls -la $SWAG_APPDATA_PATH/log/nginx/access.log"
 
 # Verify file exists and has recent timestamps
 ```
@@ -151,8 +151,8 @@ ssh squirts "ls -la /mnt/appdata/swag/log/nginx/access.log"
 # Adjust filter regex to match format
 
 # Edit filter
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/filter.d/custom.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/filter.d/custom.local
 
 # Reload
 ./scripts/fail2ban-swag.sh reload
@@ -161,7 +161,7 @@ vi /mnt/appdata/swag/fail2ban/filter.d/custom.local
 **Timezone mismatch:**
 ```bash
 # Check container timezone
-ssh squirts "docker exec swag date"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME date"
 
 # Check log timestamp
 ./scripts/fail2ban-swag.sh nginx-access-log | head -1
@@ -171,18 +171,18 @@ environment:
   - TZ=America/New_York
 
 # Recreate container
-cd /mnt/compose/swag
+cd $SWAG_COMPOSE_PATH
 docker compose up -d --force-recreate
 ```
 
 **Wrong log path:**
 ```bash
 # Verify path in jail configuration
-ssh squirts "cat /mnt/appdata/swag/fail2ban/jail.local | grep logpath"
+ssh $SWAG_HOST "cat $SWAG_APPDATA_PATH/fail2ban/jail.local | grep logpath"
 
 # Should be:
 logpath = /config/log/nginx/access.log  # Inside container
-# NOT: /mnt/appdata/swag/log/nginx/access.log  # Host path
+# NOT: $SWAG_APPDATA_PATH/log/nginx/access.log  # Host path
 ```
 
 ---
@@ -216,11 +216,11 @@ logpath = /config/log/nginx/access.log  # Inside container
 **Whitelist legitimate IPs:**
 ```bash
 # Edit jail.local
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Add to [DEFAULT] section:
-ignoreip = 10.1.0.0/24 10.0.0.0/24 192.168.1.100
+ignoreip = 10.0.0.0/24 192.168.0.0/24 <your-admin-ip>
 
 # Reload
 ./scripts/fail2ban-swag.sh reload
@@ -237,8 +237,8 @@ ignoreip = 172.64.0.0/13 # Cloudflare range
 **CORRECT APPROACH:**
 ```bash
 # Configure nginx realip module
-ssh squirts
-vi /mnt/appdata/swag/nginx/nginx.conf
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/nginx/nginx.conf
 
 # Add to http block:
 set_real_ip_from 172.64.0.0/13;  # Cloudflare
@@ -246,14 +246,14 @@ set_real_ip_from 2400:cb00::/32;  # Cloudflare IPv6
 real_ip_header CF-Connecting-IP;
 
 # Reload nginx
-ssh squirts "docker exec swag nginx -s reload"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME nginx -s reload"
 ```
 
 **Threshold too strict:**
 ```bash
 # Edit jail for specific service
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Increase maxretry:
 maxretry = 10  # Was: 5
@@ -272,8 +272,8 @@ findtime = 300  # Was: 60
 maxretry = 50  # Allow more 404s
 
 # Option 2: Add ignoreregex for known patterns
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/filter.d/nginx-botsearch.conf
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/filter.d/nginx-botsearch.conf
 
 # Add:
 ignoreregex = favicon\.ico
@@ -292,7 +292,7 @@ ignoreregex = favicon\.ico
 
 **1. Check container logs:**
 ```bash
-ssh squirts "docker logs swag | grep -i fail2ban"
+ssh $SWAG_HOST "docker logs swag | grep -i fail2ban"
 ```
 
 **2. Check fail2ban logs:**
@@ -302,7 +302,7 @@ ssh squirts "docker logs swag | grep -i fail2ban"
 
 **3. Validate configuration:**
 ```bash
-ssh squirts "docker exec swag fail2ban-client -t"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME fail2ban-client -t"
 ```
 
 ### Solutions
@@ -310,11 +310,11 @@ ssh squirts "docker exec swag fail2ban-client -t"
 **Configuration syntax error:**
 ```bash
 # Test configuration
-ssh squirts "docker exec swag fail2ban-client -t"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME fail2ban-client -t"
 
 # If errors, fix in jail.local:
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Common errors:
 # - Missing closing bracket
@@ -322,27 +322,27 @@ vi /mnt/appdata/swag/fail2ban/jail.local
 # - Invalid regex in filter
 
 # Restart container
-cd /mnt/compose/swag
+cd $SWAG_COMPOSE_PATH
 docker compose restart
 ```
 
 **Socket file conflict:**
 ```bash
 # Remove stale socket
-ssh squirts "docker exec swag rm -f /var/run/fail2ban/fail2ban.sock"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME rm -f /var/run/fail2ban/fail2ban.sock"
 
 # Restart fail2ban
-ssh squirts "docker exec swag s6-svc -r /var/run/s6/services/fail2ban"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME s6-svc -r /var/run/s6/services/fail2ban"
 ```
 
 **Missing log files:**
 ```bash
 # Create log files if missing
-ssh squirts "docker exec swag touch /config/log/nginx/access.log"
-ssh squirts "docker exec swag touch /config/log/nginx/error.log"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME touch /config/log/nginx/access.log"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME touch /config/log/nginx/error.log"
 
 # Restart fail2ban
-ssh squirts "docker exec swag s6-svc -r /var/run/s6/services/fail2ban"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME s6-svc -r /var/run/s6/services/fail2ban"
 ```
 
 ---
@@ -359,8 +359,8 @@ ssh squirts "docker exec swag s6-svc -r /var/run/s6/services/fail2ban"
 **Increase ban duration:**
 ```bash
 # Edit jail.local
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Increase bantime:
 bantime = 86400  # 24 hours (was: 3600)
@@ -372,8 +372,8 @@ bantime = 86400  # 24 hours (was: 3600)
 **Implement recidive jail (repeat offender protection):**
 ```bash
 # Add to jail.local
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Add:
 [recidive]
@@ -392,8 +392,8 @@ chain    = DOCKER-USER
 **Use incremental banning (fail2ban v0.11+):**
 ```bash
 # Edit jail.local
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Add to [DEFAULT]:
 bantime.increment = true
@@ -417,16 +417,16 @@ bantime.maxtime = 604800  # Max 7 days
 **Reset database:**
 ```bash
 # Stop fail2ban
-ssh squirts "docker exec swag fail2ban-client stop"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME fail2ban-client stop"
 
 # Backup old database
-ssh squirts "cp /mnt/appdata/swag/fail2ban/fail2ban.sqlite3 /mnt/appdata/swag/fail2ban/fail2ban.sqlite3.bak"
+ssh $SWAG_HOST "cp $SWAG_APPDATA_PATH/fail2ban/fail2ban.sqlite3 $SWAG_APPDATA_PATH/fail2ban/fail2ban.sqlite3.bak"
 
 # Remove database
-ssh squirts "rm /mnt/appdata/swag/fail2ban/fail2ban.sqlite3"
+ssh $SWAG_HOST "rm $SWAG_APPDATA_PATH/fail2ban/fail2ban.sqlite3"
 
 # Restart container (creates new database)
-ssh squirts "cd /mnt/compose/swag && docker compose restart"
+ssh $SWAG_HOST "cd $SWAG_COMPOSE_PATH && docker compose restart"
 
 # Verify
 ./scripts/fail2ban-swag.sh status
@@ -435,8 +435,8 @@ ssh squirts "cd /mnt/compose/swag && docker compose restart"
 **Prevent future corruption:**
 ```bash
 # Add to jail.local
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Add to [DEFAULT]:
 dbpurgeage = 86400  # Purge old bans daily
@@ -458,12 +458,12 @@ dbpurgeage = 86400  # Purge old bans daily
 
 **1. Check CPU usage:**
 ```bash
-ssh squirts "docker stats swag --no-stream"
+ssh $SWAG_HOST "docker stats swag --no-stream"
 ```
 
 **2. Check log file sizes:**
 ```bash
-ssh squirts "du -sh /mnt/appdata/swag/log/nginx/*"
+ssh $SWAG_HOST "du -sh $SWAG_APPDATA_PATH/log/nginx/*"
 ```
 
 **3. Check number of banned IPs:**
@@ -476,25 +476,25 @@ ssh squirts "du -sh /mnt/appdata/swag/log/nginx/*"
 **Rotate logs more frequently:**
 ```bash
 # Edit logrotate config
-ssh squirts
-vi /mnt/appdata/swag/logrotate.conf
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/logrotate.conf
 
 # Change:
 daily  # Was: weekly
 rotate 7  # Was: 14
 
 # Force rotation
-ssh squirts "docker exec swag logrotate -f /etc/logrotate.conf"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME logrotate -f /etc/logrotate.conf"
 ```
 
 **Use ipset for large ban lists:**
 ```bash
 # Install ipset in container
-ssh squirts "docker exec swag apk add ipset"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME apk add ipset"
 
 # Edit jail.local
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Change banaction:
 banaction = iptables-ipset-proto6-allports
@@ -529,18 +529,18 @@ failregex = ^<HOST> -.*"(GET|POST) .* HTTP/1\.1" (401|403) .*$
 **Enable persistent bans:**
 ```bash
 # Edit jail.local
-ssh squirts
-vi /mnt/appdata/swag/fail2ban/jail.local
+ssh $SWAG_HOST
+vi $SWAG_APPDATA_PATH/fail2ban/jail.local
 
 # Ensure dbfile is configured:
 dbfile = /config/fail2ban/fail2ban.sqlite3
 
 # Verify bind mount in docker-compose.yaml:
 volumes:
-  - ${APPDATA_PATH}/swag:/config:rw
+  - ${SWAG_APPDATA_PATH}:/config:rw
 
 # Restart container
-cd /mnt/compose/swag
+cd $SWAG_COMPOSE_PATH
 docker compose restart
 ```
 
@@ -555,20 +555,20 @@ docker compose restart
 ./scripts/fail2ban-swag.sh unban 192.168.1.100
 
 # If script unavailable, SSH directly:
-ssh squirts "docker exec swag fail2ban-client unban 192.168.1.100"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME fail2ban-client unban 192.168.1.100"
 ```
 
 ### fail2ban Completely Broken
 
 ```bash
 # Stop fail2ban
-ssh squirts "docker exec swag fail2ban-client stop"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME fail2ban-client stop"
 
 # Access services normally (no banning)
 # Fix configuration offline
 
 # Restart fail2ban
-ssh squirts "docker exec swag fail2ban-client start"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME fail2ban-client start"
 ```
 
 ### Clear All Bans Immediately
@@ -578,7 +578,7 @@ ssh squirts "docker exec swag fail2ban-client start"
 ./scripts/fail2ban-swag.sh reload
 
 # Or manually flush iptables:
-ssh squirts "docker exec swag iptables -F DOCKER-USER"
+ssh $SWAG_HOST "docker exec $SWAG_CONTAINER_NAME iptables -F DOCKER-USER"
 ```
 
 ---
@@ -602,7 +602,7 @@ ssh squirts "docker exec swag iptables -F DOCKER-USER"
 
   echo ""
   echo "=== Container info ==="
-  ssh squirts "docker inspect swag | jq '.[0].Config.Env, .[0].HostConfig.CapAdd'"
+  ssh $SWAG_HOST "docker inspect swag | jq '.[0].Config.Env, .[0].HostConfig.CapAdd'"
 } > fail2ban-diagnostics.txt
 
 # Share fail2ban-diagnostics.txt when asking for help

@@ -330,7 +330,7 @@ FIRECRAWL_NO_TELEMETRY=1 firecrawl https://example.com
 
 ## Wrapper Script Examples
 
-All wrapper scripts source credentials from `~/workspace/homelab/.env`.
+All wrapper scripts source credentials from `~/claude-homelab/.env`.
 
 ```bash
 # Scrape single URL

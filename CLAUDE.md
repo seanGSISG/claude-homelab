@@ -2,6 +2,58 @@
 
 Comprehensive Claude Code skills, agents, and commands for homelab service management.
 
+## Table of Contents
+
+- [Glossary](#glossary)
+- [Repository Overview](#repository-overview)
+- [Repository Structure](#repository-structure)
+- [Source of Truth](#source-of-truth)
+  - [Symlink Architecture](#symlink-architecture)
+  - [How Slash Commands Work](#how-slash-commands-work)
+  - [Command File Format](#command-file-format)
+  - [Adding New Symlinks](#adding-new-symlinks)
+  - [Automated Symlink Setup](#automated-symlink-setup)
+- [Core Principles](#core-principles)
+  - [1. Credential Management](#1-credential-management)
+  - [2. Shared Library](#2-shared-library-libload-envsh)
+  - [3. Directory Organization](#3-directory-organization)
+  - [4. Git Workflow](#4-git-workflow)
+  - [5. Code Standards](#5-code-standards)
+  - [6. Documentation Standards](#6-documentation-standards)
+- [Development Workflows](#development-workflows)
+  - [Adding a New Skill](#adding-a-new-skill)
+  - [Adding a New Agent](#adding-a-new-agent)
+  - [Adding a New Command](#adding-a-new-command)
+- [Common Patterns](#common-patterns)
+  - [Error Handling](#error-handling)
+  - [JSON Output](#json-output)
+  - [Logging](#logging)
+  - [Security Patterns](#security-patterns)
+- [Testing](#testing)
+  - [Manual Testing](#manual-testing)
+  - [Integration Testing](#integration-testing)
+- [Troubleshooting](#troubleshooting)
+  - [Common Issues](#common-issues)
+  - [Debug Mode](#debug-mode)
+- [Security Best Practices](#security-best-practices)
+- [Version Control](#version-control)
+  - [Semantic Versioning](#semantic-versioning)
+  - [Version Bump Examples](#version-bump-examples)
+- [Links and Resources](#links-and-resources)
+
+## Glossary
+
+- **Skill**: A Claude Code plugin providing commands and scripts for a specific service (e.g., Plex, Radarr)
+- **Agent**: A specialized AI agent for complex workflows (e.g., `agentic-orchestrator`, `firecrawl-specialist`)
+- **Command**: A slash command invocable in Claude Code (e.g., `/firecrawl:scrape`, `/homelab:docker-health`)
+- **Script**: Executable code in skill `scripts/` directories that performs API calls or system operations
+- **Reference**: Detailed documentation in skill `references/` directories (API endpoints, troubleshooting, etc.)
+- **Symlink**: Symbolic link connecting this repo to `~/.claude/` for Claude Code discovery
+- **SKILL.md**: Claude-facing skill definition with commands, workflows, and examples
+- **README.md**: User-facing documentation for setting up and using a skill
+- **.env**: Environment file containing credentials (gitignored, NEVER commit)
+- **.env.example**: Template credential file (tracked in git, NO secrets)
+
 ## Repository Overview
 
 This repository provides production-ready integrations for self-hosted homelab services:
@@ -149,6 +201,26 @@ ln -sf ~/claude-homelab/commands/new-cmd.md ~/.claude/commands/new-cmd.md
 ln -sf ~/claude-homelab/commands/service-name ~/.claude/commands/service-name
 ```
 
+### Automated Symlink Setup
+
+Run the setup script to create all required symlinks automatically:
+
+```bash
+# Create all symlinks
+./scripts/setup-symlinks.sh
+
+# Verify symlinks are correct
+./scripts/verify-symlinks.sh
+```
+
+The setup script will:
+- Create `~/.claude/` directories if they don't exist
+- Symlink all skills from `skills/` to `~/.claude/skills/`
+- Symlink all agents from `agents/` to `~/.claude/agents/`
+- Symlink all commands from `commands/` to `~/.claude/commands/`
+- Report any errors or conflicts
+- Skip existing valid symlinks
+
 ## Core Principles
 
 ### 1. Credential Management
@@ -189,6 +261,58 @@ SERVICE2_URL="https://server2.example.com"
 SERVICE2_API_KEY="key2"
 ```
 
+**.env.example Template:**
+
+Copy `.env.example` to `.env` and fill in your actual credentials:
+
+```bash
+# =============================================================================
+# PLEX MEDIA SERVER
+# =============================================================================
+PLEX_URL=https://your-plex-url:32400
+PLEX_TOKEN=your_x_plex_token
+
+# =============================================================================
+# RADARR (MOVIE MANAGEMENT)
+# =============================================================================
+RADARR_URL=https://your-radarr-url
+RADARR_API_KEY=your_api_key
+RADARR_DEFAULT_QUALITY_PROFILE=1
+
+# =============================================================================
+# SONARR (TV SERIES MANAGEMENT)
+# =============================================================================
+SONARR_URL=https://your-sonarr-url
+SONARR_API_KEY=your_api_key
+SONARR_DEFAULT_QUALITY_PROFILE=1
+
+# =============================================================================
+# GOTIFY (NOTIFICATION SERVER)
+# =============================================================================
+GOTIFY_URL=https://your-gotify-url
+GOTIFY_TOKEN=your_token
+
+# =============================================================================
+# FIRECRAWL (WEB SCRAPING/CRAWLING)
+# =============================================================================
+# Cloud API (recommended)
+FIRECRAWL_API_KEY=fc-your_api_key
+FIRECRAWL_API_URL=https://api.firecrawl.dev
+
+# =============================================================================
+# TAILSCALE (VPN/MESH NETWORK)
+# =============================================================================
+TAILSCALE_API_KEY=your_api_key
+TAILSCALE_TAILNET=your_tailnet_or_dash
+```
+
+**Security Checklist:**
+- [ ] `.env` is in `.gitignore`
+- [ ] `.env` has `chmod 600` permissions
+- [ ] No credentials in code, docs, or commit history
+- [ ] `.env.example` has placeholder values only
+- [ ] All team members have their own `.env` file
+
 ### 2. Shared Library (lib/load-env.sh)
 
 The `lib/load-env.sh` library provides centralized environment loading:
@@ -211,7 +335,6 @@ load_service_credentials "service-name" "URL_VAR" "API_KEY_VAR"
 **Skills** - Organized in `skills/` subdirectory for clarity:
 - Each skill in its own directory under `skills/`
 - See `skills/CLAUDE.md` for skill development guidelines
-- Legacy: Some skills remain at root level (will be migrated)
 
 **Agents** - Specialized AI agents in `agents/`:
 - Markdown files defining agent behavior
@@ -279,7 +402,11 @@ refactor(lib): improve load-env error handling
 **Every skill requires:**
 1. `SKILL.md` - Claude Code skill definition
 2. `README.md` - User-facing documentation
-3. `references/api-endpoints.md` - Complete API reference
+3. Reference documentation (choose based on skill type):
+   - `references/api-endpoints.md` - For REST API services (Plex, Overseerr, etc.)
+   - `references/command-reference.md` - For CLI tools (ZFS, git, docker, etc.)
+   - `references/library-reference.md` - For libraries/SDKs
+   - `references/config-reference.md` - For configuration schemas, options, and defaults
 4. `references/quick-reference.md` - Quick examples
 5. `references/troubleshooting.md` - Common issues
 
@@ -437,6 +564,134 @@ log_error "Operation failed"
 log_success "Operation completed"
 ```
 
+### Security Patterns
+
+**Input Sanitization:**
+
+Always sanitize user input before using in commands, URLs, or API calls.
+
+```bash
+# Sanitize user input - remove dangerous characters
+sanitize_input() {
+    local input="$1"
+    # Remove shell metacharacters and command injection attempts
+    echo "$input" | sed 's/[;&|`$(){}[\]<>\\]//g' | tr -d '\n\r'
+}
+
+# Usage
+user_query=$(sanitize_input "$1")
+```
+
+**Command Injection Prevention:**
+
+Never directly interpolate user input into shell commands or URLs.
+
+```bash
+# ❌ DANGEROUS - Command injection vulnerability
+curl "https://api.example.com/search?q=$user_input"
+
+# ✅ SAFE - Properly escaped and quoted
+query=$(printf '%s' "$user_input" | jq -sRr @uri)
+curl "https://api.example.com/search?q=${query}"
+```
+
+**URL Encoding:**
+
+Always URL-encode user input when building API requests.
+
+```bash
+# URL encode function
+url_encode() {
+    local string="$1"
+    printf '%s' "$string" | jq -sRr @uri
+}
+
+# Usage
+search_term=$(url_encode "user's search & query")
+curl "https://api.example.com/search?q=${search_term}"
+```
+
+**SQL Injection Prevention (Python):**
+
+Use parameterized queries, NEVER string concatenation.
+
+```python
+# ❌ DANGEROUS - SQL injection vulnerability
+cursor.execute(f"SELECT * FROM users WHERE username = '{username}'")
+
+# ✅ SAFE - Parameterized query
+cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+```
+
+**API Key Protection:**
+
+Never log, print, or expose credentials.
+
+```bash
+# ❌ DANGEROUS - Logs API key
+echo "Using API key: $API_KEY"
+curl -H "Authorization: Bearer $API_KEY" https://api.example.com
+
+# ✅ SAFE - No credential exposure
+if [ -z "$API_KEY" ]; then
+    log_error "API_KEY not set"
+    exit 1
+fi
+curl -H "Authorization: Bearer $API_KEY" https://api.example.com 2>&1 | grep -v "Authorization"
+```
+
+**Path Traversal Prevention:**
+
+Validate file paths to prevent directory traversal attacks.
+
+```bash
+# Validate file path is within allowed directory
+validate_path() {
+    local file_path="$1"
+    local base_dir="$2"
+
+    # Resolve to absolute path
+    local abs_path=$(realpath -m "$file_path" 2>/dev/null)
+    local abs_base=$(realpath "$base_dir")
+
+    # Check if path starts with base directory
+    if [[ "$abs_path" != "$abs_base"* ]]; then
+        log_error "Invalid path: $file_path (outside base directory)"
+        return 1
+    fi
+
+    echo "$abs_path"
+}
+
+# Usage
+safe_path=$(validate_path "$user_file" "/allowed/directory") || exit 1
+```
+
+**JSON Response Parsing:**
+
+Always validate JSON structure before parsing.
+
+```bash
+# Validate JSON response
+parse_json_safely() {
+    local json="$1"
+    local key="$2"
+
+    # Check if valid JSON
+    if ! echo "$json" | jq empty 2>/dev/null; then
+        log_error "Invalid JSON response"
+        return 1
+    fi
+
+    # Extract value
+    echo "$json" | jq -r ".$key // empty"
+}
+
+# Usage
+response=$(curl -s https://api.example.com/data)
+value=$(parse_json_safely "$response" "data.field") || exit 1
+```
+
 ## Testing
 
 ### Manual Testing
@@ -546,5 +801,11 @@ version: 1.2.0 → 2.0.0  # MAJOR bump
 
 ---
 
-**Version:** 1.0.0
+**Version:** 1.1.0
 **Last Updated:** 2026-02-08
+**Changelog:**
+- Added Table of Contents
+- Added Glossary section
+- Added Automated Symlink Setup section with scripts
+- Added .env.example template examples
+- Added Security Patterns section with input sanitization examples

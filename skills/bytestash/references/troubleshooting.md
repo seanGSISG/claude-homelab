@@ -5,12 +5,12 @@ Common issues and fixes for `skills/bytestash/scripts/bytestash-api.sh`.
 ## DNS/Connectivity Errors
 
 ### Symptom
-`curl: (6) Could not resolve host: bytestash.tootie.tv`
+`curl: (6) Could not resolve host: bytestash.example.com`
 
 ### Checks
 ```bash
-nslookup bytestash.tootie.tv
-curl -I https://bytestash.tootie.tv
+nslookup bytestash.example.com
+curl -I https://bytestash.example.com
 ```
 
 ### Fixes
@@ -25,7 +25,7 @@ curl -I https://bytestash.tootie.tv
 
 ### Checks
 ```bash
-grep '^BYTESTASH_' ~/workspace/homelab/.env
+grep '^BYTESTASH_' ~/claude-homelab/.env
 ```
 
 ### Fixes

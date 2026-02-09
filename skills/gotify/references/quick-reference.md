@@ -4,7 +4,7 @@ Common notification patterns for quick copy-paste usage.
 
 ## Setup
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 
 ```bash
 GOTIFY_URL="https://gotify.example.com"
@@ -352,7 +352,7 @@ fi
 
 ## Credentials
 
-All scripts automatically load credentials from `~/workspace/homelab/.env`:
+All scripts automatically load credentials from `~/claude-homelab/.env`:
 
 ```bash
 GOTIFY_URL="https://gotify.example.com"
@@ -361,5 +361,5 @@ GOTIFY_TOKEN="your-app-token"
 
 **Security:**
 - `.env` file is gitignored (never committed)
-- Set permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set permissions: `chmod 600 ~/claude-homelab/.env`
 - Credentials are validated on script execution

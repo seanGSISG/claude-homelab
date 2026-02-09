@@ -34,7 +34,7 @@ function requiredEnv(name) {
   if (!value) {
     throw new Error(
       `Missing required environment variable: ${name}\n` +
-      `Please add ${name} to ~/workspace/homelab/.env`
+      `Please add ${name} to ~/claude-homelab/.env`
     );
   }
   return value;

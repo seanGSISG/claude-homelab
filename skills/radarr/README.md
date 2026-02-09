@@ -24,7 +24,7 @@ All operations use the Radarr API v3 and support collection detection and search
 
 ### 2. Configure Environment Variables
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 
 ```bash
 RADARR_URL="http://localhost:7878"
@@ -139,7 +139,7 @@ When a user asks to add a movie:
 ## Troubleshooting
 
 **"Radarr not configured"**
-→ Check your credentials exist in `~/workspace/homelab/.env` with variables `RADARR_URL` and `RADARR_API_KEY`
+→ Check your credentials exist in `~/claude-homelab/.env` with variables `RADARR_URL` and `RADARR_API_KEY`
 
 **"Connection refused"**
 → Verify your Radarr server URL is correct and Radarr is running

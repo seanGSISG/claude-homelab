@@ -42,7 +42,7 @@ curl: (7) Failed to connect to auth.example.com port 443: Connection refused
 
 2. **Verify URL is correct:**
    ```bash
-   grep AUTHELIA_URL ~/workspace/homelab/.env
+   grep AUTHELIA_URL ~/claude-homelab/.env
    ```
 
 3. **Test connectivity manually:**
@@ -152,7 +152,7 @@ curl: (28) Operation timed out after 30000 milliseconds
 1. **Verify credentials:**
    ```bash
    # Check .env file
-   cat ~/workspace/homelab/.env | grep AUTHELIA_
+   cat ~/claude-homelab/.env | grep AUTHELIA_
 
    # Test login manually
    curl -sk -X POST "https://auth.example.com/api/firstfactor" \
@@ -194,7 +194,7 @@ Response: {"status":"KO","message":"Authentication failed."}
 1. **Test credentials directly:**
    ```bash
    cd ~/workspace/homelab/skills/authelia
-   source ~/workspace/homelab/.env
+   source ~/claude-homelab/.env
 
    curl -sk -X POST "$AUTHELIA_URL/api/firstfactor" \
      -H "Content-Type: application/json" \
@@ -381,7 +381,7 @@ curl: (35) error:1408F10B:SSL routines:ssl3_get_record:wrong version number
 1. **Verify URL scheme:**
    ```bash
    # Check .env
-   grep AUTHELIA_URL ~/workspace/homelab/.env
+   grep AUTHELIA_URL ~/claude-homelab/.env
    # Should be https:// not http://
    ```
 
@@ -535,18 +535,18 @@ ERROR: AUTHELIA_URL must be set in .env
 
 1. **Create `.env` file:**
    ```bash
-   cat > ~/workspace/homelab/.env <<EOF
+   cat > ~/claude-homelab/.env <<EOF
    AUTHELIA_URL="https://auth.example.com"
    AUTHELIA_USERNAME="admin"
    AUTHELIA_PASSWORD="secure-password"
    EOF
 
-   chmod 600 ~/workspace/homelab/.env
+   chmod 600 ~/claude-homelab/.env
    ```
 
 2. **Verify variable is set:**
    ```bash
-   grep AUTHELIA_URL ~/workspace/homelab/.env
+   grep AUTHELIA_URL ~/claude-homelab/.env
    ```
 
 3. **Check for typos:**
@@ -574,13 +574,13 @@ ERROR: .env file not found at /home/user/workspace/homelab/.env
 1. **Create `.env` at correct location:**
    ```bash
    # Must be at repository root
-   touch ~/workspace/homelab/.env
-   chmod 600 ~/workspace/homelab/.env
+   touch ~/claude-homelab/.env
+   chmod 600 ~/claude-homelab/.env
    ```
 
 2. **Verify path:**
    ```bash
-   ls -la ~/workspace/homelab/.env
+   ls -la ~/claude-homelab/.env
    ```
 
 ---
@@ -697,7 +697,7 @@ curl --version
 
 # 2. Configuration (sanitized)
 echo -e "\n=== Configuration ==="
-grep AUTHELIA_URL ~/workspace/homelab/.env
+grep AUTHELIA_URL ~/claude-homelab/.env
 # DO NOT include passwords!
 
 # 3. Test connectivity

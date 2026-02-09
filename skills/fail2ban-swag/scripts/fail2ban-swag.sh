@@ -1,30 +1,30 @@
 #!/bin/bash
 # Script: fail2ban-swag.sh
-# Purpose: Wrapper script for managing fail2ban inside SWAG container on host squirts
+# Purpose: Wrapper script for managing fail2ban inside SWAG container on remote host
 # Usage: ./fail2ban-swag.sh <command> [args]
 
 set -euo pipefail
 
 # === Configuration ===
-REMOTE_HOST="squirts"
-CONTAINER_NAME="swag"
-APPDATA_PATH="/mnt/appdata/swag"
+SWAG_HOST="${SWAG_HOST:-your-hostname}"
+SWAG_CONTAINER_NAME="${SWAG_CONTAINER_NAME:-swag}"
+SWAG_APPDATA_PATH="${SWAG_APPDATA_PATH:-/path/to/appdata/swag}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-text}"
 
 # SSH command wrapper
 ssh_exec() {
-    ssh "$REMOTE_HOST" "$@"
+    ssh "$SWAG_HOST" "$@"
 }
 
 # Docker exec wrapper
 docker_exec() {
-    ssh_exec "docker exec $CONTAINER_NAME $*"
+    ssh_exec "docker exec $SWAG_CONTAINER_NAME $*"
 }
 
 # Check SSH connectivity
 check_connectivity() {
-    if ! ssh -q -o ConnectTimeout=5 "$REMOTE_HOST" exit 2>/dev/null; then
-        echo "ERROR: Cannot connect to $REMOTE_HOST via SSH" >&2
+    if ! ssh -q -o ConnectTimeout=5 "$SWAG_HOST" exit 2>/dev/null; then
+        echo "ERROR: Cannot connect to $SWAG_HOST via SSH" >&2
         echo "Ensure SSH keys are configured and host is reachable" >&2
         exit 1
     fi
@@ -159,27 +159,27 @@ cmd_test_filter() {
 cmd_logs() {
     local follow="${1:-}"
     if [[ "$follow" == "--follow" ]]; then
-        ssh_exec "tail -f $APPDATA_PATH/log/fail2ban/fail2ban.log"
+        ssh_exec "tail -f $SWAG_APPDATA_PATH/log/fail2ban/fail2ban.log"
     else
-        ssh_exec "tail -100 $APPDATA_PATH/log/fail2ban/fail2ban.log"
+        ssh_exec "tail -100 $SWAG_APPDATA_PATH/log/fail2ban/fail2ban.log"
     fi
 }
 
 cmd_nginx_access_log() {
     local follow="${1:-}"
     if [[ "$follow" == "--follow" ]]; then
-        ssh_exec "tail -f $APPDATA_PATH/log/nginx/access.log"
+        ssh_exec "tail -f $SWAG_APPDATA_PATH/log/nginx/access.log"
     else
-        ssh_exec "tail -100 $APPDATA_PATH/log/nginx/access.log"
+        ssh_exec "tail -100 $SWAG_APPDATA_PATH/log/nginx/access.log"
     fi
 }
 
 cmd_nginx_error_log() {
     local follow="${1:-}"
     if [[ "$follow" == "--follow" ]]; then
-        ssh_exec "tail -f $APPDATA_PATH/log/nginx/error.log"
+        ssh_exec "tail -f $SWAG_APPDATA_PATH/log/nginx/error.log"
     else
-        ssh_exec "tail -100 $APPDATA_PATH/log/nginx/error.log"
+        ssh_exec "tail -100 $SWAG_APPDATA_PATH/log/nginx/error.log"
     fi
 }
 
@@ -188,10 +188,10 @@ cmd_search_ip() {
     echo "=== Searching for $ip in logs ==="
     echo ""
     echo "--- fail2ban log ---"
-    ssh_exec "grep '$ip' $APPDATA_PATH/log/fail2ban/fail2ban.log | tail -20" || echo "No matches in fail2ban log"
+    ssh_exec "grep '$ip' $SWAG_APPDATA_PATH/log/fail2ban/fail2ban.log | tail -20" || echo "No matches in fail2ban log"
     echo ""
     echo "--- nginx access log ---"
-    ssh_exec "grep '$ip' $APPDATA_PATH/log/nginx/access.log | tail -20" || echo "No matches in nginx access log"
+    ssh_exec "grep '$ip' $SWAG_APPDATA_PATH/log/nginx/access.log | tail -20" || echo "No matches in nginx access log"
 }
 
 cmd_iptables() {
@@ -239,8 +239,8 @@ chain    = DOCKER-USER"
     echo "$jail_config"
 
     # Append to jail.local on host
-    ssh_exec "echo '' >> $APPDATA_PATH/fail2ban/jail.local"
-    ssh_exec "echo '$jail_config' >> $APPDATA_PATH/fail2ban/jail.local"
+    ssh_exec "echo '' >> $SWAG_APPDATA_PATH/fail2ban/jail.local"
+    ssh_exec "echo '$jail_config' >> $SWAG_APPDATA_PATH/fail2ban/jail.local"
 
     echo "✓ Jail created. Run 'reload' to activate."
 }
@@ -271,7 +271,7 @@ ignoreregex ="
     echo "$filter_config"
 
     # Create filter file on host
-    ssh_exec "cat > $APPDATA_PATH/fail2ban/filter.d/$filter_name.local" <<EOF
+    ssh_exec "cat > $SWAG_APPDATA_PATH/fail2ban/filter.d/$filter_name.local" <<EOF
 $filter_config
 EOF
 
@@ -282,7 +282,7 @@ cmd_edit_jail() {
     local jail_name="${1:?Jail name required}"
     local editor="${EDITOR:-nano}"
     echo "Opening jail.local for editing..."
-    ssh_exec "$editor $APPDATA_PATH/fail2ban/jail.local"
+    ssh_exec "$editor $SWAG_APPDATA_PATH/fail2ban/jail.local"
 }
 
 cmd_backup() {
@@ -290,8 +290,8 @@ cmd_backup() {
     local backup_file="fail2ban-backup-$timestamp.tar.gz"
 
     echo "Creating backup: $backup_file"
-    ssh_exec "cd $APPDATA_PATH && tar -czf /tmp/$backup_file fail2ban/"
-    scp "$REMOTE_HOST:/tmp/$backup_file" .
+    ssh_exec "cd $SWAG_APPDATA_PATH && tar -czf /tmp/$backup_file fail2ban/"
+    scp "$SWAG_HOST:/tmp/$backup_file" .
     ssh_exec "rm /tmp/$backup_file"
 
     echo "✓ Backup saved to: $backup_file"
@@ -306,8 +306,8 @@ cmd_restore() {
     fi
 
     echo "Restoring from backup: $backup_file"
-    scp "$backup_file" "$REMOTE_HOST:/tmp/"
-    ssh_exec "cd $APPDATA_PATH && tar -xzf /tmp/$(basename "$backup_file")"
+    scp "$backup_file" "$SWAG_HOST:/tmp/"
+    ssh_exec "cd $SWAG_APPDATA_PATH && tar -xzf /tmp/$(basename "$backup_file")"
     ssh_exec "rm /tmp/$(basename "$backup_file")"
 
     echo "✓ Restored from backup. Run 'reload' to apply changes."
@@ -315,7 +315,7 @@ cmd_restore() {
 
 cmd_help() {
     cat <<EOF
-fail2ban-swag.sh - Manage fail2ban inside SWAG container on squirts
+fail2ban-swag.sh - Manage fail2ban inside SWAG container on remote host
 
 USAGE:
     ./fail2ban-swag.sh [--json] <command> [args]

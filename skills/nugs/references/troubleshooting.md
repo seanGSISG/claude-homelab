@@ -16,16 +16,16 @@ bash: nugs: command not found
 **Solution:**
 ```bash
 # Check if binary exists
-ls -la /home/jmagar/workspace/nugs/nugs
+ls -la nugs
 
 # Make executable
-chmod +x /home/jmagar/workspace/nugs/nugs
+chmod +x nugs
 
 # Use full path
-/home/jmagar/workspace/nugs/nugs --help
+nugs --help
 
 # Or add to PATH (add to ~/.bashrc or ~/.zshrc)
-export PATH="$PATH:/home/jmagar/workspace/nugs"
+export PATH="$PATH:~/nugs"
 ```
 
 ### Config File Not Found
@@ -249,7 +249,7 @@ ffmpeg -version
 ```bash
 # Download FFmpeg binary
 # Place in same directory as nugs
-cp /path/to/ffmpeg /home/jmagar/workspace/nugs/
+cp /path/to/ffmpeg ~/nugs/
 
 # Update config to use local FFmpeg
 {
@@ -620,7 +620,7 @@ nugs update
 nugs --version
 
 # Update to latest
-cd /home/jmagar/workspace/nugs
+cd ~/nugs
 git pull
 make build
 

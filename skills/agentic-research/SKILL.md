@@ -1,6 +1,7 @@
 ---
 name: agentic-research
 version: 1.0.0
+homepage: https://github.com/jmagar/claude-homelab
 description: Shared team playbook for multi-agent deep research operations. Defines communication protocols, source quality tiers, parallel safety rules, output formatting standards, and error handling conventions used by all agents (orchestrator, ExaAI specialist, Firecrawl specialist, NotebookLM specialist) in the agentic research system.
 metadata:
   clawdbot:

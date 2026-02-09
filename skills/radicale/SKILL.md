@@ -1,8 +1,8 @@
 ---
 name: radicale
-version: 1.0.0
+version: 1.1.0
 description: This skill should be used when managing calendars and contacts on a self-hosted Radicale CalDAV/CardDAV server. Use when the user asks to "list my calendar", "what's on my calendar this week", "show me my events", "when is my next event", "add to my calendar", "create an event", "schedule a meeting", "schedule an event", "delete an event", "cancel event", "remove event", "find a contact", "what's someone's email", "search my contacts", "who is", "add a contact", "save contact", "save someone's phone number", or mentions Radicale, CalDAV, CardDAV, calendar events, or contact management operations.
-homepage: https://radicale.org/v3.html
+homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Radicale CalDAV/CardDAV Management
@@ -48,7 +48,7 @@ pip install caldav vobject icalendar
 The Python script can be made executable (optional but recommended):
 
 ```bash
-chmod +x ~/workspace/homelab/skills/radicale/scripts/radicale-api.py
+chmod +x ~/claude-homelab/skills/radicale/scripts/radicale-api.py
 ```
 
 You can then run it directly:
@@ -63,7 +63,7 @@ python scripts/radicale-api.py --help
 
 ### Credentials
 
-Add to `~/workspace/homelab/.env`:
+Add to `~/claude-homelab/.env`:
 
 ```bash
 RADICALE_URL="http://localhost:5232"
@@ -73,7 +73,7 @@ RADICALE_PASSWORD="password"
 
 **Security:**
 - `.env` file is gitignored (never commit credentials)
-- Set permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set permissions: `chmod 600 ~/claude-homelab/.env`
 
 ## Core Operations
 
@@ -380,6 +380,6 @@ All operations return JSON with status. Check for:
 
 **Query embedded documentation:**
 ```bash
-cd /home/jmagar/workspace/homelab/skills/firecrawl
+cd /home/jmagar/claude-homelab/skills/firecrawl
 firecrawl query "CalDAV create event example"
 ```

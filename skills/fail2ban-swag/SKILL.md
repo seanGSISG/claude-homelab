@@ -1,6 +1,7 @@
 ---
 name: fail2ban-swag
 version: 1.1.0
+homepage: https://github.com/jmagar/claude-homelab
 description: Manage fail2ban intrusion prevention inside the SWAG reverse proxy container. Use when the user asks to "check fail2ban", "f2b status", "ban an IP", "unban an IP", "create a jail", "configure fail2ban", "troubleshoot fail2ban", "view banned IPs", "test fail2ban filter", "monitor fail2ban", "whitelist an IP", "IP blacklist", or mentions SWAG security, intrusion prevention, or IP blocking.
 ---
 
@@ -24,7 +25,7 @@ description: Manage fail2ban intrusion prevention inside the SWAG reverse proxy 
 
 ## Purpose
 
-Manage fail2ban intrusion prevention system running inside the SWAG (Secure Web Application Gateway) reverse proxy container on host **squirts**. This skill provides tools for creating jails, configuring filters, monitoring activity, troubleshooting issues, and maintaining security for the reverse proxy infrastructure.
+Manage fail2ban intrusion prevention system running inside the SWAG (Secure Web Application Gateway) reverse proxy container on remote host. This skill provides tools for creating jails, configuring filters, monitoring activity, troubleshooting issues, and maintaining security for the reverse proxy infrastructure.
 
 **Operations supported:**
 - ✅ Read-Write (Safe): Create jails, configure filters, reload fail2ban
@@ -33,41 +34,64 @@ Manage fail2ban intrusion prevention system running inside the SWAG (Secure Web 
 
 ---
 
-## User's Specific Setup
+## Setup
 
 **CRITICAL CONTEXT:** All operations execute inside the SWAG container. Do NOT attempt to run fail2ban commands on the host.
 
-**Environment:**
-- **Host**: squirts
+**Environment Configuration:**
+
+The script requires the following environment variables (can be set in `.env` or exported):
+
+```bash
+# Remote host SSH configuration
+SWAG_HOST="your-hostname"                    # Hostname or IP of the server running SWAG
+
+# Container configuration
+SWAG_CONTAINER_NAME="swag"                   # Name of the SWAG container (default: swag)
+
+# Path configuration
+SWAG_APPDATA_PATH="/path/to/appdata/swag"    # Path to SWAG appdata directory
+```
+
+**Example `.env` file:**
+```bash
+# fail2ban-swag configuration
+SWAG_HOST="homelab.local"
+SWAG_CONTAINER_NAME="swag"
+SWAG_APPDATA_PATH="/mnt/appdata/swag"
+```
+
+**Typical Environment:**
+- **Host**: Remote server with SSH access
 - **Container**: swag (LinuxServer.io SWAG image)
-- **Container IP**: 10.6.0.100 on jakenet (10.6.0.0/16)
-- **Ports**: 80 (HTTP), 443 (HTTPS), 2002 (SSH)
-- **Compose Location**: `/mnt/compose/swag`
-- **Appdata Location**: `/mnt/appdata/swag`
+- **Container Network**: Docker bridge network with unique IP
+- **Ports**: 80 (HTTP), 443 (HTTPS)
+- **Compose Location**: `/path/to/compose/swag` or similar
+- **Appdata Location**: `/path/to/appdata/swag` (configurable)
 
 **Key Characteristics:**
 - fail2ban runs **INSIDE** the SWAG container (not on host)
 - Requires `NET_ADMIN` capability for iptables manipulation
 - Uses **DOCKER-USER** iptables chain for container protection
-- All configuration persists via bind mounts to `/mnt/appdata/swag/`
+- All configuration persists via bind mounts to appdata directory
 
-**Active Jails (5):**
+**Common Jails:**
 1. nginx-http-auth (HTTP Basic Auth failures)
 2. nginx-badbots (malicious User-Agents)
 3. nginx-botsearch (vulnerability scanners)
 4. nginx-deny (nginx access rule violations)
 5. nginx-unauthorized (HTTP 401 responses)
 
-**Ban Policy:**
+**Typical Ban Policy:**
 - Ban duration: 1 hour (3600 seconds)
 - Detection window: 60 seconds
 - Max retries: 5 attempts (2 for badbots)
 - Database purge: 1 day retention
 
-**Whitelisted Networks:**
-- 10.1.0.0/24, 10.0.0.0/24 (LANs)
-- 172.18.0.0/24, 172.17.0.0/24 (Docker networks)
-- 98.25.240.21 (external admin IP)
+**Typical Whitelisted Networks:**
+- 10.0.0.0/24, 192.168.0.0/24 (Private LANs)
+- 172.16.0.0/12 (Docker networks)
+- Your external admin IP (e.g., 203.0.113.10)
 
 ---
 
@@ -246,8 +270,8 @@ Add `--json` flag before any command for machine-readable output:
 **Container Integration:**
 - fail2ban runs as a service inside the SWAG container
 - Uses host networking mode for iptables access
-- Configuration bind-mounted from `/mnt/appdata/swag/fail2ban/`
-- Logs bind-mounted from `/mnt/appdata/swag/log/fail2ban/`
+- Configuration bind-mounted from `${SWAG_APPDATA_PATH}/fail2ban/`
+- Logs bind-mounted from `${SWAG_APPDATA_PATH}/log/fail2ban/`
 
 **iptables Chain:**
 - **CRITICAL**: Uses `DOCKER-USER` chain (NOT `INPUT`)
@@ -335,8 +359,7 @@ Add `--json` flag before any command for machine-readable output:
 ## Reference
 
 **Research Documentation:**
-- [Current Setup Documentation](../docs/research/swag-fail2ban-integration/current-setup-squirts.md) - Complete inspection of existing configuration
-- [NotebookLM Findings](../docs/research/swag-fail2ban-integration/findings/notebooklm-findings.md) - Comprehensive research on integration patterns and best practices
+- See `../docs/research/swag-fail2ban-integration/` for detailed setup documentation and research findings
 
 **Official Documentation:**
 - [fail2ban Manual](https://fail2ban.readthedocs.io/)

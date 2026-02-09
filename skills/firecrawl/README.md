@@ -31,7 +31,7 @@ Firecrawl works with both the official cloud API (recommended) and self-hosted i
 
 #### 2. Add Credentials to .env File
 
-Add your Firecrawl configuration to `~/workspace/homelab/.env`:
+Add your Firecrawl configuration to `~/claude-homelab/.env`:
 
 ```bash
 FIRECRAWL_API_KEY="fc-your-api-key-here"
@@ -39,9 +39,9 @@ FIRECRAWL_API_URL="https://api.firecrawl.dev"  # Optional, defaults to cloud
 ```
 
 **Important:**
-- The `.env` file must be located at `~/workspace/homelab/.env`
+- The `.env` file must be located at `~/claude-homelab/.env`
 - This file is gitignored (never committed to version control)
-- Set file permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set file permissions: `chmod 600 ~/claude-homelab/.env`
 
 **Configuration options:**
 - `FIRECRAWL_API_KEY`: Your Firecrawl API key (required for cloud API)
@@ -342,7 +342,7 @@ When extracting web data:
 
 **"API key required"**
 - **Cause:** `FIRECRAWL_API_KEY` not set for cloud API
-- **Solution:** Add API key to `~/workspace/homelab/.env`
+- **Solution:** Add API key to `~/claude-homelab/.env`
 
 ### Connection Errors
 
@@ -446,7 +446,7 @@ The `scripts/` directory provides convenience wrappers:
 | `map-site.sh` | Map website URLs to file | `./scripts/map-site.sh <url> <output>` |
 | `crawl-site.sh` | Crawl with progress tracking | `./scripts/crawl-site.sh <url> <limit> <depth>` |
 
-All scripts source credentials from `~/workspace/homelab/.env`.
+All scripts source credentials from `~/claude-homelab/.env`.
 
 ## Dependencies
 
@@ -461,7 +461,7 @@ All scripts source credentials from `~/workspace/homelab/.env`.
 - Keep API keys secure — they grant full account access
 - Consider separate API keys for different use cases
 - Monitor credit usage to detect unauthorized access
-- Set restrictive file permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set restrictive file permissions: `chmod 600 ~/claude-homelab/.env`
 
 ## Resources
 

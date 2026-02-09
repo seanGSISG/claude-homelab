@@ -1,7 +1,8 @@
 ---
 name: qbittorrent
-version: 1.2.0
+version: 1.2.1
 description: Manage torrents with qBittorrent. Use when the user asks to "list torrents", "add torrent", "pause torrent", "resume torrent", "delete torrent", "check download status", "torrent speed", "qBittorrent stats", or mentions qBittorrent/qbit torrent management.
+homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # qBittorrent WebUI API
@@ -33,7 +34,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 
 ```bash
 QBITTORRENT_URL="http://localhost:8080"
@@ -43,7 +44,7 @@ QBITTORRENT_PASSWORD="adminadmin"
 
 Set file permissions:
 ```bash
-chmod 600 ~/workspace/homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 ## Quick Reference

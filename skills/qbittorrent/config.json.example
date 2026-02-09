@@ -1,9 +1,0 @@
-{
-  "DEPRECATED": "This config file format is no longer used.",
-  "MIGRATION": "Add credentials to ~/workspace/homelab/.env instead:",
-  "VARIABLES": {
-    "QBITTORRENT_URL": "http://localhost:8080",
-    "QBITTORRENT_USERNAME": "admin",
-    "QBITTORRENT_PASSWORD": "your-password-here"
-  }
-}

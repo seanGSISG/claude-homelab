@@ -151,43 +151,43 @@ Quick command examples for common operations.
 
 ### Container Restart Required
 ```bash
-# SSH to squirts
-ssh squirts
+# SSH to SWAG host
+ssh $SWAG_HOST
 
 # Restart SWAG container
-cd /mnt/compose/swag
+cd $SWAG_COMPOSE_PATH
 docker compose restart
 
 # Verify fail2ban started
-docker exec swag ps aux | grep fail2ban
+docker exec $SWAG_CONTAINER_NAME ps aux | grep fail2ban
 ```
 
 ### Manual Unban via iptables
 ```bash
-# SSH to squirts
-ssh squirts
+# SSH to SWAG host
+ssh $SWAG_HOST
 
 # View iptables rules
-docker exec swag iptables -L DOCKER-USER -n --line-numbers
+docker exec $SWAG_CONTAINER_NAME iptables -L DOCKER-USER -n --line-numbers
 
 # Delete specific rule (by line number)
-docker exec swag iptables -D DOCKER-USER <line-number>
+docker exec $SWAG_CONTAINER_NAME iptables -D DOCKER-USER <line-number>
 ```
 
 ### Reset All Bans
 ```bash
-# SSH to squirts
-ssh squirts
+# SSH to SWAG host
+ssh $SWAG_HOST
 
 # Flush fail2ban chains
-docker exec swag iptables -F f2b-nginx-http-auth
-docker exec swag iptables -F f2b-nginx-badbots
-docker exec swag iptables -F f2b-nginx-botsearch
-docker exec swag iptables -F f2b-nginx-deny
-docker exec swag iptables -F f2b-nginx-unauthorized
+docker exec $SWAG_CONTAINER_NAME iptables -F f2b-nginx-http-auth
+docker exec $SWAG_CONTAINER_NAME iptables -F f2b-nginx-badbots
+docker exec $SWAG_CONTAINER_NAME iptables -F f2b-nginx-botsearch
+docker exec $SWAG_CONTAINER_NAME iptables -F f2b-nginx-deny
+docker exec $SWAG_CONTAINER_NAME iptables -F f2b-nginx-unauthorized
 
 # Or reload fail2ban
-docker exec swag fail2ban-client reload
+docker exec $SWAG_CONTAINER_NAME fail2ban-client reload
 ```
 
 ## Monitoring Patterns

@@ -5,7 +5,7 @@ Complete API reference for Memos v1 API.
 ## Base URL
 
 ```
-https://memos.tootie.tv/api/v1
+https://memos.example.com/api/v1
 ```
 
 ## Authentication
@@ -58,7 +58,7 @@ Tags are parsed from content using hashtag format (`#tagname`). They are NOT pas
 
 **Example:**
 ```bash
-curl -X POST "https://memos.tootie.tv/api/v1/memos" \
+curl -X POST "https://memos.example.com/api/v1/memos" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"content": "My memo #work #important", "visibility": "PRIVATE"}'
@@ -98,11 +98,11 @@ tag == "work" && visibility == "PRIVATE"
 **Example:**
 ```bash
 # List all memos
-curl "https://memos.tootie.tv/api/v1/memos?pageSize=50" \
+curl "https://memos.example.com/api/v1/memos?pageSize=50" \
   -H "Authorization: Bearer $TOKEN"
 
 # Filter by tag
-curl "https://memos.tootie.tv/api/v1/memos?filter=tag%20%3D%3D%20%22work%22" \
+curl "https://memos.example.com/api/v1/memos?filter=tag%20%3D%3D%20%22work%22" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -117,7 +117,7 @@ curl "https://memos.tootie.tv/api/v1/memos?filter=tag%20%3D%3D%20%22work%22" \
 
 **Example:**
 ```bash
-curl "https://memos.tootie.tv/api/v1/memos/abc123" \
+curl "https://memos.example.com/api/v1/memos/abc123" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -147,7 +147,7 @@ curl "https://memos.tootie.tv/api/v1/memos/abc123" \
 
 **Example:**
 ```bash
-curl -X PATCH "https://memos.tootie.tv/api/v1/memos/abc123?updateMask=content" \
+curl -X PATCH "https://memos.example.com/api/v1/memos/abc123?updateMask=content" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"content": "Updated content"}'
@@ -164,7 +164,7 @@ curl -X PATCH "https://memos.tootie.tv/api/v1/memos/abc123?updateMask=content" \
 
 **Example:**
 ```bash
-curl -X DELETE "https://memos.tootie.tv/api/v1/memos/abc123" \
+curl -X DELETE "https://memos.example.com/api/v1/memos/abc123" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -195,7 +195,7 @@ curl -X DELETE "https://memos.tootie.tv/api/v1/memos/abc123" \
 
 **Example:**
 ```bash
-curl -X POST "https://memos.tootie.tv/api/v1/resources" \
+curl -X POST "https://memos.example.com/api/v1/resources" \
   -H "Authorization: Bearer $TOKEN" \
   -F "file=@document.pdf"
 ```
@@ -209,7 +209,7 @@ curl -X POST "https://memos.tootie.tv/api/v1/resources" \
 
 **Example:**
 ```bash
-curl "https://memos.tootie.tv/api/v1/resources" \
+curl "https://memos.example.com/api/v1/resources" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -222,7 +222,7 @@ curl "https://memos.tootie.tv/api/v1/resources" \
 
 **Example:**
 ```bash
-curl -X DELETE "https://memos.tootie.tv/api/v1/resources/abc123" \
+curl -X DELETE "https://memos.example.com/api/v1/resources/abc123" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -240,9 +240,9 @@ curl -X DELETE "https://memos.tootie.tv/api/v1/resources/abc123" \
 {
   "name": "users/1",
   "role": "HOST",
-  "username": "jmagar",
-  "email": "jmagar@gmail.com",
-  "nickname": "jmagar",
+  "username": "user1",
+  "email": "user@example.com",
+  "nickname": "user1",
   "state": "NORMAL",
   "createTime": "2023-11-14T06:19:58Z",
   "updateTime": "2024-05-15T02:07:33Z"
@@ -251,7 +251,7 @@ curl -X DELETE "https://memos.tootie.tv/api/v1/resources/abc123" \
 
 **Example:**
 ```bash
-curl "https://memos.tootie.tv/api/v1/users/1" \
+curl "https://memos.example.com/api/v1/users/1" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -269,7 +269,7 @@ curl "https://memos.tootie.tv/api/v1/users/1" \
 
 **Example:**
 ```bash
-curl -X PATCH "https://memos.tootie.tv/api/v1/users/1?updateMask=nickname" \
+curl -X PATCH "https://memos.example.com/api/v1/users/1?updateMask=nickname" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"nickname": "New Name"}'
@@ -296,7 +296,7 @@ curl -X PATCH "https://memos.tootie.tv/api/v1/users/1?updateMask=nickname" \
 
 **Example:**
 ```bash
-curl -X POST "https://memos.tootie.tv/api/v1/users/1/access-tokens" \
+curl -X POST "https://memos.example.com/api/v1/users/1/access-tokens" \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"description": "API Token"}'
@@ -308,7 +308,7 @@ curl -X POST "https://memos.tootie.tv/api/v1/users/1/access-tokens" \
 
 **Example:**
 ```bash
-curl "https://memos.tootie.tv/api/v1/users/1/access-tokens" \
+curl "https://memos.example.com/api/v1/users/1/access-tokens" \
   -H "Authorization: Bearer $TOKEN"
 ```
 
@@ -318,7 +318,7 @@ curl "https://memos.tootie.tv/api/v1/users/1/access-tokens" \
 
 **Example:**
 ```bash
-curl -X DELETE "https://memos.tootie.tv/api/v1/users/1/access-tokens/abc123" \
+curl -X DELETE "https://memos.example.com/api/v1/users/1/access-tokens/abc123" \
   -H "Authorization: Bearer $TOKEN"
 ```
 

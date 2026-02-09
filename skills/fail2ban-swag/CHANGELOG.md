@@ -25,15 +25,13 @@ All notable changes to the fail2ban-swag skill will be documented in this file.
 
 ### Documentation
 - Integration with NotebookLM research findings
-- Reference to current setup documentation on squirts
+- Reference to setup documentation and research findings
 - Links to official fail2ban and SWAG documentation
 - Progressive disclosure pattern with references/ files
 
-### Specific Configuration
-- Host: squirts
+### Configuration
+- Configurable via environment variables (SWAG_HOST, SWAG_CONTAINER_NAME, SWAG_APPDATA_PATH)
 - Container: swag (LinuxServer.io image)
-- Container IP: 10.6.0.100 on jakenet
-- Compose location: /mnt/compose/swag
-- Appdata location: /mnt/appdata/swag
-- 5 active jails documented
-- Whitelisted networks documented
+- Supports any SWAG deployment
+- Common jails documented
+- Network whitelisting guidance provided

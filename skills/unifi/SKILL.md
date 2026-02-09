@@ -1,7 +1,9 @@
 ---
 name: unifi
-description: Query and monitor UniFi network via local gateway API (Cloud Gateway Max / UniFi OS). Use when the user asks to "check UniFi", "list UniFi devices", "show who's on the network", "UniFi clients", "UniFi health", "top apps", "network alerts", "UniFi DPI", or mentions UniFi monitoring/status/dashboard.
 version: 1.2.0
+homepage: https://github.com/jmagar/claude-homelab
+description: Query and monitor UniFi network via local gateway API (Cloud Gateway Max / UniFi OS). Use when the user asks to "check UniFi", "list UniFi devices", "show who's on the network", "UniFi clients", "UniFi health", "top apps", "network alerts", "UniFi DPI", or mentions UniFi monitoring/status/dashboard.
+---
 
 # UniFi Network Monitoring Skill
 
@@ -30,7 +32,7 @@ All operations are **GET-only** and safe for monitoring/reporting.
 
 ## Setup
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 
 ```bash
 UNIFI_URL="https://10.1.0.1"

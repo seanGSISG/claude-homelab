@@ -5,7 +5,7 @@ Complete API reference for ByteStash v1.0.0
 ## Base URL
 
 ```
-https://bytestash.tootie.tv
+https://bytestash.example.com
 ```
 
 ## Authentication

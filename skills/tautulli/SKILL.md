@@ -2,7 +2,7 @@
 name: tautulli
 version: 1.0.0
 description: Monitor and analyze Plex Media Server usage via Tautulli analytics API. Use when the user asks to "check Tautulli", "Plex analytics", "watch statistics", "current streams", "who's watching", "Plex history", "most watched", "user activity", "library stats", or mentions Tautulli/Plex monitoring.
-homepage: https://tautulli.com
+homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Tautulli Analytics Skill
@@ -40,7 +40,7 @@ All operations are **GET-only** and safe for monitoring and analytics.
 
 ## Setup
 
-Add your Tautulli credentials to `~/workspace/homelab/.env`:
+Add your Tautulli credentials to `~/claude-homelab/.env`:
 
 ```bash
 # Tautulli Analytics
@@ -303,7 +303,7 @@ Use both together:
 To use multiple Tautulli instances (monitoring different Plex servers):
 
 ```bash
-# In ~/workspace/homelab/.env
+# In ~/claude-homelab/.env
 TAUTULLI1_URL="http://server1:8181"
 TAUTULLI1_API_KEY="key1"
 

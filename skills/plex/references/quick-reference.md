@@ -13,7 +13,7 @@ export PLEX_TOKEN="your-plex-token"
 
 ### Using Helper Script (Recommended)
 
-Add to `~/workspace/homelab/.env`:
+Add to `~/claude-homelab/.env`:
 ```bash
 PLEX_URL="http://192.168.1.100:32400"
 PLEX_TOKEN="your-plex-token"

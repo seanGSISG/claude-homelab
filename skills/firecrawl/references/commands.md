@@ -370,7 +370,7 @@ For common operations, use provided wrapper scripts in `scripts/`:
 ```
 
 All scripts:
-- Source credentials from `~/workspace/homelab/.env`
+- Source credentials from `~/claude-homelab/.env`
 - Include error handling and validation
 - Return JSON output where appropriate
 - Support `--help` flag

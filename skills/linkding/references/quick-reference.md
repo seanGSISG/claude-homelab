@@ -4,7 +4,7 @@ Common operations for quick copy-paste usage.
 
 ## Setup
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 ```bash
 LINKDING_URL="http://localhost:9090"
 LINKDING_API_KEY="your-api-token"

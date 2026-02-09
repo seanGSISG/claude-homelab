@@ -2,7 +2,7 @@
 name: authelia
 version: 1.0.0
 description: Monitor authentication attempts and user sessions via Authelia REST API (login tracking, session status, 2FA monitoring, user info, health checks). Use when the user asks to "check Authelia", "authentication logs", "failed logins", "session status", "2FA status", "user sessions", "Authelia health", "auth monitoring", "check authentication", or mentions Authelia security monitoring.
-homepage: https://www.authelia.com
+homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Authelia Authentication Monitoring Skill
@@ -46,7 +46,7 @@ All operations respect Authelia's security model and require proper session auth
 
 ## Setup
 
-Add credentials to `~/workspace/homelab/.env`:
+Add credentials to `~/claude-homelab/.env`:
 
 ```bash
 AUTHELIA_URL="https://auth.example.com"

@@ -1,6 +1,7 @@
 ---
 name: bytestash
 version: 1.1.0
+homepage: https://github.com/jmagar/claude-homelab
 description: Manage code snippets in ByteStash snippet storage service. This skill should be used when the user asks to "save a snippet", "search snippets", "find code", "share snippet", "organize snippets", "list my snippets", "create snippet", "delete snippet", or mentions ByteStash, code storage, snippet management, or code archival.
 ---
 
@@ -34,10 +35,10 @@ ByteStash is a self-hosted code snippet management service with multi-file suppo
 
 ## Setup
 
-**Required credentials in `~/workspace/homelab/.env`:**
+**Required credentials in `~/claude-homelab/.env`:**
 
 ```bash
-BYTESTASH_URL="https://bytestash.tootie.tv"
+BYTESTASH_URL="https://bytestash.example.com"
 BYTESTASH_API_KEY="your-api-key-here"
 ```
 
@@ -48,7 +49,7 @@ BYTESTASH_API_KEY="your-api-key-here"
 4. Copy the generated key to `.env` file
 
 **Security:**
-- Set permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set permissions: `chmod 600 ~/claude-homelab/.env`
 - API keys are scoped to your user account
 - NEVER commit `.env` to version control
 

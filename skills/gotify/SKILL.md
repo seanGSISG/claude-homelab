@@ -1,7 +1,9 @@
 ---
 name: gotify
-description: Send push notifications via Gotify when long-running tasks complete or important events occur. Use when the user asks to "send a Gotify notification", "notify me when this finishes", "push notification", "alert me via Gotify", or wants to be notified of task completion.
-version: 1.3.0
+description: Send push notifications via Gotify for task completion alerts. This skill should be used when the user asks to "send notification", "notify me when done", "push notification", "alert me", "Gotify notification", "notify on completion", "send push alert", or mentions push notifications, task alerts, or Gotify. ALSO automatically invoked (without user request) for long-running tasks >5min, plan completion, user input required, or task transitions.
+version: 1.3.1
+homepage: https://github.com/jmagar/claude-homelab
+---
 
 # Gotify Notification Skill
 
@@ -48,7 +50,7 @@ All notifications MUST include:
 
 ## Setup
 
-Add credentials to `.env` file: `~/workspace/homelab/.env`
+Add credentials to `.env` file: `~/claude-homelab/.env`
 
 ```bash
 GOTIFY_URL="https://gotify.example.com"

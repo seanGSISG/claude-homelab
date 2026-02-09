@@ -59,7 +59,7 @@ ERROR: Failed to connect to Radicale: Connection refused
 2. **Wrong URL:**
    ```bash
    # Verify URL in .env
-   grep RADICALE_URL ~/.env ~/workspace/homelab/.env
+   grep RADICALE_URL ~/.env ~/claude-homelab/.env
 
    # Test connection manually
    curl http://localhost:5232
@@ -84,7 +84,7 @@ caldav.lib.error.AuthorizationError
 
 1. **Verify credentials in .env:**
    ```bash
-   cat ~/workspace/homelab/.env | grep RADICALE
+   cat ~/claude-homelab/.env | grep RADICALE
    ```
 
 2. **Test credentials manually:**
@@ -108,20 +108,20 @@ caldav.lib.error.AuthorizationError
 
 **Error:**
 ```
-ERROR: .env file not found at /home/user/workspace/homelab/.env
+ERROR: .env file not found at /home/user/claude-homelab/.env
 ```
 
 **Solution:**
 ```bash
 # Create .env file
-cat > ~/workspace/homelab/.env <<EOF
+cat > ~/claude-homelab/.env <<EOF
 RADICALE_URL="http://localhost:5232"
 RADICALE_USERNAME="admin"
 RADICALE_PASSWORD="your-password-here"
 EOF
 
 # Set permissions
-chmod 600 ~/workspace/homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 ## Calendar Issues
@@ -264,7 +264,7 @@ bash: ./scripts/radicale-api.py: Permission denied
 
 **Solution:**
 ```bash
-chmod +x /home/jmagar/workspace/homelab/skills/radicale/scripts/radicale-api.py
+chmod +x /home/jmagar/claude-homelab/skills/radicale/scripts/radicale-api.py
 ```
 
 ### .env File Permissions
@@ -273,7 +273,7 @@ chmod +x /home/jmagar/workspace/homelab/skills/radicale/scripts/radicale-api.py
 
 **Solution:**
 ```bash
-chmod 600 ~/workspace/homelab/.env
+chmod 600 ~/claude-homelab/.env
 ```
 
 ## Data Format Issues
@@ -386,7 +386,7 @@ If issues persist:
 2. **Check caldav library docs:** https://caldav.readthedocs.io/
 3. **Query embedded RFC documentation:**
    ```bash
-   cd /home/jmagar/workspace/homelab/skills/firecrawl
+   cd /home/jmagar/claude-homelab/skills/firecrawl
    firecrawl query "CalDAV authentication error 401"
    ```
 

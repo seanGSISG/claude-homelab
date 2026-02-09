@@ -33,7 +33,7 @@ curl -k https://auth.example.com/api/health
 
 ### 2. Add Credentials to .env
 
-Edit `~/workspace/homelab/.env` and add:
+Edit `~/claude-homelab/.env` and add:
 
 ```bash
 AUTHELIA_URL="https://auth.example.com"
@@ -56,7 +56,7 @@ AUTHELIA_API_TOKEN=""  # Optional: leave empty for cookie auth
 
 **Security:**
 - `.env` file is gitignored (NEVER commit)
-- Set permissions: `chmod 600 ~/workspace/homelab/.env`
+- Set permissions: `chmod 600 ~/claude-homelab/.env`
 - Cookie file stored at `/tmp/authelia-cookies-$USER.txt` (0600 permissions)
 - Cookies automatically cleaned up on script exit
 

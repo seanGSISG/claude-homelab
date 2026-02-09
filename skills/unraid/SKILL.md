@@ -1,6 +1,7 @@
 ---
 name: unraid
 version: 1.1.0
+homepage: https://github.com/jmagar/claude-homelab
 description: "Query and monitor Unraid servers via the GraphQL API. Use when the user asks to 'check Unraid', 'monitor Unraid', 'Unraid API', 'get Unraid status', 'check disk temperatures', 'read Unraid logs', 'list Unraid shares', 'Unraid array status', 'Unraid containers', 'Unraid VMs', or mentions Unraid system monitoring, disk health, parity checks, or server status."
 ---
 

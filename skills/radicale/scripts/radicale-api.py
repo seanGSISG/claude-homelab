@@ -19,7 +19,7 @@ Usage:
     python radicale-api.py contacts delete --addressbook "Contacts" --uid "contact-uid-here"
 
 Credentials:
-    Reads from ~/workspace/homelab/.env:
+    Reads from ~/claude-homelab/.env:
         RADICALE_URL="http://localhost:5232"
         RADICALE_USERNAME="admin"
         RADICALE_PASSWORD="password"
