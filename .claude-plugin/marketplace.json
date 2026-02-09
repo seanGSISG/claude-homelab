@@ -17,8 +17,18 @@
       "category": "core",
       "tags": ["agents", "commands", "orchestration", "system-monitoring"],
       "homepage": "https://github.com/jmagar/claude-homelab",
-      "agents": ["./agents/"],
-      "commands": ["./commands/"]
+      "agents": [
+        "./agents/agentic-orchestrator.md",
+        "./agents/exa-specialist.md",
+        "./agents/firecrawl-specialist.md",
+        "./agents/notebooklm-specialist.md"
+      ],
+      "commands": [
+        "./commands/agentic-research.md",
+        "./commands/firecrawl/",
+        "./commands/homelab/",
+        "./commands/notebooklm/"
+      ]
     },
     {
       "name": "plex",
