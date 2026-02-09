@@ -1,0 +1,36 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "For Write/Edit operations, if tool_input.file_path ends with '.env', deny and explain: 'Cannot edit .env directly. Use .env.example as template.' Otherwise allow."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); file_path=$(echo \"$input\" | jq -r '.tool_input.file_path // empty'); if [[ \"$file_path\" == *.sh ]]; then shellcheck -x -S warning \"$file_path\" || echo 'ShellCheck warnings found (non-blocking)'; if [[ -f \"$file_path\" ]]; then chmod +x \"$file_path\"; fi; fi"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Bash(shellcheck*)",
+      "Bash(chmod*)",
+      "Skill"
+    ]
+  }
+}
