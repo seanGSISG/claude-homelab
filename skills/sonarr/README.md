@@ -23,7 +23,7 @@ All operations use the Sonarr API v3 and support monitor options and search-on-a
 
 ### 2. Add Credentials to .env
 
-Add the following to `~/claude-homelab/.env`:
+Add the following to `~/.claude-homelab/.env`:
 
 ```bash
 SONARR_URL="http://localhost:8989"
@@ -122,7 +122,7 @@ When a user asks to add a TV show:
 ## Troubleshooting
 
 **"Sonarr not configured"**
-→ Check your `.env` file exists at `~/claude-homelab/.env` and contains SONARR_URL and SONARR_API_KEY
+→ Check your `.env` file exists at `~/.claude-homelab/.env` and contains SONARR_URL and SONARR_API_KEY
 
 **"Connection refused"**
 → Verify your Sonarr server URL is correct and Sonarr is running
@@ -136,7 +136,7 @@ When a user asks to add a TV show:
 ## Notes
 
 - Uses Sonarr API v3
-- Credentials loaded from `~/claude-homelab/.env` (NO JSON config files)
+- Credentials loaded from `~/.claude-homelab/.env` (NO JSON config files)
 - Default quality profile can be overridden per-add if needed
 - Search results include TVDB IDs for reliable identification
 - Supports all Sonarr monitor options (future, all, none, etc.)

@@ -23,7 +23,7 @@ All operations are **read-only** and safe for monitoring.
 
 ### 2. Add Credentials to .env
 
-Add the following to `~/claude-homelab/.env`:
+Add the following to `~/.claude-homelab/.env`:
 
 ```bash
 UNIFI_URL="https://10.1.0.1"
@@ -89,12 +89,12 @@ bash scripts/alerts.sh 50          # Last 50
 
 ## Credential Management
 
-All scripts load credentials from `~/claude-homelab/.env` automatically. No need to export environment variables manually.
+All scripts load credentials from `~/.claude-homelab/.env` automatically. No need to export environment variables manually.
 
 ## Troubleshooting
 
 **"ERROR: .env file not found"**
-→ Create `.env` file at `~/claude-homelab/.env` with required variables
+→ Create `.env` file at `~/.claude-homelab/.env` with required variables
 
 **"ERROR: UNIFI_URL and UNIFI_USERNAME must be set in .env"**
 → Add `UNIFI_URL`, `UNIFI_USERNAME`, `UNIFI_PASSWORD`, and `UNIFI_SITE` to `.env`

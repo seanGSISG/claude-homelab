@@ -81,7 +81,7 @@ This skill enables comprehensive web data extraction and semantic indexing throu
    firecrawl --version
    ```
 
-2. **Add credentials to `.env` file:** `~/claude-homelab/.env`
+2. **Add credentials to `.env` file:** `~/.claude-homelab/.env`
    ```bash
    # Firecrawl API (Cloud or Self-Hosted)
    FIRECRAWL_API_KEY="fc-your-api-key"
@@ -461,7 +461,7 @@ For common operations, use provided wrapper scripts in `scripts/`:
 ```
 
 All scripts:
-- Source credentials from `~/claude-homelab/.env`
+- Source credentials from `~/.claude-homelab/.env`
 - Include error handling and validation
 - Return JSON output where appropriate
 - Support `--help` flag

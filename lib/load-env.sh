@@ -9,21 +9,59 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     exit 1
 fi
 
-# Load .env file from repository root
+# Load .env file from standard locations
 # Usage: load_env_file [/path/to/.env]
 # Args:
-#   $1 - Optional path to .env file (default: auto-detect from repo root)
+#   $1 - Optional path to .env file (default: search standard locations)
 # Returns:
-#   0 on success, 1 if .env file not found
+#   0 on success, 1 if .env file not found in any location
+# Search order (first match wins):
+#   1. Explicit path argument (if provided)
+#   2. Current directory ./.env (project-specific overrides)
+#   3. ~/.claude-homelab/.env (recommended global location)
+#   4. ~/claude-homelab/.env (alternative global location)
+#   5. Repository root .env (for development)
 load_env_file() {
-    # Default to .env in repo root (one level up from lib/)
-    local lib_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    local repo_root="$(cd "$lib_dir/.." && pwd)"
-    local env_file="${1:-$repo_root/.env}"
+    local env_file=""
 
-    if [[ ! -f "$env_file" ]]; then
-        echo "ERROR: Environment file not found: $env_file" >&2
-        echo "Create .env file with required credentials" >&2
+    if [[ -n "${1:-}" ]]; then
+        # Use explicit path if provided
+        env_file="$1"
+    else
+        # Search standard locations in order of preference
+        local search_paths=(
+            "$PWD/.env"                      # Current directory (project-specific)
+            "$HOME/.claude-homelab/.env"     # Recommended global location
+            "$HOME/claude-homelab/.env"      # Alternative global location
+        )
+
+        # Add repo root as fallback for development
+        local lib_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+        local repo_root="$(cd "$lib_dir/.." && pwd)"
+        search_paths+=("$repo_root/.env")
+
+        # Find first existing .env file
+        for path in "${search_paths[@]}"; do
+            if [[ -f "$path" ]]; then
+                env_file="$path"
+                break
+            fi
+        done
+    fi
+
+    # Validate we found an .env file
+    if [[ -z "$env_file" ]] || [[ ! -f "$env_file" ]]; then
+        echo "ERROR: Environment file not found" >&2
+        echo "Searched locations:" >&2
+        echo "  - ./.env (current directory)" >&2
+        echo "  - ~/.claude-homelab/.env (recommended)" >&2
+        echo "  - ~/claude-homelab/.env (alternative)" >&2
+        echo "  - Repository root .env (development)" >&2
+        echo "" >&2
+        echo "Create .env file with required credentials:" >&2
+        echo "  mkdir -p ~/.claude-homelab" >&2
+        echo "  cp .env.example ~/.claude-homelab/.env" >&2
+        echo "  chmod 600 ~/.claude-homelab/.env" >&2
         return 1
     fi
 

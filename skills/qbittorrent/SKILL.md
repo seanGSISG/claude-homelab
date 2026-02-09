@@ -34,7 +34,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Add credentials to `~/claude-homelab/.env`:
+Add credentials to `~/.claude-homelab/.env`:
 
 ```bash
 QBITTORRENT_URL="http://localhost:8080"
@@ -44,7 +44,7 @@ QBITTORRENT_PASSWORD="adminadmin"
 
 Set file permissions:
 ```bash
-chmod 600 ~/claude-homelab/.env
+chmod 600 ~/.claude-homelab/.env
 ```
 
 ## Quick Reference

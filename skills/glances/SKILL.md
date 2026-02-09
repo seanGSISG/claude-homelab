@@ -42,7 +42,7 @@ All operations are **GET-only** and safe for monitoring/reporting.
    glances -w                  # API + Web UI
    ```
 
-2. **Add credentials to .env file**: `~/claude-homelab/.env`
+2. **Add credentials to .env file**: `~/.claude-homelab/.env`
 
 ```bash
 GLANCES_URL="http://localhost:61208"
@@ -218,7 +218,7 @@ When the user asks about system health:
 To monitor multiple Glances servers, use numbered environment variables in `.env`:
 
 ```bash
-# In ~/claude-homelab/.env
+# In ~/.claude-homelab/.env
 GLANCES1_URL="http://server1.local:61208"
 GLANCES1_USERNAME=""
 GLANCES1_PASSWORD=""

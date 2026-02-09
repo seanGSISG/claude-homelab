@@ -48,7 +48,7 @@ This skill provides **read-write** access to a self-hosted Paperless-ngx instanc
 
 ### Credential Configuration
 
-Add these variables to `~/claude-homelab/.env`:
+Add these variables to `~/.claude-homelab/.env`:
 
 ```bash
 # Paperless-ngx - Document management system
@@ -65,7 +65,7 @@ PAPERLESS_API_TOKEN="your-api-token-here"
 
 **Security:**
 - `.env` file is gitignored (never commit)
-- Set permissions: `chmod 600 ~/claude-homelab/.env`
+- Set permissions: `chmod 600 ~/.claude-homelab/.env`
 - Token has same permissions as your user account
 
 ## Commands

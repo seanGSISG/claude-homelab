@@ -46,7 +46,7 @@ All operations respect Authelia's security model and require proper session auth
 
 ## Setup
 
-Add credentials to `~/claude-homelab/.env`:
+Add credentials to `~/.claude-homelab/.env`:
 
 ```bash
 AUTHELIA_URL="https://auth.example.com"

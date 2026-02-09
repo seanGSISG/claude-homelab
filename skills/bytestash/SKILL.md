@@ -35,7 +35,7 @@ ByteStash is a self-hosted code snippet management service with multi-file suppo
 
 ## Setup
 
-**Required credentials in `~/claude-homelab/.env`:**
+**Required credentials in `~/.claude-homelab/.env`:**
 
 ```bash
 BYTESTASH_URL="https://bytestash.example.com"
@@ -49,7 +49,7 @@ BYTESTASH_API_KEY="your-api-key-here"
 4. Copy the generated key to `.env` file
 
 **Security:**
-- Set permissions: `chmod 600 ~/claude-homelab/.env`
+- Set permissions: `chmod 600 ~/.claude-homelab/.env`
 - API keys are scoped to your user account
 - NEVER commit `.env` to version control
 

@@ -16,7 +16,7 @@ Manage fail2ban intrusion prevention system running inside the SWAG reverse prox
 
 ### Environment Configuration
 
-This skill requires environment variables to be configured. Add these to your `~/claude-homelab/.env` file:
+This skill requires environment variables to be configured. Add these to your `~/.claude-homelab/.env` file:
 
 ```bash
 # fail2ban-swag configuration

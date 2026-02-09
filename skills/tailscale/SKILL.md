@@ -21,7 +21,7 @@ Hybrid skill using CLI for local operations and API for tailnet-wide management.
 
 ## Setup
 
-API config (optional, for tailnet-wide operations) is stored in `~/claude-homelab/.env`:
+API config (optional, for tailnet-wide operations) is stored in `~/.claude-homelab/.env`:
 
 ```bash
 TAILSCALE_API_KEY="tskey-api-k..."

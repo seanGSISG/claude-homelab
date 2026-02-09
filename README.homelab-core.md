@@ -36,15 +36,15 @@ PLUGIN_DIR=~/.claude/plugins/installed/homelab-core@claude-homelab
 mkdir -p ~/claude-homelab
 
 # Copy the environment template
-cp "$PLUGIN_DIR/.env.example" ~/claude-homelab/.env
+cp "$PLUGIN_DIR/.env.example" ~/.claude-homelab/.env
 
 # Set secure permissions
-chmod 600 ~/claude-homelab/.env
+chmod 600 ~/.claude-homelab/.env
 ```
 
 ### 2. Configure Credentials
 
-Edit `~/claude-homelab/.env` and add your service credentials:
+Edit `~/.claude-homelab/.env` and add your service credentials:
 
 ```bash
 # Example services - uncomment and configure as needed
@@ -135,7 +135,7 @@ Install service-specific skills:
 /plugin install tailscale@claude-homelab
 ```
 
-Each skill will use credentials from the same `~/claude-homelab/.env` file.
+Each skill will use credentials from the same `~/.claude-homelab/.env` file.
 
 ## Troubleshooting
 
@@ -145,17 +145,17 @@ If commands report missing credentials:
 
 1. Verify `.env` location:
    ```bash
-   ls -la ~/claude-homelab/.env
+   ls -la ~/.claude-homelab/.env
    ```
 
 2. Check file permissions:
    ```bash
-   chmod 600 ~/claude-homelab/.env
+   chmod 600 ~/.claude-homelab/.env
    ```
 
 3. Verify environment variables are set:
    ```bash
-   grep "SERVICE_URL" ~/claude-homelab/.env
+   grep "SERVICE_URL" ~/.claude-homelab/.env
    ```
 
 ### Command Not Found

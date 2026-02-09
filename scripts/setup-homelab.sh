@@ -15,8 +15,8 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-# Target directory for .env
-HOMELAB_DIR="${HOME}/claude-homelab"
+# Target directory for .env (hidden directory in home)
+HOMELAB_DIR="${HOME}/.claude-homelab"
 ENV_FILE="${HOMELAB_DIR}/.env"
 ENV_EXAMPLE="${REPO_ROOT}/.env.example"
 

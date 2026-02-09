@@ -111,13 +111,13 @@ After installing `homelab-core`, run the setup command:
 ```
 
 This will:
-- Copy `.env.example` to `~/claude-homelab/.env`
+- Copy `.env.example` to `~/.claude-homelab/.env`
 - Set secure permissions (600)
 - Optionally configure common services interactively
 
 ### Manual Setup
 
-All skills require credentials configured in `~/claude-homelab/.env`:
+All skills require credentials configured in `~/.claude-homelab/.env`:
 
 ```bash
 # Example .env configuration

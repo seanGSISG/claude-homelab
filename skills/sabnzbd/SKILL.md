@@ -34,7 +34,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Credentials: `~/claude-homelab/.env`
+Credentials: `~/.claude-homelab/.env`
 
 ```bash
 SABNZBD_URL="http://localhost:8080"
@@ -43,7 +43,7 @@ SABNZBD_API_KEY="your-api-key-from-config-general"
 
 Get your API key from SABnzbd Config → General → Security.
 
-**Security:** Never commit `.env` file. Set permissions: `chmod 600 ~/claude-homelab/.env`
+**Security:** Never commit `.env` file. Set permissions: `chmod 600 ~/.claude-homelab/.env`
 
 ## Quick Reference
 
