@@ -1,0 +1,11 @@
+{
+  "name": "paperless-ngx",
+  "description": "Manage documents in Paperless-ngx - upload with auto-OCR, full-text search, tag management, bulk operations",
+  "version": "1.0.0",
+  "author": {
+    "name": "jmagar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "repository": "https://github.com/jmagar/claude-homelab"
+}

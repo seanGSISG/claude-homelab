@@ -4,7 +4,8 @@ set -euo pipefail
 # Sonarr API wrapper
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/../../lib/load-env.sh"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+source "$REPO_ROOT/lib/load-env.sh"
 
 # Load credentials from .env
 load_service_credentials "sonarr" "SONARR_URL" "SONARR_API_KEY"

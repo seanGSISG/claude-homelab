@@ -1,0 +1,11 @@
+{
+  "name": "prowlarr",
+  "description": "Search indexers and manage Prowlarr for torrent and usenet searching",
+  "version": "1.2.1",
+  "author": {
+    "name": "jmagar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "repository": "https://github.com/jmagar/claude-homelab"
+}

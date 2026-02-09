@@ -1,0 +1,11 @@
+{
+  "name": "notebooklm",
+  "description": "Programmatic access to Google NotebookLM - create notebooks, add sources, chat with content, generate artifacts (podcasts, videos, reports)",
+  "version": "1.0.0",
+  "author": {
+    "name": "jmagar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "repository": "https://github.com/jmagar/claude-homelab"
+}

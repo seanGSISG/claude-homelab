@@ -99,6 +99,7 @@ tmp/
 # Session and Documentation Directories
 .docs/
 .serena/
+docs/reorg/
 
 # Debug and Dump Files
 *_debug.json

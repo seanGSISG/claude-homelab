@@ -1,0 +1,11 @@
+{
+  "name": "zfs",
+  "description": "Manage ZFS pools in homelab environment - health monitoring, snapshot management with Sanoid/Syncoid, replication, scrub scheduling. CRITICAL: Enforces mandatory double confirmation for destructive operations",
+  "version": "2.0.0",
+  "author": {
+    "name": "jmagar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "repository": "https://github.com/jmagar/claude-homelab"
+}

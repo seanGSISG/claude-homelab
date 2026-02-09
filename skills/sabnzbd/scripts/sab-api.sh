@@ -5,7 +5,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/../../lib/load-env.sh"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+source "$REPO_ROOT/lib/load-env.sh"
 
 # Load credentials from .env
 load_service_credentials "sabnzbd" "SABNZBD_URL" "SABNZBD_API_KEY"

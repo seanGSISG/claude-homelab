@@ -1,0 +1,11 @@
+{
+  "name": "sabnzbd",
+  "description": "Manage Usenet downloads with SABnzbd API - queue management, NZB handling, download monitoring",
+  "version": "1.2.0",
+  "author": {
+    "name": "jmagar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "repository": "https://github.com/jmagar/claude-homelab"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "qbittorrent",
+  "description": "Manage torrents with qBittorrent WebUI API - add, pause, resume, and delete torrents",
+  "version": "1.2.1",
+  "author": {
+    "name": "jmagar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "repository": "https://github.com/jmagar/claude-homelab"
+}
