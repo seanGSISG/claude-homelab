@@ -12,7 +12,7 @@
     {
       "name": "homelab-core",
       "source": "./",
-      "description": "Core homelab functionality - specialized agents (agentic-orchestrator, exa-specialist, firecrawl-specialist, notebooklm-specialist) and commands (/agentic-research, /firecrawl:*, /homelab:*, /notebooklm:*) for orchestrating research and monitoring system health",
+      "description": "Core homelab functionality - specialized agents (agentic-orchestrator, exa-specialist, firecrawl-specialist, notebooklm-specialist) and commands (/setup-homelab, /agentic-research, /firecrawl:*, /homelab:*, /notebooklm:*) for orchestrating research and monitoring system health. Includes .env.example template and setup script.",
       "version": "1.0.0",
       "category": "core",
       "tags": ["agents", "commands", "orchestration", "system-monitoring"],
@@ -25,6 +25,7 @@
       ],
       "commands": [
         "./commands/agentic-research.md",
+        "./commands/setup-homelab.md",
         "./commands/firecrawl/",
         "./commands/homelab/",
         "./commands/notebooklm/"

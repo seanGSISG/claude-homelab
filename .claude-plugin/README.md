@@ -102,6 +102,21 @@ Install everything at once (not recommended - install only what you need):
 
 ## Configuration
 
+### Quick Setup (Recommended)
+
+After installing `homelab-core`, run the setup command:
+
+```bash
+/setup-homelab
+```
+
+This will:
+- Copy `.env.example` to `~/claude-homelab/.env`
+- Set secure permissions (600)
+- Optionally configure common services interactively
+
+### Manual Setup
+
 All skills require credentials configured in `~/claude-homelab/.env`:
 
 ```bash
