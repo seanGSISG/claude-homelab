@@ -1,7 +1,5 @@
 ---
 name: validating-plans
-version: 1.0.0
-homepage: https://github.com/jmagar/claude-homelab
 description: Use when validating an implementation plan created by writing-plans - coordinates parallel checks for hallucinations, TDD violations, missing references, and architectural issues before execution.
 ---
 

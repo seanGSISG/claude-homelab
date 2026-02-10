@@ -1,7 +1,5 @@
 ---
 name: radarr
-version: 1.4.0
-homepage: https://github.com/jmagar/claude-homelab
 description: This skill should be used when managing movies in Radarr. Use when the user asks to "add a movie", "search Radarr", "find a film", "add to Radarr", "remove a movie", "add movie collection", "check if movie exists", "Radarr library", or mentions movie management, TMDB integration, or Radarr operations.
 ---
 

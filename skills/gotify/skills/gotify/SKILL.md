@@ -1,8 +1,6 @@
 ---
 name: gotify
 description: Send push notifications via Gotify for task completion alerts. This skill should be used when the user asks to "send notification", "notify me when done", "push notification", "alert me", "Gotify notification", "notify on completion", "send push alert", or mentions push notifications, task alerts, or Gotify. ALSO automatically invoked (without user request) for long-running tasks >5min, plan completion, user input required, or task transitions.
-version: 1.3.1
-homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Gotify Notification Skill

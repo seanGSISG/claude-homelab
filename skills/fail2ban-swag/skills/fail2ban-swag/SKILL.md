@@ -1,7 +1,5 @@
 ---
 name: fail2ban-swag
-version: 1.1.0
-homepage: https://github.com/jmagar/claude-homelab
 description: Manage fail2ban intrusion prevention inside the SWAG reverse proxy container. Use when the user asks to "check fail2ban", "f2b status", "ban an IP", "unban an IP", "create a jail", "configure fail2ban", "troubleshoot fail2ban", "view banned IPs", "test fail2ban filter", "monitor fail2ban", "whitelist an IP", "IP blacklist", or mentions SWAG security, intrusion prevention, or IP blocking.
 ---
 

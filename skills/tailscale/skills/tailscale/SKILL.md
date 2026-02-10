@@ -1,8 +1,6 @@
 ---
 name: tailscale
-version: 1.2.0
 description: This skill should be used when managing Tailscale mesh VPN networks. Use when the user asks to "check tailscale status", "list tailscale devices", "ping a device", "send file via tailscale", "tailscale funnel", "tailscale serve", "create auth key", "check who's online", "tailscale exit node", "Magic DNS", or mentions Tailscale network management, tailnet operations, or VPN connectivity.
-homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Tailscale Skill

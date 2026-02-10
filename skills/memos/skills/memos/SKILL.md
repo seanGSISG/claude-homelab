@@ -1,8 +1,6 @@
 ---
 name: memos
-version: 1.1.0
 description: Manage notes and memos in self-hosted Memos service. Use when the user asks to "save this to memos", "create a memo", "search my memos", "find notes about X", "what did I write about", "add a note", "capture this", "remember this", "save this thought", or mentions note-taking, knowledge management, or personal notes.
-homepage: https://github.com/jmagar/claude-homelab
 
 # Memos Skill
 

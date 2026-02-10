@@ -1,7 +1,5 @@
 ---
 name: linkding
-version: 1.2.0
-homepage: https://github.com/jmagar/claude-homelab
 description: Manage bookmarks with Linkding. Use when the user asks to "save a bookmark", "add link", "search bookmarks", "list my bookmarks", "find saved links", "tag a bookmark", "archive bookmark", "check if URL is saved", "list tags", "create bundle", or mentions Linkding bookmark management.
 ---
 

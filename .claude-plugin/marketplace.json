@@ -15,7 +15,12 @@
       "description": "Core homelab functionality - specialized agents (agentic-orchestrator, exa-specialist, firecrawl-specialist, notebooklm-specialist) and commands (/setup-homelab, /agentic-research, /firecrawl:*, /homelab:*, /notebooklm:*) for orchestrating research and monitoring system health. Includes .env.example template and setup script.",
       "version": "1.0.0",
       "category": "core",
-      "tags": ["agents", "commands", "orchestration", "system-monitoring"],
+      "tags": [
+        "agents",
+        "commands",
+        "orchestration",
+        "system-monitoring"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab",
       "agents": [
         "./agents/agentic-orchestrator.md",
@@ -37,7 +42,12 @@
       "description": "Control Plex Media Server - browse libraries, search media, check what's playing, view recently added",
       "version": "1.3.1",
       "category": "media",
-      "tags": ["plex", "media", "streaming", "read-only"],
+      "tags": [
+        "plex",
+        "media",
+        "streaming",
+        "read-only"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -46,7 +56,12 @@
       "description": "Search and add movies to Radarr library with collection support. Includes both safe operations and destructive operations (with confirmation)",
       "version": "1.4.0",
       "category": "media",
-      "tags": ["radarr", "movies", "media-management", "automation"],
+      "tags": [
+        "radarr",
+        "movies",
+        "media-management",
+        "automation"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -55,7 +70,12 @@
       "description": "Search and add TV shows to Sonarr library. Includes both safe operations and destructive operations (with confirmation)",
       "version": "1.4.0",
       "category": "media",
-      "tags": ["sonarr", "tv-shows", "media-management", "automation"],
+      "tags": [
+        "sonarr",
+        "tv-shows",
+        "media-management",
+        "automation"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -64,7 +84,11 @@
       "description": "Request movies and TV shows via Overseerr, monitor request status, and manage media requests",
       "version": "1.2.0",
       "category": "media",
-      "tags": ["overseerr", "media-requests", "plex"],
+      "tags": [
+        "overseerr",
+        "media-requests",
+        "plex"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -73,7 +97,11 @@
       "description": "Search indexers and manage Prowlarr for torrent and usenet searching",
       "version": "1.2.1",
       "category": "media",
-      "tags": ["prowlarr", "indexers", "search"],
+      "tags": [
+        "prowlarr",
+        "indexers",
+        "search"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -82,7 +110,13 @@
       "description": "Monitor and analyze Plex Media Server usage via Tautulli analytics API - viewing history, user statistics, stream analytics",
       "version": "1.0.0",
       "category": "media",
-      "tags": ["tautulli", "plex", "analytics", "monitoring", "read-only"],
+      "tags": [
+        "tautulli",
+        "plex",
+        "analytics",
+        "monitoring",
+        "read-only"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -91,7 +125,11 @@
       "description": "Manage torrents with qBittorrent WebUI API - add, pause, resume, and delete torrents",
       "version": "1.2.1",
       "category": "downloads",
-      "tags": ["qbittorrent", "torrents", "downloads"],
+      "tags": [
+        "qbittorrent",
+        "torrents",
+        "downloads"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -100,7 +138,12 @@
       "description": "Manage Usenet downloads with SABnzbd API - queue management, NZB handling, download monitoring",
       "version": "1.2.0",
       "category": "downloads",
-      "tags": ["sabnzbd", "usenet", "downloads", "nzb"],
+      "tags": [
+        "sabnzbd",
+        "usenet",
+        "downloads",
+        "nzb"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -109,7 +152,13 @@
       "description": "Query and monitor Unraid servers via GraphQL API - array status, disk health, containers, VMs, system monitoring",
       "version": "1.1.0",
       "category": "infrastructure",
-      "tags": ["unraid", "monitoring", "system", "graphql", "read-only"],
+      "tags": [
+        "unraid",
+        "monitoring",
+        "system",
+        "graphql",
+        "read-only"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -118,7 +167,12 @@
       "description": "Monitor UniFi network via local gateway API - device status, client monitoring, network health, DPI statistics",
       "version": "1.2.0",
       "category": "infrastructure",
-      "tags": ["unifi", "networking", "monitoring", "read-only"],
+      "tags": [
+        "unifi",
+        "networking",
+        "monitoring",
+        "read-only"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -127,7 +181,12 @@
       "description": "Manage Tailscale mesh VPN networks - device status, file sharing, funnel, serve, auth keys, exit nodes",
       "version": "1.2.0",
       "category": "infrastructure",
-      "tags": ["tailscale", "vpn", "networking", "mesh"],
+      "tags": [
+        "tailscale",
+        "vpn",
+        "networking",
+        "mesh"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -136,7 +195,12 @@
       "description": "Monitor system health via Glances REST API - CPU, memory, disk, network, sensors, containers, processes",
       "version": "1.3.1",
       "category": "infrastructure",
-      "tags": ["glances", "monitoring", "system-health", "read-only"],
+      "tags": [
+        "glances",
+        "monitoring",
+        "system-health",
+        "read-only"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -145,16 +209,13 @@
       "description": "Manage ZFS pools in homelab environment - health monitoring, snapshot management with Sanoid/Syncoid, replication, scrub scheduling. CRITICAL: Enforces mandatory double confirmation for destructive operations",
       "version": "2.0.0",
       "category": "infrastructure",
-      "tags": ["zfs", "storage", "snapshots", "replication", "sanoid"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "authelia",
-      "source": "./skills/authelia",
-      "description": "Monitor authentication security and user sessions via Authelia REST API - login tracking, 2FA status, session monitoring",
-      "version": "1.0.0",
-      "category": "security",
-      "tags": ["authelia", "authentication", "security", "monitoring", "read-only"],
+      "tags": [
+        "zfs",
+        "storage",
+        "snapshots",
+        "replication",
+        "sanoid"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -163,7 +224,13 @@
       "description": "Manage fail2ban intrusion prevention inside SWAG reverse proxy container - ban/unban IPs, jail management, filter testing",
       "version": "1.1.0",
       "category": "security",
-      "tags": ["fail2ban", "security", "swag", "reverse-proxy", "intrusion-prevention"],
+      "tags": [
+        "fail2ban",
+        "security",
+        "swag",
+        "reverse-proxy",
+        "intrusion-prevention"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -172,7 +239,12 @@
       "description": "Send push notifications via Gotify for task completion alerts and system notifications",
       "version": "1.3.1",
       "category": "utilities",
-      "tags": ["gotify", "notifications", "alerts", "push"],
+      "tags": [
+        "gotify",
+        "notifications",
+        "alerts",
+        "push"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -181,7 +253,11 @@
       "description": "Manage bookmarks with Linkding API - save, search, tag, archive bookmarks and create bundles",
       "version": "1.2.0",
       "category": "utilities",
-      "tags": ["linkding", "bookmarks", "organization"],
+      "tags": [
+        "linkding",
+        "bookmarks",
+        "organization"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -190,7 +266,11 @@
       "description": "Manage notes and memos in self-hosted Memos service - create, search, tag, and organize personal notes",
       "version": "1.1.0",
       "category": "utilities",
-      "tags": ["memos", "notes", "knowledge-management"],
+      "tags": [
+        "memos",
+        "notes",
+        "knowledge-management"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -199,7 +279,11 @@
       "description": "Manage code snippets in ByteStash - multi-file support, share management, auto-categorization for 30+ languages",
       "version": "1.1.0",
       "category": "utilities",
-      "tags": ["bytestash", "snippets", "code-storage"],
+      "tags": [
+        "bytestash",
+        "snippets",
+        "code-storage"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -208,7 +292,12 @@
       "description": "Manage documents in Paperless-ngx - upload with auto-OCR, full-text search, tag management, bulk operations",
       "version": "1.0.0",
       "category": "utilities",
-      "tags": ["paperless", "documents", "ocr", "organization"],
+      "tags": [
+        "paperless",
+        "documents",
+        "ocr",
+        "organization"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -217,7 +306,13 @@
       "description": "Manage calendars and contacts on self-hosted Radicale CalDAV/CardDAV server - events, contacts, natural language parsing",
       "version": "1.1.0",
       "category": "utilities",
-      "tags": ["radicale", "caldav", "carddav", "calendar", "contacts"],
+      "tags": [
+        "radicale",
+        "caldav",
+        "carddav",
+        "calendar",
+        "contacts"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -226,7 +321,12 @@
       "description": "Download and manage live music from Nugs.net with video-first support - browse 13,000+ concerts, download audio/video, track coverage",
       "version": "2.0.0",
       "category": "utilities",
-      "tags": ["nugs", "music", "concerts", "downloads"],
+      "tags": [
+        "nugs",
+        "music",
+        "concerts",
+        "downloads"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -235,7 +335,13 @@
       "description": "Web scraping and crawling with Firecrawl API - scrape pages, search web, map sites, crawl websites with LLM-optimized output. Includes RAG capabilities with Qdrant vector database",
       "version": "2.6.0",
       "category": "research",
-      "tags": ["firecrawl", "web-scraping", "crawling", "rag", "vector-search"],
+      "tags": [
+        "firecrawl",
+        "web-scraping",
+        "crawling",
+        "rag",
+        "vector-search"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -244,7 +350,12 @@
       "description": "Semantic web search using Exa.ai neural search optimized for AI consumption - find academic papers, similar companies, code context",
       "version": "1.0.0",
       "category": "research",
-      "tags": ["exa", "semantic-search", "ai", "research"],
+      "tags": [
+        "exa",
+        "semantic-search",
+        "ai",
+        "research"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -253,7 +364,12 @@
       "description": "Programmatic access to Google NotebookLM - create notebooks, add sources, chat with content, generate artifacts (podcasts, videos, reports)",
       "version": "1.0.0",
       "category": "research",
-      "tags": ["notebooklm", "research", "ai", "google"],
+      "tags": [
+        "notebooklm",
+        "research",
+        "ai",
+        "google"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -262,7 +378,12 @@
       "description": "Access up-to-date official OpenAI documentation with citations - Codex, APIs, Chat Completions, Agents SDK, model capabilities",
       "version": "1.0.0",
       "category": "research",
-      "tags": ["openai", "documentation", "api", "ai"],
+      "tags": [
+        "openai",
+        "documentation",
+        "api",
+        "ai"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -271,7 +392,12 @@
       "description": "Shared team playbook for multi-agent deep research operations - communication protocols, quality tiers, parallel safety, error handling",
       "version": "1.0.0",
       "category": "agents",
-      "tags": ["research", "agents", "orchestration", "playbook"],
+      "tags": [
+        "research",
+        "agents",
+        "orchestration",
+        "playbook"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -280,7 +406,14 @@
       "description": "Orchestrate deep, multi-source research using ExaAI, Firecrawl, and NotebookLM specialist agents with 5-phase methodology",
       "version": "1.0.0",
       "category": "agents",
-      "tags": ["research", "orchestration", "agents", "exa", "firecrawl", "notebooklm"],
+      "tags": [
+        "research",
+        "orchestration",
+        "agents",
+        "exa",
+        "firecrawl",
+        "notebooklm"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -289,7 +422,12 @@
       "description": "Address PR comments and fix review feedback using gh CLI - systematic handling of GitHub code review comments",
       "version": "1.1.0",
       "category": "development",
-      "tags": ["github", "code-review", "pr", "gh-cli"],
+      "tags": [
+        "github",
+        "code-review",
+        "pr",
+        "gh-cli"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -298,7 +436,12 @@
       "description": "Validate implementation plans before execution - parallel checks for hallucinations, TDD violations, missing references, architectural issues",
       "version": "1.0.0",
       "category": "development",
-      "tags": ["planning", "validation", "architecture", "tdd"],
+      "tags": [
+        "planning",
+        "validation",
+        "architecture",
+        "tdd"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
@@ -307,7 +450,12 @@
       "description": "Search, install, update, and publish agent skills from clawdhub.com using the ClawHub CLI",
       "version": "1.0.0",
       "category": "development",
-      "tags": ["clawhub", "skills", "marketplace", "cli"],
+      "tags": [
+        "clawhub",
+        "skills",
+        "marketplace",
+        "cli"
+      ],
       "homepage": "https://github.com/jmagar/claude-homelab"
     }
   ]

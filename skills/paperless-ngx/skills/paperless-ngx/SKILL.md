@@ -1,8 +1,6 @@
 ---
 name: paperless-ngx
-version: 1.0.0
 description: Manage documents in Paperless-ngx document management system. Use when the user asks to "upload document", "search paperless", "find document", "add to paperless", "tag document", "manage correspondents", "organize documents", "archive document", "export document", "delete document", or mentions Paperless-ngx, document management, OCR, or paperless office.
-homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Paperless-ngx Skill

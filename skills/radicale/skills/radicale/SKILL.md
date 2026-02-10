@@ -1,8 +1,6 @@
 ---
 name: radicale
-version: 1.1.0
 description: This skill should be used when managing calendars and contacts on a self-hosted Radicale CalDAV/CardDAV server. Use when the user asks to "list my calendar", "what's on my calendar this week", "show me my events", "when is my next event", "add to my calendar", "create an event", "schedule a meeting", "schedule an event", "delete an event", "cancel event", "remove event", "find a contact", "what's someone's email", "search my contacts", "who is", "add a contact", "save contact", "save someone's phone number", or mentions Radicale, CalDAV, CardDAV, calendar events, or contact management operations.
-homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Radicale CalDAV/CardDAV Management

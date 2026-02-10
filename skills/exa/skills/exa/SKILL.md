@@ -1,8 +1,6 @@
 ---
 name: exa
-version: 1.0.0
 description: Semantic web search using Exa.ai neural search optimized for AI consumption. Use when meaning matters more than keywords -- find academic papers, similar companies, code context, and conceptual content that keyword search misses.
-homepage: https://github.com/jmagar/claude-homelab
 metadata:
   clawdbot:
     emoji: "🔍"

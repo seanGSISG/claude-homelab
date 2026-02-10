@@ -1,8 +1,6 @@
 ---
 name: sonarr
-version: 1.4.0
 description: This skill should be used when managing TV shows in Sonarr. Use when the user asks to "add a TV show", "search Sonarr", "find a series", "add to Sonarr", "remove a show", "check if show exists", "Sonarr library", "TVDB lookup", or mentions TV show management or Sonarr operations.
-homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Sonarr TV Show Management Skill

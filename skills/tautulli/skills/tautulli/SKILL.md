@@ -1,8 +1,6 @@
 ---
 name: tautulli
-version: 1.0.0
 description: Monitor and analyze Plex Media Server usage via Tautulli analytics API. Use when the user asks to "check Tautulli", "Plex analytics", "watch statistics", "current streams", "who's watching", "Plex history", "most watched", "user activity", "library stats", or mentions Tautulli/Plex monitoring.
-homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Tautulli Analytics Skill

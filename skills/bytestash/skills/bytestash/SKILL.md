@@ -1,7 +1,5 @@
 ---
 name: bytestash
-version: 1.1.0
-homepage: https://github.com/jmagar/claude-homelab
 description: Manage code snippets in ByteStash snippet storage service. This skill should be used when the user asks to "save a snippet", "search snippets", "find code", "share snippet", "organize snippets", "list my snippets", "create snippet", "delete snippet", or mentions ByteStash, code storage, snippet management, or code archival.
 ---
 

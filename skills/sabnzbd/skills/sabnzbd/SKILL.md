@@ -1,7 +1,5 @@
 ---
 name: sabnzbd
-version: 1.2.0
-homepage: https://github.com/jmagar/claude-homelab
 description: Manage Usenet downloads with SABnzbd. Use when the user asks to "check SABnzbd", "list NZB queue", "add NZB", "pause downloads", "resume downloads", "SABnzbd status", "Usenet queue", "NZB history", or mentions SABnzbd/sab download management.
 ---
 

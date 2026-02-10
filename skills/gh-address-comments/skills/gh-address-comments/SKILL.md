@@ -1,7 +1,5 @@
 ---
 name: gh-address-comments
-version: 1.1.0
-homepage: https://github.com/jmagar/claude-homelab
 description: This skill should be used when the user asks to "address PR comments", "fix review feedback", "handle GitHub comments", "respond to code review", "fix PR issues", "address feedback", "resolve review comments", "GitHub PR review", or mentions addressing comments on a pull request using gh CLI.
 ---
 

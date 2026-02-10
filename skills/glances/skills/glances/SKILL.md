@@ -1,7 +1,5 @@
 ---
 name: glances
-version: 1.3.1
-homepage: https://github.com/jmagar/claude-homelab
 description: Monitor system health via Glances REST API (CPU, memory, disk, network, sensors, containers, processes). Use when the user asks to "check glances", "system stats", "CPU usage", "memory usage", "glances status", "server health via glances", "disk space", "network traffic", "container stats", "process list", "sensor temperatures", or mentions Glances/system monitoring.
 ---
 

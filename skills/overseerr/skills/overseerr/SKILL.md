@@ -1,8 +1,6 @@
 ---
 name: overseerr
-version: 1.2.0
 description: Request movies and TV shows via Overseerr, monitor request status, and manage media requests. Use when the user asks to "request a movie", "request a TV show", "check request status", "pending requests", "Overseerr status", "media request", or mentions Overseerr/Seerr media requesting.
-homepage: https://github.com/jmagar/claude-homelab
 ---
 
 # Overseerr Media Request Skill
