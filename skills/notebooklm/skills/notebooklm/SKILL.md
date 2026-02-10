@@ -7,7 +7,8 @@ metadata:
   clawdbot:
     emoji: "📓"
     requires:
-      bins: ["notebooklm"]
+      bins:
+        - notebooklm
 ---
 
 # NotebookLM Automation Skill

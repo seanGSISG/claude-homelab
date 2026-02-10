@@ -7,7 +7,11 @@ metadata:
   clawdbot:
     emoji: "📋"
     requires:
-      skills: ["exa", "firecrawl", "notebooklm", "agentic-research-orchestration"]
+      skills:
+        - exa
+        - firecrawl
+        - notebooklm
+        - agentic-research-orchestration
 ---
 
 # Agentic Research — Shared Team Playbook

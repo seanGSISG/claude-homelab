@@ -7,8 +7,13 @@ metadata:
   clawdbot:
     emoji: "🔬"
     requires:
-      bins: ["notebooklm", "firecrawl"]
-      skills: ["exa", "firecrawl", "notebooklm"]
+      bins:
+        - notebooklm
+        - firecrawl
+      skills:
+        - exa
+        - firecrawl
+        - notebooklm
 ---
 
 # Agentic Research Orchestration Skill

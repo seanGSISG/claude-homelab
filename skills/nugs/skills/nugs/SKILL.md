@@ -4,7 +4,13 @@ version: 2.0.0
 description: Download and manage live music from Nugs.net with video-first support - browse 13,000+ concerts with media type indicators (🎵 audio, 🎬 video, 📹 both), download shows in multiple formats, find missing albums by media type, track collection coverage. Supports audio-only, video-only, or comprehensive both-format workflows. Use when the user asks to "download a show", "download video", "list nugs artists", "find Billy Strings shows", "download Grateful Dead", "check video gaps", "nugs catalog", "latest shows", "latest videos", "download coverage", "add to nugs", "browse concerts", or mentions Nugs.net, live music downloads, video downloads, or concert collection management.
 homepage: https://github.com/jmagar/claude-homelab
 keywords: nugs, live music, concerts, downloads, video, audio, gap detection, coverage, catalog
-tags: [music, video, downloads, concerts, nugs.net, collection-management]
+tags:
+  - music
+  - video
+  - downloads
+  - concerts
+  - nugs.net
+  - collection-management
 ---
 
 # Nugs CLI Skill

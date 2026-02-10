@@ -7,7 +7,8 @@ metadata:
   clawdbot:
     emoji: "🔍"
     requires:
-      mcp: ["exa"]
+      mcp:
+        - exa
 ---
 
 # Exa Semantic Search Skill
