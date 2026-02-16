@@ -1,39 +1,35 @@
 ---
 description: Extract structured data from URLs using prompts or schemas
-argument-hint: <url> --prompt "what to extract" [options]
-allowed-tools: Bash(firecrawl:*), mcp__plugin_zsh-tool_zsh-tool__zsh
+argument-hint: <url> --prompt "extraction prompt"
+allowed-tools: Bash(firecrawl *)
 ---
 
-Extract structured data using the Firecrawl CLI:
+# Extract Structured Data
 
-$ARGUMENTS
+Execute the Firecrawl extract command with the provided arguments:
+
+```bash
+firecrawl extract $ARGUMENTS
+```
 
 ## Instructions
 
-Run `firecrawl extract` with the provided URL and extraction options. Use zsh-tool with `pty: true` for visible output.
+1. **Execute the command** using the Bash tool with the arguments provided
+2. **Parse the response** to extract:
+   - Structured data matching the prompt/schema
+   - Extracted fields and values
+   - Metadata about the extraction
+3. **Present the results** in a structured format:
+   - Table format for structured data
+   - JSON format for complex nested data
+   - Clear labeling of extracted fields
+4. **Validate** that data matches the requested schema or prompt
 
-**Common options:**
-- `--prompt "<prompt>"` - Natural language extraction prompt (required unless --schema)
-- `--schema '<json>'` - JSON schema defining expected output structure
-- `--system-prompt "<prompt>"` - System prompt for extraction model
-- `--enable-web-search` - Allow web search for additional context
-- `--show-sources` - Show source URLs used for extraction
-- `--no-embed` - Skip vector database embedding
-- `-o <path>` - Save results to file
+## Expected Output
 
-**Usage patterns:**
+The command returns JSON containing:
+- `data`: Extracted structured data matching prompt/schema
+- `metadata`: Source URL, extraction timestamp
+- `schema`: Schema used for extraction (if provided)
 
-```bash
-# Natural language extraction
-firecrawl extract https://example.com --prompt "Extract product names and prices"
-
-# Schema-based extraction
-firecrawl extract https://example.com --schema '{"type":"object","properties":{"title":{"type":"string"},"price":{"type":"number"}}}'
-
-# With web search and sources
-firecrawl extract https://example.com --prompt "Find contact info" --enable-web-search --show-sources
-```
-
-Present extracted data in a clear, structured format.
-
-For detailed parameters, see `skills/firecrawl/references/parameters.md`.
+Present the extracted data in a clear, organized format that matches the user's extraction requirements.

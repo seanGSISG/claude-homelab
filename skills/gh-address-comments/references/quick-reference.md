@@ -37,39 +37,86 @@ gh pr diff -- src/api.py
 ### Fetch Comments (Script)
 
 ```bash
-# Run fetch script
+# Fetch all PR comments and threads
 python3 scripts/fetch_comments.py
 
+# Save to file for verification
+python3 scripts/fetch_comments.py > /tmp/pr_comments.json
+```
+
+---
+
+### Mark Threads Resolved
+
+```bash
+# Mark specific review threads as resolved
+python3 scripts/mark_resolved.py PRRT_kwDOABCDEF1234567 PRRT_kwDOABCDEF7654321
+
 # Output:
-# 1. [alice] Line 42 in api.py: Use async/await
-# 2. [bob] Line 15 in README.md: Fix typo
+# ✓ Resolved thread PRRT_kwDOABCDEF1234567 (by your-username)
+# ✓ Resolved thread PRRT_kwDOABCDEF7654321 (by your-username)
+# Resolved 2/2 threads
+```
+
+---
+
+### Verify Resolution
+
+```bash
+# Verify all threads are resolved (blocks if unresolved)
+python3 scripts/fetch_comments.py | python3 scripts/verify_resolution.py
+
+# Exit 0: All resolved ✓
+# Exit 1: Unresolved threads found (BLOCKED)
 ```
 
 ---
 
 ## Common Workflows
 
-### Address Review Feedback
+### Address Review Feedback (Enhanced with Resolution Tracking)
 
-1. **Fetch comments:**
+1. **Fetch comments and save:**
    ```bash
-   python3 scripts/fetch_comments.py
+   python3 scripts/fetch_comments.py > /tmp/pr_comments.json
    ```
 
-2. **Read numbered list of comments**
+2. **Create task checklist** (using TaskCreate in Claude Code)
+   - Parse threads and create tasks
+   - Track progress visibly
 
-3. **Apply fixes for selected comments**
+3. **Select comments to address:**
+   - Review numbered list
+   - Choose which to fix in this session
 
-4. **Commit changes:**
+4. **Apply fixes with proper linking:**
    ```bash
-   git add -A
-   git commit -m "Address PR feedback: Fix items 1, 3, 5"
+   # Make code changes
+
+   # Commit with thread reference
+   git add src/api/users.ts
+   git commit -m "fix: address PR comment #1 - add email validation
+
+   Resolves review thread PRRT_kwDOABCDEF1234567
+   - Added Zod schema validation for email field
+   - Added error handling for invalid formats
+
+   Co-authored-by: @reviewer"
+   ```
+
+5. **Mark threads as resolved:**
+   ```bash
+   python3 scripts/mark_resolved.py PRRT_kwDOABCDEF1234567
+   ```
+
+6. **Verify complete resolution (MANDATORY):**
+   ```bash
+   python3 scripts/fetch_comments.py | python3 scripts/verify_resolution.py
+   ```
+
+7. **Push changes:**
+   ```bash
    git push
-   ```
-
-5. **Reply to comments:**
-   ```bash
-   gh pr comment --body "Fixed in latest commit"
    ```
 
 ---
@@ -262,13 +309,13 @@ gh pr view --json state --jq '.state'
 
 ---
 
-## Complete Example Workflow
+## Complete Example Workflow (Enhanced)
 
 ```bash
 #!/bin/bash
 set -euo pipefail
 
-echo "=== Addressing PR Comments ==="
+echo "=== Addressing PR Comments with Resolution Tracking ==="
 
 # 1. Check authentication
 if ! gh auth status &>/dev/null; then
@@ -282,26 +329,62 @@ PR_NUM=$(gh pr view --json number --jq '.number')
 PR_TITLE=$(gh pr view --json title --jq '.title')
 echo "PR #$PR_NUM: $PR_TITLE"
 
-# 3. Fetch and display comments
+# 3. Fetch and save comments
 echo -e "\nFetching comments..."
-python3 scripts/fetch_comments.py
+COMMENTS_FILE="/tmp/pr_${PR_NUM}_comments.json"
+python3 scripts/fetch_comments.py > "$COMMENTS_FILE"
 
-# 4. User selects comments to address
-read -p "Which comments to address? (e.g., 1,3,5): " SELECTED
+# 4. Display threads
+cat "$COMMENTS_FILE" | jq -r '.review_threads[] | select(.isResolved == false) |
+    "\(.id)\t\(.path):\(.line)\t\(.comments.nodes[0].author.login)\t\(.comments.nodes[0].body[:80])"' |
+    nl -w2 -s'. '
 
-# 5. Apply fixes (manual or automated)
+# 5. User selects comments to address
+read -p "Which comment numbers to address? (e.g., 1,3,5): " SELECTED
+
+# 6. Extract thread IDs for selected comments
+THREAD_IDS=()
+for num in ${SELECTED//,/ }; do
+    THREAD_ID=$(cat "$COMMENTS_FILE" | jq -r ".review_threads[$((num-1))].id")
+    THREAD_IDS+=("$THREAD_ID")
+done
+
+# 7. Apply fixes (manual or automated)
 echo "Applying fixes for selected comments..."
-# ... implementation-specific ...
+# ... implementation-specific code changes ...
 
-# 6. Commit and push
-git add -A
-git commit -m "Address PR comments: #$SELECTED"
-git push
+# 8. Commit with proper linking
+for i in "${!THREAD_IDS[@]}"; do
+    THREAD_ID="${THREAD_IDS[$i]}"
+    COMMENT_NUM=$((i+1))
 
-# 7. Reply to addressed comments
-gh pr comment --body "Fixed issues #$SELECTED in latest commit"
+    git add -A
+    git commit -m "fix: address PR comment #${COMMENT_NUM} - [description]
 
-echo "✅ Comments addressed successfully!"
+Resolves review thread ${THREAD_ID}
+- [Describe change 1]
+- [Describe change 2]
+
+Co-authored-by: @reviewer"
+done
+
+# 9. Mark threads as resolved
+echo "Marking threads as resolved..."
+python3 scripts/mark_resolved.py "${THREAD_IDS[@]}"
+
+# 10. Verify complete resolution (MANDATORY)
+echo -e "\nVerifying resolution..."
+if python3 scripts/fetch_comments.py | python3 scripts/verify_resolution.py; then
+    echo "✓ All threads resolved"
+
+    # 11. Push changes
+    git push
+
+    echo "✅ Comments addressed and verified successfully!"
+else
+    echo "✗ Unresolved threads remain - fix before pushing"
+    exit 1
+fi
 ```
 
 ---
@@ -309,10 +392,13 @@ echo "✅ Comments addressed successfully!"
 ## Tips
 
 - **Always fetch fresh comments** - Don't work from stale comment list
-- **Number your fixes** - Reference comment numbers in commit messages
-- **Reply when done** - Let reviewers know issues are addressed
-- **Test before pushing** - Ensure fixes actually work
-- **Group related fixes** - One commit per logical group of changes
+- **Link commits to threads** - Include `Resolves review thread <ID>` in commit messages
+- **Create task checklist** - Track progress with TaskCreate/TaskUpdate
+- **Mark threads resolved** - Use `mark_resolved.py` after committing fixes
+- **Verify before pushing** - ALWAYS run `verify_resolution.py` to block incomplete work
+- **Test before marking resolved** - Ensure fixes actually work
+- **Group related fixes** - One commit per logical change
+- **Document deferrals** - If deferring a thread, create follow-up task and get user approval
 
 ---
 
@@ -324,6 +410,8 @@ echo "✅ Comments addressed successfully!"
 | View comments | `gh pr view --comments` |
 | View diff | `gh pr diff` |
 | Fetch comments | `python3 scripts/fetch_comments.py` |
+| Mark resolved | `python3 scripts/mark_resolved.py <thread_id>` |
+| Verify resolution | `python3 scripts/verify_resolution.py` |
 | Add comment | `gh pr comment --body "text"` |
 | Approve PR | `gh pr review --approve` |
 | Request changes | `gh pr review --request-changes` |
@@ -331,5 +419,14 @@ echo "✅ Comments addressed successfully!"
 | Login | `gh auth login` |
 
 ---
+
+**Mandatory Workflow Steps:**
+
+1. Fetch comments → Save to file
+2. Create task checklist for tracking
+3. Apply fixes with proper commit linking
+4. Mark threads as resolved
+5. **Verify complete resolution** (blocks if incomplete)
+6. Push changes
 
 **Remember:** Always address the root cause, not just the symptom mentioned in the comment!

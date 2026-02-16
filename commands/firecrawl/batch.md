@@ -1,33 +1,41 @@
 ---
 description: Batch scrape multiple URLs with job management
-argument-hint: <url1> <url2> ... [options] | status <job-id> | cancel <job-id> | errors <job-id>
-allowed-tools: Bash(firecrawl:*), mcp__plugin_zsh-tool_zsh-tool__zsh
+argument-hint: <url1> <url2> ... [options] | status <job-id> | cancel <job-id>
+allowed-tools: Bash(firecrawl *)
 ---
 
-Perform batch operations using the Firecrawl CLI:
+# Batch Scrape Multiple URLs
 
-$ARGUMENTS
+Execute the Firecrawl batch command with the provided arguments:
+
+```bash
+firecrawl batch $ARGUMENTS
+```
 
 ## Instructions
 
-Use zsh-tool with `pty: true` for visible output.
+1. **Execute the command** using the Bash tool with the arguments provided
+2. **Handle different batch operations**:
+   - **Scrape multiple URLs**: Process array of URLs asynchronously
+   - **Check status**: Query job status with `status <job-id>`
+   - **Cancel job**: Stop running job with `cancel <job-id>`
+3. **Parse the response** based on operation:
+   - **New batch**: Job ID and initial status
+   - **Status check**: Progress, completed URLs, errors
+   - **Cancel**: Cancellation confirmation
+4. **Present the results** including:
+   - Job ID for tracking
+   - Number of URLs processed/pending
+   - Summary of scraped content
+   - Any errors or failures
 
-**Batch subcommands:**
+## Expected Output
 
-1. **Start batch scrape:** `firecrawl batch <url1> <url2> ... [options]`
-   - `--no-embed` - Skip vector database embedding
-   - `-o <path>` - Save results to file
+The command returns JSON containing:
+- `job_id`: Batch job identifier
+- `status`: Current status (queued/running/completed/failed)
+- `total_urls`: Total URLs in batch
+- `completed`: Number of URLs processed
+- `results`: Array of scraped content (when complete)
 
-2. **Check batch status:** `firecrawl batch status <job-id>`
-
-3. **Cancel batch job:** `firecrawl batch cancel <job-id>`
-
-4. **View batch errors:** `firecrawl batch errors <job-id>`
-
-**CRITICAL:** Do NOT add constraints unless the user explicitly requests them.
-
-**Auto-embedding:** All batch results are automatically embedded into Qdrant unless `--no-embed` is specified.
-
-If the user provides multiple URLs without a subcommand, start a batch scrape. If they provide a job ID, check its status.
-
-For detailed job management docs, see `skills/firecrawl/references/job-management.md`.
+Present batch processing status and confirm successful embedding to Qdrant.

@@ -10,7 +10,7 @@ Requires:
   - current branch has an associated (open) PR
 
 Usage:
-  python fetch_comments.py > pr_comments.json
+  python3 fetch_comments.py > pr_comments.json
 """
 
 from __future__ import annotations
@@ -218,6 +218,16 @@ def fetch_all(owner: str, repo: str, number: int) -> dict[str, Any]:
             break
 
     assert pr_meta is not None
+
+    # Sort all collections by newest first
+    conversation_comments.sort(key=lambda x: x["createdAt"], reverse=True)
+    reviews.sort(key=lambda x: x["submittedAt"], reverse=True)
+    # Sort review threads by the first comment's creation time (newest first)
+    review_threads.sort(
+        key=lambda x: x["comments"]["nodes"][0]["createdAt"] if x["comments"]["nodes"] else "",
+        reverse=True
+    )
+
     return {
         "pull_request": pr_meta,
         "conversation_comments": conversation_comments,

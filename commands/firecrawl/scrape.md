@@ -1,29 +1,32 @@
 ---
 description: Scrape a single URL for LLM-ready content
 argument-hint: <url> [options]
-allowed-tools: Bash(firecrawl:*), mcp__plugin_zsh-tool_zsh-tool__zsh
+allowed-tools: Bash(firecrawl *)
 ---
 
-Scrape the following URL using the Firecrawl CLI:
+# Scrape Single URL
 
-$ARGUMENTS
+Execute the Firecrawl scrape command with the provided arguments:
+
+```bash
+firecrawl scrape $ARGUMENTS
+```
 
 ## Instructions
 
-Run `firecrawl scrape` with the provided URL and any options. Use zsh-tool with `pty: true` for visible output.
+1. **Execute the command** using the Bash tool with the arguments provided
+2. **Parse the response** to extract:
+   - Scraped content (markdown format)
+   - Metadata (title, description, URL)
+   - Embedding confirmation
+3. **Present the results** in a clear, formatted way
+4. **Confirm** that content has been embedded into Qdrant for semantic search
 
-**Common options** (only add if user specifies):
-- `--format markdown|html|links` - Output format (default: markdown)
-- `--only-main-content` - Strip nav/footer/sidebar
-- `--wait-for <ms>` - Wait for JS rendering
-- `--screenshot` - Capture page screenshot
-- `--no-embed` - Skip vector database embedding
-- `-o <path>` - Save output to file
+## Expected Output
 
-**CRITICAL:** Do NOT add `--limit`, `--max-depth`, or other constraints unless the user explicitly requests them.
+The command returns JSON containing:
+- `content`: LLM-ready markdown content
+- `metadata`: Page metadata (title, description, etc.)
+- `embedded`: Confirmation of Qdrant embedding
 
-**Auto-embedding:** Content is automatically embedded into Qdrant unless `--no-embed` is specified.
-
-Present the scraped content clearly. If multiple formats are returned, show each format section.
-
-For detailed parameters, see `skills/firecrawl/references/parameters.md`.
+Present the scraped content and confirm successful embedding.

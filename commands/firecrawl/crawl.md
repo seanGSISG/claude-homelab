@@ -1,30 +1,37 @@
 ---
 description: Crawl entire website with depth and path controls
 argument-hint: <url> [--limit N] [--max-depth N]
-allowed-tools: Bash(firecrawl:*), mcp__plugin_zsh-tool_zsh-tool__zsh
+allowed-tools: Bash(firecrawl *)
 ---
 
-Crawl the following website using the Firecrawl CLI:
+# Crawl Entire Website
 
-$ARGUMENTS
+Execute the Firecrawl crawl command with the provided arguments:
+
+```bash
+firecrawl crawl $ARGUMENTS
+```
 
 ## Instructions
 
-Run `firecrawl crawl` with the provided URL and options. Always include `--wait --progress` for real-time tracking. Use zsh-tool with `pty: true` for visible output.
+1. **Execute the command** using the Bash tool with the arguments provided
+2. **Monitor the crawl progress** - crawling is asynchronous and may take time
+3. **Parse the response** to extract:
+   - List of discovered URLs
+   - Scraped content for each page
+   - Crawl statistics (pages found, depth reached)
+   - Embedding confirmation
+4. **Present the results** including:
+   - Total pages discovered
+   - Summary of content scraped
+   - Any errors or warnings
 
-**Common options** (only add if user specifies):
-- `--limit <n>` - Maximum pages to crawl
-- `--max-depth <n>` - Maximum link depth
-- `--include-paths <paths>` - Only crawl matching paths (comma-separated)
-- `--exclude-paths <paths>` - Skip matching paths (comma-separated)
-- `--delay <ms>` - Delay between requests
-- `--no-embed` - Skip vector database embedding
-- `-o <path>` - Save results to file
+## Expected Output
 
-**CRITICAL:** Do NOT add `--limit`, `--max-depth`, or other constraints unless the user explicitly requests them. Let the crawl run unlimited by default.
+The command returns JSON containing:
+- `job_id`: Crawl job identifier for status tracking
+- `status`: Current crawl status (queued/running/completed)
+- `pages`: Array of discovered and scraped pages
+- `stats`: Crawl statistics
 
-**Auto-embedding:** All crawled pages are automatically embedded into Qdrant unless `--no-embed` is specified.
-
-Monitor progress and report results (pages crawled, errors, timing).
-
-For detailed parameters, see `skills/firecrawl/references/parameters.md`.
+Present a summary of discovered pages and confirm successful embedding to Qdrant.

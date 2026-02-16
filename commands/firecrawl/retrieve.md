@@ -1,38 +1,42 @@
 ---
 description: Retrieve full document from vector database by URL
 argument-hint: <url> [--collection name]
-allowed-tools: Bash(firecrawl:*), mcp__plugin_zsh-tool_zsh-tool__zsh
+allowed-tools: Bash(firecrawl *)
 ---
 
-Retrieve a full document from the vector database using the Firecrawl CLI:
+# Retrieve Full Document
 
-$ARGUMENTS
+Execute the Firecrawl retrieve command with the provided arguments:
+
+```bash
+firecrawl retrieve $ARGUMENTS
+```
 
 ## Instructions
 
-Run `firecrawl retrieve` with the provided URL. Use zsh-tool with `pty: true` for visible output.
+1. **Execute the command** using the Bash tool with the arguments provided
+2. **Parse the response** to extract:
+   - Full reconstructed document content
+   - Document metadata
+   - Chunk information
+   - Embedding details
+3. **Present the results** including:
+   - Complete document content
+   - Source URL
+   - Metadata (title, description, timestamp)
+   - Number of chunks reassembled
+4. **Verify completeness**:
+   - Confirm all chunks retrieved
+   - Check for missing sections
+   - Validate content integrity
 
-**Common options:**
-- `--collection <name>` - Retrieve from specific Qdrant collection
-- `-o <path>` - Save retrieved document to file
+## Expected Output
 
-**How it works:** Reconstructs the full document by fetching and reassembling all embedded chunks for the given URL from Qdrant.
+The command returns JSON containing:
+- `content`: Full reconstructed document
+- `url`: Source URL
+- `metadata`: Document metadata (title, description, etc.)
+- `chunks`: Number of chunks reassembled
+- `collection`: Qdrant collection name
 
-**Usage patterns:**
-
-```bash
-# Retrieve full document
-firecrawl retrieve https://docs.example.com/guide
-
-# Save to file
-firecrawl retrieve https://docs.example.com/guide -o guide.md
-
-# From specific collection
-firecrawl retrieve https://docs.example.com/guide --collection my-docs
-```
-
-**Prerequisite:** The URL must have been previously embedded via `firecrawl scrape`, `crawl`, or `embed`.
-
-Present the full reconstructed document content.
-
-For detailed RAG docs, see `skills/firecrawl/references/vector-database.md`.
+Present the complete document content with metadata confirmation.

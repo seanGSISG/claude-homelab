@@ -6,7 +6,7 @@ allowed-tools: Write, mcp__neo4j-memory__create_entities, mcp__neo4j-memory__cre
 
 # Save Session Documentation
 
-Document the **entire conversation session** (not just recent work) as a markdown file at `$ARGUMENTS`. If no path is provided, save to `.docs/tmp/[relevant-name].md` in the current working directory.
+Document the **entire conversation session** (not just recent work) as a markdown file at `$ARGUMENTS`. If no path is provided, save to `docs/sessions/[relevant-name].md` in the current working directory.
 
 ## Documentation Requirements
 
@@ -47,6 +47,15 @@ For each entity, add observations capturing:
 - How it was done (e.g., "Used @azure/msal-node library")
 - When it was done (current session date)
 - Any challenges or gotchas encountered
+
+### Payload Format Guardrail (required)
+- Always send Neo4j MCP payloads as native objects, not JSON strings.
+- Never wrap entities/relations/observations items as stringified JSON.
+- Valid shape examples:
+  - `entities: [{ name, type, observations: [...] }]`
+  - `relations: [{ source, target, relationType }]`
+  - `observations: [{ entityName, observations: [...] }]`
+- If a Neo4j call returns a schema/model-type validation error, retry once using object literals and report the retry in the final response.
 
 Use the neo4j-memory MCP tools:
 1. `mcp__neo4j-memory__create_entities` - Create all identified entities
