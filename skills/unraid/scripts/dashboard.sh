@@ -6,7 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$REPO_ROOT/lib/load-env.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/load-env.sh"
 
 QUERY_SCRIPT="$SCRIPT_DIR/unraid-query.sh"
 OUTPUT_FILE="$HOME/memory/bank/unraid-inventory.md"

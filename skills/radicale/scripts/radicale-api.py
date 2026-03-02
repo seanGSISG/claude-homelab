@@ -19,7 +19,7 @@ Usage:
     python radicale-api.py contacts delete --addressbook "Contacts" --uid "contact-uid-here"
 
 Credentials:
-    Reads from ~/claude-homelab/.env:
+    Reads from ~/.claude/.env:
         RADICALE_URL="http://localhost:5232"
         RADICALE_USERNAME="admin"
         RADICALE_PASSWORD="password"
@@ -44,7 +44,7 @@ except ImportError:
 
 def load_env() -> Dict[str, str]:
     """Load environment variables from .env file."""
-    env_path = Path.home() / "workspace" / "homelab" / ".env"
+    env_path = Path.home() / ".claude" / ".env"
 
     if not env_path.exists():
         print(f"ERROR: .env file not found at {env_path}", file=sys.stderr)

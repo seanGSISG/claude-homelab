@@ -11,16 +11,55 @@ description: Git add all, commit with Claude, and push to current/new feature br
 
 ## Your task
 
-1. Check if we're on a feature branch (not main/master)
-2. If on main/master, create a new feature branch with a descriptive name based on the changes
-3. Stage all changes with `git add .`
-4. Create a meaningful commit message following the repo's conventions
-5. Push to remote (use -u flag if it's a new branch)
+Work through these steps in order:
 
-Important:
-- Always create the commit with Claude's co-authorship signature
-- If creating a new branch, name it based on the changes (e.g., feat/add-user-auth, fix/navbar-styling)
-- Use `git push -u origin <branch>` for new branches
-- Use `git push` for existing branches
+### 1. Orient
+- Check if we're on a feature branch (not main/master)
+- If on main/master, create a new feature branch with a descriptive name based on the changes
+- Run `git diff --stat HEAD` to understand the scope of changes
+- Run `git log --oneline -5` to understand recent commit conventions
 
-End with a summary of what was pushed and the branch name.
+### 2. Update CHANGELOG.md (before staging)
+If a `CHANGELOG.md` exists in the repo root:
+- Find the most recently documented commit in the changelog (look for commit hashes in the table)
+- Run `git log --oneline <last_documented_sha>..HEAD` to get undocumented commits
+- If there are new commits, update the changelog:
+  - Add new rows to the commit summary table (newest first)
+  - Update the Highlights section with grouped summaries
+  - Keep the existing structure and style
+- If no CHANGELOG.md exists, skip this step
+
+### 3. Stage, commit, and push
+- Stage all changes with `git add .`
+- Create a meaningful commit message following the repo's conventions
+- Always include Claude's co-authorship signature
+- Push to remote:
+  - New branch: `git push -u origin <branch>`
+  - Existing branch: `git push`
+
+### 4. Post-push: save session context
+After the push succeeds, invoke the `save-to-md` skill to capture session context to Neo4j and Qdrant.
+
+The `save-to-md` skill handles most Neo4j work, but after it completes, **always** create these additional entities and relations to wire the commit graph:
+
+**Entities to create:**
+- One entity per commit pushed this session (type: `commit`), with observations: SHA, message, branch, timestamp, files changed
+- The repo itself if not already in the graph (type: `repository`), with observations: remote URL, current branch
+- The session document (type: `session_doc`), with observations: file path, collection embedded into, embed job ID
+
+**Relations to create:**
+```
+commit  → repository    : PUSHED_TO
+commit  → session_doc   : DOCUMENTED_IN
+session_doc → repository : BELONGS_TO
+commit  → commit        : PRECEDED_BY   (chain commits in push order, newest → oldest)
+```
+
+Use the actual SHA, branch name, repo name, and session doc path from the work done in steps 1–4. Do not use placeholders.
+
+---
+
+**Notes:**
+- If creating a new branch, name it based on the changes (e.g., `feat/add-user-auth`, `fix/navbar-styling`)
+- The changelog update is part of the commit — it goes in the same commit as the other changes
+- End with a summary of what was pushed and the branch name

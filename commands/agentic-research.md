@@ -1,6 +1,5 @@
 ---
 description: Deep agentic research with ExaAI, Firecrawl, and NotebookLM
-argument-hint: <topic and description of what you're researching>
 allowed-tools: Task
 ---
 

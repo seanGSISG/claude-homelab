@@ -1,3 +1,8 @@
+---
+name: super-execute
+description: Agent team execution engine that takes a validated implementation plan and drives execution with mandatory review gates at task, phase, and PR levels. Use when implementing multi-task plans that require strict quality gates and enforced review before completion.
+---
+
 # Super-Execute
 
 ## Purpose

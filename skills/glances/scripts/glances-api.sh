@@ -83,7 +83,7 @@ fi
 
 # Load credentials from .env
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$REPO_ROOT/lib/load-env.sh"
+source "$(dirname "${BASH_SOURCE[0]}")/load-env.sh"
 load_env_file || exit 1
 validate_env_vars "GLANCES_URL"  # Username/password optional for auth-less instances
 

@@ -1,12 +1,15 @@
 ---
 description: Save session documentation with Neo4j memory integration
-argument-hint: [output-path]
-allowed-tools: Write, mcp__neo4j-memory__create_entities, mcp__neo4j-memory__create_relations, mcp__neo4j-memory__add_observations
+allowed-tools: Write, Bash, mcp__neo4j-memory__create_entities, mcp__neo4j-memory__create_relations, mcp__neo4j-memory__add_observations
 ---
 
 # Save Session Documentation
 
-Document the **entire conversation session** (not just recent work) as a markdown file at `$ARGUMENTS`. If no path is provided, save to `docs/sessions/[relevant-name].md` in the current working directory.
+Document the **entire conversation session** (not just recent work) as a markdown file at `$ARGUMENTS`. If no path is provided, save to `docs/sessions/YYYY-MM-DD-description.md` in the current working directory.
+
+Path safety rules:
+- Keep this workflow in-repo. If the target is outside the current repo root, stop and report the path issue.
+- If the target filename already exists, do not overwrite. Append a suffix like `-v2`, `-v3`, etc.
 
 ## Documentation Requirements
 
@@ -17,9 +20,53 @@ Include in the markdown file:
 4. **Technical Decisions**: Reasoning behind implementation choices
 5. **Files Modified**: List of all files created/modified with purpose
 6. **Commands Executed**: Critical bash commands and their results
-7. **Next Steps**: Any remaining tasks or follow-up items
+7. **Behavior Changes (Before/After)**: User-visible or system-visible behavior changes caused by this session
+8. **Verification Evidence**: Table with `command | expected | actual | status`
+9. **Source IDs + Collections Touched**: Every embed/retrieve source ID and collection used, with outcome
+10. **Risks and Rollback**: Concise risk notes and rollback path for non-trivial changes
+11. **Decisions Not Taken**: Alternatives considered but rejected, with brief rationale
+12. **Open Questions**: Unresolved items or assumptions that need follow-up
+13. **Next Steps**: Any remaining tasks or follow-up items
 
-Keep findings concise but include enough detail for verification. Use file:line references (e.g., `server.ts:45`) for code-specific findings.
+Content quality rules:
+- Facts only. Do not infer values that were not observed in tool/command output.
+- If something is uncertain, place it in **Open Questions** instead of stating it as fact.
+- Keep sections concise (target max 5 bullets per section), but exceed when needed to preserve material implementation details, critical evidence, or safety context.
+- Use file:line references (e.g., `server.ts:45`) for code-specific findings.
+
+## Axon Embedding Integration (Required)
+
+After writing the markdown file, embedding with Axon is **mandatory** (always attempt):
+
+1. Determine the final saved path (the explicit `$ARGUMENTS` target or the default generated path under `docs/sessions/`).
+2. Optional preflight (recommended, not a substitute for embedding):
+   ```bash
+   axon status
+   ```
+   - If services needed for embed/retrieve are unavailable, still continue and attempt embed/retrieve; report failures clearly and continue with markdown + Neo4j capture.
+3. Run embed and capture the job ID from the initial response:
+   ```bash
+   axon embed "<saved-session-markdown-path>" --json
+   ```
+   - The initial JSON response contains `data.job_id` (and status `"queued"`) — **not** `data.url`/`data.collection`. Those are only available after the job completes.
+4. Do **not** pass `--url` / `--source-id` / `--collection` for this workflow.
+   - Local file embeds now derive a stable source ID automatically.
+   - Local file embeds route to the repo-name collection automatically.
+   - Web crawl docs remain in your configured crawl collection (e.g., `firecrawl`).
+5. Poll for completion and extract source metadata:
+   ```bash
+   axon embed status "<job_id-from-step-3>" --json
+   ```
+   - Read `data.url` as the source ID and `data.collection` as the collection from **this** output (not the initial embed response).
+   - Retry if status is still `"running"` or `"queued"`.
+6. Verify indexing succeeded using status output values (not assumptions):
+   ```bash
+   axon retrieve "<source-id-from-status-data.url>" --collection "<collection-from-status-data.collection>"
+   ```
+   - If retrieve succeeds, embedding is confirmed.
+   - If it fails, report the error and include attempted source ID + collection.
+7. You must always attempt both embed and retrieve verification. If embedding fails due to environment/service availability (for example TEI/Qdrant unavailable), report the error clearly but still complete session markdown + Neo4j capture.
+8. If embed succeeds but retrieve fails, mark Axon status as **partial failure** (embed success, verify failed).
 
 ## Neo4j Memory Integration
 

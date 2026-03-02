@@ -10,7 +10,7 @@ SKILL_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 REPO_ROOT="${REPO_ROOT:-$(cd "$SKILL_ROOT/../.." && pwd)}"
 
 # Load environment if available (ZFS doesn't require credentials, but supports standardized env loading)
-source "$REPO_ROOT/lib/load-env.sh" 2>/dev/null || true
+source "$(dirname "${BASH_SOURCE[0]}")/load-env.sh"
 
 # Colors for output
 RED='\033[0;31m'

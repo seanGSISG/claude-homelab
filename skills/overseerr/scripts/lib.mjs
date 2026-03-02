@@ -2,7 +2,7 @@ import { readFile } from 'fs/promises';
 import { homedir } from 'os';
 import { join } from 'path';
 
-const ENV_PATH = join(homedir(), 'workspace', 'homelab', '.env');
+const ENV_PATH = join(homedir(), '.claude', '.env');
 
 async function loadEnv() {
   try {
@@ -34,7 +34,7 @@ function requiredEnv(name) {
   if (!value) {
     throw new Error(
       `Missing required environment variable: ${name}\n` +
-      `Please add ${name} to ~/claude-homelab/.env`
+      `Please add ${name} to ~/.claude/.env`
     );
   }
   return value;
