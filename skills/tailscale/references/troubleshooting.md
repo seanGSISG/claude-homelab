@@ -90,7 +90,7 @@ sudo tailscale debug daemon-logs
 1. **Check if device needs authorization**:
    ```bash
    # Via API
-   source ~/claude-homelab/.env
+   source ~/.homelab-skills/.env
    curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/devices" \
      -H "Authorization: Bearer $TAILSCALE_API_KEY" | \
      jq '.devices[] | select(.authorized == false)'
@@ -143,7 +143,7 @@ sudo tailscale debug daemon-logs
 2. **Use auth key instead**:
    ```bash
    # Create auth key via API
-   source ~/claude-homelab/.env
+   source ~/.homelab-skills/.env
    AUTH_KEY=$(curl -X POST "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/keys" \
      -H "Authorization: Bearer $TAILSCALE_API_KEY" \
      -H "Content-Type: application/json" \
@@ -213,7 +213,7 @@ tailscale status --json | jq '.MagicDNSSuffix'
 1. **Enable MagicDNS**:
    ```bash
    # Via API
-   source ~/claude-homelab/.env
+   source ~/.homelab-skills/.env
    curl -X POST "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/dns/preferences" \
      -H "Authorization: Bearer $TAILSCALE_API_KEY" \
      -H "Content-Type: application/json" \
@@ -267,7 +267,7 @@ tailscale status --json | jq '.MagicDNSSuffix'
 1. **Add custom nameservers**:
    ```bash
    # Use faster upstream DNS
-   source ~/claude-homelab/.env
+   source ~/.homelab-skills/.env
    curl -X POST "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/dns/nameservers" \
      -H "Authorization: Bearer $TAILSCALE_API_KEY" \
      -H "Content-Type: application/json" \
@@ -576,7 +576,7 @@ ssh: connect to host hostname port 22: Connection refused
 3. **Check ACLs allow SSH**:
    ```bash
    # Get ACL
-   source ~/claude-homelab/.env
+   source ~/.homelab-skills/.env
    curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/acl" \
      -H "Authorization: Bearer $TAILSCALE_API_KEY" | jq
 

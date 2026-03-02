@@ -28,14 +28,14 @@ Add your ByteStash credentials to the homelab `.env` file:
 
 ```bash
 # Edit the .env file
-nano ~/.claude-homelab/.env
+nano ~/.homelab-skills/.env
 
 # Add these lines:
 BYTESTASH_URL="https://bytestash.example.com"
 BYTESTASH_API_KEY="your-api-key-from-step-1"
 
 # Save and set permissions
-chmod 600 ~/.claude-homelab/.env
+chmod 600 ~/.homelab-skills/.env
 ```
 
 ### 3. Verify Setup
@@ -237,7 +237,7 @@ All commands return JSON, making them easy to process with `jq`:
 **Problem:** "401 Unauthorized" or "API key required"
 
 **Solutions:**
-1. Verify API key in .env: `grep BYTESTASH_API_KEY ~/.claude-homelab/.env`
+1. Verify API key in .env: `grep BYTESTASH_API_KEY ~/.homelab-skills/.env`
 2. Check key is valid in ByteStash web UI (Settings → API Keys)
 3. Ensure no extra spaces or quotes in .env file
 4. Try creating a new API key

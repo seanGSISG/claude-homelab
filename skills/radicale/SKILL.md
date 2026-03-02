@@ -61,7 +61,7 @@ python scripts/radicale-api.py --help
 
 ### Credentials
 
-Add to `~/.claude-homelab/.env`:
+Add to `~/.homelab-skills/.env`:
 
 ```bash
 RADICALE_URL="http://localhost:5232"
@@ -71,7 +71,7 @@ RADICALE_PASSWORD="password"
 
 **Security:**
 - `.env` file is gitignored (never commit credentials)
-- Set permissions: `chmod 600 ~/.claude-homelab/.env`
+- Set permissions: `chmod 600 ~/.homelab-skills/.env`
 
 ## Core Operations
 

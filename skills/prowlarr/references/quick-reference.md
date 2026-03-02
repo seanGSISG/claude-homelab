@@ -4,7 +4,7 @@ Common operations for quick copy-paste usage.
 
 ## Setup
 
-Add to `~/claude-homelab/.env`:
+Add to `~/.homelab-skills/.env`:
 
 ```bash
 PROWLARR_URL="http://localhost:9696"

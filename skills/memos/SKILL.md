@@ -44,7 +44,7 @@ This skill provides **read-write** access to a self-hosted Memos instance for qu
 
 ### Credential Configuration
 
-Add these variables to `~/.claude-homelab/.env`:
+Add these variables to `~/.homelab-skills/.env`:
 
 ```bash
 # Memos - Self-hosted note-taking service
@@ -60,7 +60,7 @@ MEMOS_API_TOKEN="your-api-token-here"
 
 **Security:**
 - `.env` file is gitignored (never commit)
-- Set permissions: `chmod 600 ~/.claude-homelab/.env`
+- Set permissions: `chmod 600 ~/.homelab-skills/.env`
 - Token has same permissions as your user account
 
 ## Commands

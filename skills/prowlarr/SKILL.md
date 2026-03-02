@@ -30,7 +30,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Credentials are stored in `~/.claude-homelab/.env`:
+Credentials are stored in `~/.homelab-skills/.env`:
 
 ```bash
 PROWLARR_URL="http://localhost:9696"

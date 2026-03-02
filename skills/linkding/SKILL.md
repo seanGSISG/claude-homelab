@@ -32,7 +32,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Credentials: `~/.claude-homelab/.env`
+Credentials: `~/.homelab-skills/.env`
 
 ```bash
 LINKDING_URL="http://localhost:9090"

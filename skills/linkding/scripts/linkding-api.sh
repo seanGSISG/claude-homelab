@@ -6,7 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$(dirname "${BASH_SOURCE[0]}")/load-env.sh"
+source "$HOME/.homelab-skills/load-env.sh"
 
 # Load credentials from .env
 load_service_credentials "linkding" "LINKDING_URL" "LINKDING_API_KEY"

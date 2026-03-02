@@ -37,7 +37,7 @@ All operations work with your self-hosted Paperless-ngx instance via the REST AP
 
 ### 3. Add Credentials to .env
 
-Edit `~/.claude-homelab/.env` and add:
+Edit `~/.homelab-skills/.env` and add:
 
 ```bash
 # Paperless-ngx - Document management system
@@ -53,7 +53,7 @@ PAPERLESS_API_TOKEN="your-api-token-here"
 ### 4. Secure Your Credentials
 
 ```bash
-chmod 600 ~/.claude-homelab/.env
+chmod 600 ~/.homelab-skills/.env
 ```
 
 This ensures only you can read the credentials file.

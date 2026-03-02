@@ -22,7 +22,7 @@ Manage torrents via qBittorrent WebUI from Clawdbot.
 
 ### 2. Add Credentials to .env
 
-Add these variables to `~/.claude-homelab/.env`:
+Add these variables to `~/.homelab-skills/.env`:
 
 ```bash
 QBITTORRENT_URL="http://localhost:8080"
@@ -34,7 +34,7 @@ Replace with your actual WebUI credentials.
 
 Set file permissions:
 ```bash
-chmod 600 ~/.claude-homelab/.env
+chmod 600 ~/.homelab-skills/.env
 ```
 
 ### 3. Test It
@@ -97,7 +97,7 @@ qbit-api.sh add-tags <hash> "important,archive"
 
 ## Notes
 
-- Credentials are loaded from `~/.claude-homelab/.env`
+- Credentials are loaded from `~/.homelab-skills/.env`
 - All operations require valid credentials
 - The script automatically handles session management
 
@@ -112,10 +112,10 @@ Detailed API documentation is available in the `references/` directory:
 ## Troubleshooting
 
 **"ERROR: .env file not found"**
-→ Create `.env` file at `~/.claude-homelab/.env`
+→ Create `.env` file at `~/.homelab-skills/.env`
 
 **"QBITTORRENT_URL and QBITTORRENT_USERNAME and QBITTORRENT_PASSWORD must be set in .env"**
-→ Check that all three variables are defined in `~/.claude-homelab/.env`
+→ Check that all three variables are defined in `~/.homelab-skills/.env`
 
 **Connection refused**
 → Make sure WebUI is enabled in qBittorrent settings

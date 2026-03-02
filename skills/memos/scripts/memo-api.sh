@@ -6,14 +6,8 @@
 set -euo pipefail
 
 # Load credentials from .env
-ENV_FILE="$HOME/claude-homelab/.env"
-if [[ ! -f "$ENV_FILE" ]]; then
-    echo '{"error": "Environment file not found", "path": "'"$ENV_FILE"'"}' >&2
-    exit 1
-fi
-
-source "$ENV_FILE"
-
+source "$HOME/.homelab-skills/load-env.sh"
+load_env_file || exit 1
 # Validate required credentials
 if [[ -z "${MEMOS_URL:-}" ]] || [[ -z "${MEMOS_API_TOKEN:-}" ]]; then
     echo '{"error": "Missing credentials", "required": ["MEMOS_URL", "MEMOS_API_TOKEN"]}' >&2

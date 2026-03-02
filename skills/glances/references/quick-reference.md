@@ -4,7 +4,7 @@ Common operations for quick copy-paste usage.
 
 ## Setup
 
-Add credentials to `~/claude-homelab/.env`:
+Add credentials to `~/.homelab-skills/.env`:
 
 ```bash
 GLANCES_URL="http://localhost:61208"
@@ -14,7 +14,7 @@ GLANCES_PASSWORD=""  # Optional: leave empty if no auth
 
 Then load in your shell:
 ```bash
-source ~/claude-homelab/.env
+source ~/.homelab-skills/.env
 ```
 
 ## Authentication

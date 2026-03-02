@@ -6,12 +6,12 @@ Quick command examples for common ByteStash operations.
 
 ```bash
 # Add credentials to .env
-cat >> ~/claude-homelab/.env <<EOF
+cat >> ~/.homelab-skills/.env <<EOF
 BYTESTASH_URL="https://bytestash.example.com"
 BYTESTASH_API_KEY="your-api-key-here"
 EOF
 
-chmod 600 ~/claude-homelab/.env
+chmod 600 ~/.homelab-skills/.env
 ```
 
 ## Common Tasks

@@ -6,7 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$(dirname "${BASH_SOURCE[0]}")/load-env.sh"
+source "$HOME/.homelab-skills/load-env.sh"
 
 API_BASE="https://api.tailscale.com/api/v2"
 

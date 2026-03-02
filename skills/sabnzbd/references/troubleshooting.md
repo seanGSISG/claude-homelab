@@ -16,7 +16,7 @@ Common issues and solutions when working with SABnzbd API.
 1. **Verify API key is correct:**
    ```bash
    # Check your .env file
-   grep SABNZBD_API_KEY ~/claude-homelab/.env
+   grep SABNZBD_API_KEY ~/.homelab-skills/.env
    ```
 
 2. **Get API key from SABnzbd:**

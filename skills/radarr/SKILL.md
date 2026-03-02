@@ -30,7 +30,7 @@ Operations include both read and write actions. **Always confirm before removing
 
 ## Setup
 
-Add credentials to `~/.claude-homelab/.env`:
+Add credentials to `~/.homelab-skills/.env`:
 
 ```bash
 RADARR_URL="http://localhost:7878"

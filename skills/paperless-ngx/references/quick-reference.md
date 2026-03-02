@@ -5,7 +5,7 @@ Quick command examples for common operations.
 ## Setup
 
 ```bash
-# Add to ~/claude-homelab/.env
+# Add to ~/.homelab-skills/.env
 PAPERLESS_URL="https://paperless.example.com"
 PAPERLESS_API_TOKEN="your-api-token-here"
 ```
@@ -461,7 +461,7 @@ curl -H "Authorization: Token ${PAPERLESS_API_TOKEN}" \
 
 ## Environment Variables
 
-Set these in `~/claude-homelab/.env`:
+Set these in `~/.homelab-skills/.env`:
 
 ```bash
 # Required

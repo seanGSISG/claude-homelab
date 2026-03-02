@@ -8,7 +8,7 @@
 **Solution:**
 1. Create `.env` file:
    ```bash
-   cat >> ~/claude-homelab/.env <<EOF
+   cat >> ~/.homelab-skills/.env <<EOF
    UNIFI_URL="https://10.1.0.1"
    UNIFI_USERNAME="api"
    UNIFI_PASSWORD="your-password"
@@ -17,7 +17,7 @@
    ```
 2. Set restrictive permissions:
    ```bash
-   chmod 600 ~/claude-homelab/.env
+   chmod 600 ~/.homelab-skills/.env
    ```
 
 ### "UNIFI_URL and UNIFI_USERNAME must be set in .env"
@@ -26,7 +26,7 @@
 **Solution:**
 1. Verify all required variables are in `.env`:
    ```bash
-   grep UNIFI ~/claude-homelab/.env
+   grep UNIFI ~/.homelab-skills/.env
    ```
 2. Required variables:
    - `UNIFI_URL` (e.g., `https://10.1.0.1`)
@@ -40,7 +40,7 @@
 **Solution:**
 1. Verify credentials in `.env`:
    ```bash
-   cat ~/claude-homelab/.env | grep UNIFI
+   cat ~/.homelab-skills/.env | grep UNIFI
    ```
 2. Test connection manually:
    ```bash

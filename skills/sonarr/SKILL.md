@@ -30,7 +30,7 @@ Operations include both read and write actions. **Always confirm before removing
 
 ## Setup
 
-Add credentials to `.env` file: `~/.claude-homelab/.env`
+Add credentials to `.env` file: `~/.homelab-skills/.env`
 
 ```bash
 SONARR_URL="http://localhost:8989"

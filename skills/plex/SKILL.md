@@ -31,7 +31,7 @@ All operations are **GET-only** and safe for monitoring/browsing.
 
 ## Setup
 
-Add your Plex server credentials to `~/.claude-homelab/.env`:
+Add your Plex server credentials to `~/.homelab-skills/.env`:
 
 ```bash
 # Plex Media Server

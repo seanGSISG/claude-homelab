@@ -230,7 +230,7 @@ All skills MUST use `.env` file for credentials. NO JSON config files.
 
 **Required pattern:**
 ```bash
-# In ~/..claude-homelab/.env
+# In ~/.homelab-skills/.env
 SERVICE_URL="http://localhost:PORT"
 SERVICE_API_KEY="your-api-key"
 ```
@@ -266,10 +266,10 @@ SERVICE2_API_KEY="key2"
 Bash:
 ```bash
 # Source the .env file
-if [[ -f ~/..claude-homelab/.env ]]; then
-    source ~/..claude-homelab/.env
+if [[ -f ~/.homelab-skills/.env ]]; then
+    source ~/.homelab-skills/.env
 else
-    echo "ERROR: .env file not found at ~/..claude-homelab/.env" >&2
+    echo "ERROR: .env file not found at ~/.homelab-skills/.env" >&2
     exit 1
 fi
 
@@ -285,7 +285,7 @@ Node.js:
 import { readFile } from 'fs/promises';
 
 async function loadEnv() {
-    const envPath = `${process.env.HOME}/.claude-homelab/.env`;
+    const envPath = `${process.env.HOME}/.homelab-skills/.env`;
     const content = await readFile(envPath, 'utf8');
 
     for (const line of content.split('\n')) {
@@ -300,7 +300,7 @@ async function loadEnv() {
 
 **Security requirements:**
 - ✅ `.env` file is gitignored (NEVER commit)
-- ✅ Set file permissions: `chmod 600 ~/..claude-homelab/.env`
+- ✅ Set file permissions: `chmod 600 ~/.homelab-skills/.env`
 - ✅ NEVER log credentials (even in debug mode)
 - ✅ Always validate credentials exist before use
 - ✅ Document exact variable names in Setup section
@@ -391,7 +391,7 @@ main "$@"
 #!/usr/bin/env node
 import { readFile } from 'fs/promises';
 
-const ENV_PATH = `${process.env.HOME}/.claude-homelab/.env`;
+const ENV_PATH = `${process.env.HOME}/.homelab-skills/.env`;
 
 async function loadEnv() {
     try {
@@ -776,9 +776,9 @@ chmod +x scripts/*.sh
 ./scripts/list.sh | jq .
 
 # Test error handling (without credentials)
-mv ~/..claude-homelab/.env{,.bak}
+mv ~/.homelab-skills/.env{,.bak}
 ./scripts/list.sh  # Should fail gracefully with clear message
-mv ~/..claude-homelab/.env{.bak,}
+mv ~/.homelab-skills/.env{.bak,}
 
 # Test with debug logging
 DEBUG=1 ./scripts/list.sh
@@ -863,7 +863,7 @@ Skills that support multiple instances of the same service use numbered environm
 
 **Pattern: Multiple servers in .env**
 ```bash
-# In ~/..claude-homelab/.env
+# In ~/.homelab-skills/.env
 
 # Server 1
 SERVICE1_URL="http://server1.local:PORT"
@@ -881,7 +881,7 @@ SERVICE3_API_KEY="key3"
 **Script implementation:**
 ```bash
 #!/bin/bash
-source ~/..claude-homelab/.env
+source ~/.homelab-skills/.env
 
 # Default to server 1 if SERVER_NUM not specified
 SERVER_NUM="${SERVER_NUM:-1}"
@@ -1154,7 +1154,7 @@ For existing skills that need updating to match current patterns:
 
 ### General Guidelines
 
-- ✅ **DO:** Store ALL credentials in `~/..claude-homelab/.env` file
+- ✅ **DO:** Store ALL credentials in `~/.homelab-skills/.env` file
 - ✅ **DO:** Use environment variable pattern: `SERVICE_URL`, `SERVICE_API_KEY`
 - ✅ **DO:** Include trigger phrases in SKILL.md descriptions
 - ✅ **DO:** Document all commands with copy-paste examples
@@ -1177,7 +1177,7 @@ For existing skills that need updating to match current patterns:
 
 - Never log credentials (even in debug mode)
 - Use ONLY `.env` file for secrets (NO JSON config files)
-- Set restrictive permissions: `chmod 600 ~/..claude-homelab/.env`
+- Set restrictive permissions: `chmod 600 ~/.homelab-skills/.env`
 - Include security notes in SKILL.md for sensitive operations
 - Warn users about API key permissions in documentation
 - Always validate environment variables exist before use

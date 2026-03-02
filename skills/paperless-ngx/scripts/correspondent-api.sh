@@ -6,14 +6,8 @@
 set -euo pipefail
 
 # Load credentials from .env
-ENV_FILE="$HOME/claude-homelab/.env"
-if [[ ! -f "$ENV_FILE" ]]; then
-    echo '{"error": "Environment file not found", "path": "'"$ENV_FILE"'"}' >&2
-    exit 1
-fi
-
-source "$ENV_FILE"
-
+source "$HOME/.homelab-skills/load-env.sh"
+load_env_file || exit 1
 # Validate required credentials
 if [[ -z "${PAPERLESS_URL:-}" ]] || [[ -z "${PAPERLESS_API_TOKEN:-}" ]]; then
     echo '{"error": "Missing credentials", "required": ["PAPERLESS_URL", "PAPERLESS_API_TOKEN"]}' >&2

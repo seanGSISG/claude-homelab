@@ -38,7 +38,7 @@ glances -w --username admin --password yourpass
 
 ### 2. Add Credentials to .env
 
-Add the following to `~/.claude-homelab/.env`:
+Add the following to `~/.homelab-skills/.env`:
 
 ```bash
 GLANCES_URL="http://localhost:61208"
@@ -231,7 +231,7 @@ When a user asks about system health:
 Monitor multiple Glances servers using numbered environment variables in `.env`:
 
 ```bash
-# In ~/.claude-homelab/.env
+# In ~/.homelab-skills/.env
 GLANCES1_URL="http://server1.local:61208"
 GLANCES1_USERNAME=""
 GLANCES1_PASSWORD=""
@@ -255,7 +255,7 @@ SERVER_NUM=2 bash scripts/glances-api.sh cpu
 ## Troubleshooting
 
 **"Glances not configured"**
-→ Check that GLANCES_URL is set in `~/.claude-homelab/.env`
+→ Check that GLANCES_URL is set in `~/.homelab-skills/.env`
 
 **"Connection refused"**
 → Ensure Glances is running with `-w` flag on the target system

@@ -1,6 +1,6 @@
 # UniFi Quick Reference
 
-Common operations for quick copy-paste usage. All scripts use credentials from `~/claude-homelab/.env`.
+Common operations for quick copy-paste usage. All scripts use credentials from `~/.homelab-skills/.env`.
 
 ## Setup
 
@@ -440,7 +440,7 @@ bash scripts/clients.sh json | jq '.data | sort_by(.signal) | .[] | {hostname, s
 
 ## Notes
 
-- All scripts use credentials from `~/claude-homelab/.env`
+- All scripts use credentials from `~/.homelab-skills/.env`
 - UniFi OS login is handled automatically by `unifi-api.sh`
 - All API calls are **read-only GET requests** (safe for monitoring)
 - Cookie-based authentication with automatic login

@@ -4,7 +4,7 @@ Common operations for quick copy-paste usage.
 
 ## Setup
 
-Add credentials to `~/claude-homelab/.env`:
+Add credentials to `~/.homelab-skills/.env`:
 
 ```bash
 QBITTORRENT_URL="http://localhost:8080"
@@ -14,7 +14,7 @@ QBITTORRENT_PASSWORD="yourpassword"
 
 For manual curl commands, source the .env file:
 ```bash
-source ~/claude-homelab/.env
+source ~/.homelab-skills/.env
 ```
 
 ## Authentication

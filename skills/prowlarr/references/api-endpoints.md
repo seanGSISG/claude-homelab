@@ -15,7 +15,7 @@ Prowlarr uses API key authentication. Find your API key in Settings → General 
 
 ## Quick Start
 
-Add to `~/claude-homelab/.env`:
+Add to `~/.homelab-skills/.env`:
 
 ```bash
 PROWLARR_URL="http://localhost:9696"
@@ -26,7 +26,7 @@ Then test the connection:
 
 ```bash
 # Source .env (or restart your shell)
-source ~/claude-homelab/.env
+source ~/.homelab-skills/.env
 
 # Test connection - get system status
 curl -s "$PROWLARR_URL/api/v1/system/status" \

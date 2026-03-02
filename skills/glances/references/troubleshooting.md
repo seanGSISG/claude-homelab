@@ -113,7 +113,7 @@ HTTP/1.1 401 Unauthorized
    curl -u username:password -s http://localhost:61208/api/4/cpu
 
    # Verify .env file contains GLANCES_URL, GLANCES_USERNAME, GLANCES_PASSWORD
-   grep -E '^GLANCES_' ~/claude-homelab/.env
+   grep -E '^GLANCES_' ~/.homelab-skills/.env
    ```
 
 2. **Glances started without authentication:**

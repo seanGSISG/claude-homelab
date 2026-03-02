@@ -15,7 +15,7 @@ Sonarr uses API key authentication. Find your API key in Settings â†’ General â†
 
 ## Quick Start
 
-Add credentials to `~/claude-homelab/.env`:
+Add credentials to `~/.homelab-skills/.env`:
 
 ```bash
 SONARR_URL="http://localhost:8989"
@@ -26,7 +26,7 @@ Then use in scripts:
 
 ```bash
 # Load credentials from .env
-source ~/claude-homelab/.env
+source ~/.homelab-skills/.env
 
 # Test connection - get system status
 curl -s "$SONARR_URL/api/v3/system/status" \

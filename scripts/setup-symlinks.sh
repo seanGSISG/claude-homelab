@@ -145,6 +145,30 @@ main() {
         done < <(find "$REPO_ROOT/commands" -mindepth 1 -maxdepth 1 -type d -print0)
     fi
 
+    # Setup ~/.homelab-skills/
+    echo ""
+    log_info "Setting up ~/.homelab-skills/ ..."
+    local homelab_dir="$HOME/.homelab-skills"
+    mkdir -p "$homelab_dir"
+
+    # Install load-env.sh
+    cp "$REPO_ROOT/lib/load-env.sh" "$homelab_dir/load-env.sh"
+    log_success "Installed: $homelab_dir/load-env.sh"
+
+    # Stub .env from .env.example only if not already present
+    if [[ ! -f "$homelab_dir/.env" ]]; then
+        cp "$REPO_ROOT/.env.example" "$homelab_dir/.env"
+        chmod 600 "$homelab_dir/.env"
+        log_success "Created:   $homelab_dir/.env (from .env.example)"
+        echo ""
+        log_warn "┌─────────────────────────────────────────────────────────┐"
+        log_warn "│  Next step: add your credentials                        │"
+        log_warn "│  \$EDITOR ~/.homelab-skills/.env                        │"
+        log_warn "└─────────────────────────────────────────────────────────┘"
+    else
+        log_warn "Skipped:   $homelab_dir/.env (already exists)"
+    fi
+
     # Summary
     echo ""
     log_info "====================================================================="
@@ -159,7 +183,8 @@ main() {
         exit 1
     fi
     echo ""
-    log_success "✓ Symlink setup complete!"
+    log_success "✓ Setup complete!"
+    log_info "Credentials: ~/.homelab-skills/.env"
     log_info "Verify with: ./scripts/verify-symlinks.sh"
     echo ""
 }

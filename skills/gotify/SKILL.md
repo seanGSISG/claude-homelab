@@ -48,7 +48,7 @@ All notifications MUST include:
 
 ## Setup
 
-Add credentials to `.env` file: `~/.claude-homelab/.env`
+Add credentials to `.env` file: `~/.homelab-skills/.env`
 
 ```bash
 GOTIFY_URL="https://gotify.example.com"

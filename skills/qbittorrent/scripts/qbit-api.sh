@@ -6,7 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$(dirname "${BASH_SOURCE[0]}")/load-env.sh"
+source "$HOME/.homelab-skills/load-env.sh"
 
 # Load credentials from .env (qBittorrent uses username/password, not API key)
 load_env_file || exit 1

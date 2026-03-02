@@ -30,7 +30,7 @@ All operations are **GET-only** and safe for monitoring/reporting.
 
 ## Setup
 
-Add credentials to `~/.claude-homelab/.env`:
+Add credentials to `~/.homelab-skills/.env`:
 
 ```bash
 UNIFI_URL="https://10.1.0.1"
