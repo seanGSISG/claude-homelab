@@ -120,7 +120,7 @@ cmd_recent() {
         esac
     done
 
-    api_call GET "/library/recentlyAdded&X-Plex-Container-Size=$limit"
+    api_call GET "/library/recentlyAdded?X-Plex-Container-Size=$limit"
 }
 
 cmd_ondeck() {
@@ -133,7 +133,7 @@ cmd_ondeck() {
         esac
     done
 
-    api_call GET "/library/onDeck&X-Plex-Container-Size=$limit"
+    api_call GET "/library/onDeck?X-Plex-Container-Size=$limit"
 }
 
 cmd_search() {
