@@ -37,7 +37,7 @@ pip install caldav vobject icalendar
 
 ### 2. Configure Credentials
 
-Add your Radicale server credentials to `~/.homelab-skills/.env`:
+Add your Radicale server credentials to `~/.claude-homelab/.env`:
 
 ```bash
 # Radicale CalDAV/CardDAV Server
@@ -48,7 +48,7 @@ RADICALE_PASSWORD="your-password"
 
 **Security Tips:**
 - The `.env` file is automatically gitignored (never committed to version control)
-- Set restrictive permissions: `chmod 600 ~/.homelab-skills/.env`
+- Set restrictive permissions: `chmod 600 ~/.claude-homelab/.env`
 - Never share your `.env` file or commit it to git
 - Use HTTPS in production: `RADICALE_URL="https://radicale.example.com"`
 

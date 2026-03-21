@@ -44,7 +44,7 @@ This skill provides **read-write** access to a self-hosted Memos instance for qu
 
 ### Credential Configuration
 
-Add these variables to `~/.homelab-skills/.env`:
+Add these variables to `~/.claude-homelab/.env`:
 
 ```bash
 # Memos - Self-hosted note-taking service
@@ -60,7 +60,7 @@ MEMOS_API_TOKEN="your-api-token-here"
 
 **Security:**
 - `.env` file is gitignored (never commit)
-- Set permissions: `chmod 600 ~/.homelab-skills/.env`
+- Set permissions: `chmod 600 ~/.claude-homelab/.env`
 - Token has same permissions as your user account
 
 ## Commands
@@ -243,7 +243,22 @@ Memos support full Markdown syntax:
 
 - **Official Docs:** https://usememos.com/docs
 - **API Reference:** https://usememos.com/docs/api
-- **Instance:** https://memos.example.com
 - **Scripts:** `skills/memos/scripts/`
 - **Examples:** `skills/memos/examples/`
+
+---
+
+## 🔧 Agent Tool Usage Requirements
+
+**CRITICAL:** When invoking scripts from this skill via the zsh-tool, **ALWAYS use `pty: true`**.
+
+Without PTY mode, command output will not be visible even though commands execute successfully.
+
+**Correct invocation pattern:**
+```typescript
+<invoke name="mcp__plugin_zsh-tool_zsh-tool__zsh">
+<parameter name="command">./skills/memos/scripts/memo-api.sh [args]</parameter>
+<parameter name="pty">true</parameter>
+</invoke>
+```
 - **Troubleshooting:** `skills/memos/references/troubleshooting.md`

@@ -1,6 +1,6 @@
 # SABnzbd Skill
 
-Manage Usenet downloads via SABnzbd from Clawdbot.
+Manage Usenet downloads via SABnzbd.
 
 ## What It Does
 
@@ -20,7 +20,7 @@ Manage Usenet downloads via SABnzbd from Clawdbot.
 
 ### 2. Add Credentials to .env
 
-Add these lines to `~/.homelab-skills/.env`:
+Add these lines to `~/.claude-homelab/.env`:
 
 ```bash
 SABNZBD_URL="http://localhost:8080"
@@ -34,7 +34,7 @@ Replace:
 ### 3. Secure the .env File
 
 ```bash
-chmod 600 ~/.homelab-skills/.env
+chmod 600 ~/.claude-homelab/.env
 ```
 
 **Important:** Never commit the `.env` file to git. It's already in `.gitignore`.
@@ -93,7 +93,7 @@ sab-api.sh retry-all            # Retry all failed
 
 ## Environment Variables
 
-The scripts load credentials from `~/.homelab-skills/.env`:
+The scripts load credentials from `~/.claude-homelab/.env`:
 
 ```bash
 SABNZBD_URL="http://localhost:8080"
@@ -113,11 +113,13 @@ export SABNZBD_API_KEY="different-key"
 Detailed API documentation is available in the `references/` directory:
 
 - **[API Endpoints](./references/api-endpoints.md)** - Complete endpoint reference
+- **[Quick Reference](./references/quick-reference.md)** - Common command examples
+- **[Troubleshooting](./references/troubleshooting.md)** - Common issues and solutions
 
 ## Troubleshooting
 
 **"Missing URL or API key"**
-→ Check that `SABNZBD_URL` and `SABNZBD_API_KEY` are set in `~/.homelab-skills/.env`
+→ Check that `SABNZBD_URL` and `SABNZBD_API_KEY` are set in `~/.claude-homelab/.env`
 
 **Connection refused**
 → Verify your SABnzbd URL is correct and accessible

@@ -5,12 +5,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$HOME/.homelab-skills/load-env.sh"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
 
 # Load credentials from .env
-load_env_file || exit 1
-validate_env_vars "TAUTULLI_URL" "TAUTULLI_API_KEY"
+load_service_credentials "tautulli" "TAUTULLI_URL" "TAUTULLI_API_KEY"
 
 # Remove trailing slash from URL
 TAUTULLI_URL="${TAUTULLI_URL%/}"

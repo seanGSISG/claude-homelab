@@ -4,8 +4,8 @@ set -euo pipefail
 # Radarr API wrapper
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$HOME/.homelab-skills/load-env.sh"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
 
 # Load credentials from .env
 load_service_credentials "radarr" "RADARR_URL" "RADARR_API_KEY"

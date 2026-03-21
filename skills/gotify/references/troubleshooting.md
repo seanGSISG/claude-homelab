@@ -22,7 +22,7 @@ Error: 401 Unauthorized
 1. Verify you're using an **app token** (not client token):
    ```bash
    # Check your credentials
-   source ~/.homelab-skills/.env
+   source ~/.claude-homelab/.env
    echo "GOTIFY_TOKEN: ${GOTIFY_TOKEN:0:10}..."
    ```
 
@@ -36,14 +36,14 @@ Error: 401 Unauthorized
 
 3. Update the `.env` file:
    ```bash
-   vi ~/.homelab-skills/.env
+   vi ~/.claude-homelab/.env
    # Update GOTIFY_TOKEN with the new token
    ```
 
 4. Test the new token:
    ```bash
    # Load credentials
-   source ~/.homelab-skills/.env
+   source ~/.claude-homelab/.env
 
    # Test connection
    curl -s "$GOTIFY_URL/version"
@@ -61,7 +61,7 @@ ERROR: GOTIFY_URL and GOTIFY_TOKEN must be set in .env
 Add credentials to `.env` file:
 ```bash
 # Edit .env
-vi ~/.homelab-skills/.env
+vi ~/.claude-homelab/.env
 
 # Add these lines:
 GOTIFY_URL="https://gotify.example.com"
@@ -71,7 +71,7 @@ GOTIFY_TOKEN="your-app-token-here"
 Verify the credentials are set:
 ```bash
 # Source .env
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # Check variables
 echo "URL: $GOTIFY_URL"

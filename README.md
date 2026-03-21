@@ -11,83 +11,68 @@ A production-ready collection of Claude Code integrations for self-hosted homela
 - **Commands** - Reusable command definitions for common operations
 - **Shared Libraries** - Common functionality for credential management and environment loading
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 claude-homelab/
-├── README.md                    # This file
-├── CLAUDE.md                    # Claude Code development guidelines
-├── AGENTS.md                    # Symlink to CLAUDE.md
-├── GEMINI.md                    # Symlink to CLAUDE.md
-├── .env                         # Credentials (gitignored)
 ├── .env.example                 # Credential template
 ├── lib/                         # Shared libraries
 │   └── load-env.sh              # Environment variable loading
+├── scripts/                     # Setup and install scripts
+│   ├── install.sh               # One-liner installer
+│   ├── setup-symlinks.sh        # Symlink skills into ~/.claude/
+│   ├── setup-homelab.sh         # Interactive credential setup
+│   └── verify-symlinks.sh       # Verify symlink health
 ├── agents/                      # Agent definitions
-│   ├── agentic-orchestrator.md
-│   ├── exa-specialist.md
-│   ├── firecrawl-specialist.md
-│   └── notebooklm-specialist.md
-├── commands/                    # Command definitions
-│   └── agentic-research.md
-└── [service-name]/              # Individual skills (see below)
-    ├── SKILL.md                 # Skill definition
-    ├── README.md                # User documentation
-    ├── scripts/                 # Executable scripts
-    ├── references/              # Detailed documentation
-    └── examples/                # Usage examples
+├── commands/                    # Slash command definitions
+│   ├── homelab/                 # /homelab:* commands
+│   ├── firecrawl/               # /firecrawl:* commands
+│   └── notebooklm/              # /notebooklm:* commands
+└── skills/                      # Individual skills (30+)
+    └── [service]/
+        ├── SKILL.md             # Skill definition
+        ├── README.md            # User documentation
+        ├── scripts/             # Executable scripts
+        └── references/          # API docs, troubleshooting
 ```
 
-## 🚀 Quick Start
+Credentials live in `~/.claude-homelab/.env` (created by the installer).
 
-### 1. Setup Credentials
+## Quick Start
 
-Copy the example environment file and add your credentials:
+### One-liner install
 
 ```bash
-cp .env.example .env
-chmod 600 .env
+curl -sSL https://raw.githubusercontent.com/jmagar/claude-homelab/main/scripts/install.sh | bash
 ```
 
-Edit `.env` and add your service credentials. See individual skill README files for required variables.
+This clones the repo, symlinks skills/agents/commands into `~/.claude/`, and stubs your credentials file.
 
-### 2. Install Dependencies
-
-**For Bash scripts:**
-- Most skills work out of the box with standard Unix tools
-- Some require `jq`, `curl`, `git` (usually pre-installed)
-
-**For Python scripts:**
-```bash
-# For skills like radicale
-pip install caldav vobject icalendar
-```
-
-**For Node.js scripts:**
-```bash
-# For skills like overseerr
-# Node.js 18+ required (ESM modules)
-```
-
-### 3. Use a Skill
-
-Each skill provides command-line tools you can run directly:
+### Manual install
 
 ```bash
-# List your Plex libraries
-./plex/scripts/plex-api.sh libraries
-
-# Search for a movie in Radarr
-./radarr/scripts/radarr.sh search "Inception"
-
-# Check qBittorrent status
-./qbittorrent/scripts/qbit-api.sh status
+git clone https://github.com/jmagar/claude-homelab.git ~/claude-homelab
+cd ~/claude-homelab
+./scripts/setup-symlinks.sh
 ```
 
-Or use with Claude Code for natural language interactions:
+### Add your credentials
+
+```bash
+$EDITOR ~/.claude-homelab/.env
+```
+
+Fill in the services you use — each skill's README lists the required variables.
+
+### Use with Claude Code
+
+Restart Claude Code after installing to pick up the new skills, then:
+
 - "What's on my Plex server?"
 - "Add The Matrix to Radarr"
 - "Show me my qBittorrent downloads"
+- `/homelab:system-resources`
+- `/homelab:docker-health`
 
 ## 📚 Skills Catalog
 
@@ -124,7 +109,6 @@ Or use with Claude Code for natural language interactions:
 
 ### Security
 
-- **authelia** - Authentication and authorization
 - **fail2ban-swag** - Fail2ban integration for SWAG reverse proxy
 
 ### Research & AI
@@ -154,13 +138,12 @@ Reusable command definitions:
 
 See `commands/` directory for command definitions.
 
-## 🔐 Security
+## Security
 
-- **Never commit `.env`** - It's gitignored by default
-- **Set restrictive permissions** - `chmod 600 .env`
-- **Use HTTPS in production** - Update service URLs from HTTP to HTTPS
-- **Rotate credentials regularly** - Just update `.env` file
-- **Review skill permissions** - Check if skills are read-only or read-write
+- **Credentials live in `~/.claude-homelab/.env`** — never in the repo
+- **Permissions are set automatically** — `chmod 600` by the installer
+- **Use HTTPS** — update service URLs from HTTP to HTTPS
+- **Rotate credentials regularly** — edit `~/.claude-homelab/.env`
 
 ## 📖 Documentation
 

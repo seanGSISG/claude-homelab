@@ -4,7 +4,7 @@ Common operations for quick copy-paste usage.
 
 ## Setup
 
-Add to `~/.homelab-skills/.env`:
+Add to `~/.claude-homelab/.env`:
 
 ```bash
 OVERSEERR_URL="http://localhost:5055"

@@ -23,7 +23,7 @@ Common issues and solutions when using the Paperless-ngx skill.
 
 **1. Verify token exists in .env:**
 ```bash
-grep PAPERLESS_API_TOKEN ~/.homelab-skills/.env
+grep PAPERLESS_API_TOKEN ~/.claude-homelab/.env
 ```
 
 **2. Test token manually:**
@@ -95,7 +95,7 @@ docker ps | grep paperless
 **2. Check URL in .env:**
 ```bash
 # View current URL
-grep PAPERLESS_URL ~/.homelab-skills/.env
+grep PAPERLESS_URL ~/.claude-homelab/.env
 
 # Correct format (no trailing slash)
 PAPERLESS_URL="https://paperless.example.com"
@@ -532,7 +532,7 @@ curl --version
 ```json
 {
   "error": "Environment file not found",
-  "path": "/home/user/.homelab-skills/.env"
+  "path": "/home/user/.claude-homelab/.env"
 }
 ```
 
@@ -541,25 +541,25 @@ curl --version
 **1. Create .env file:**
 ```bash
 # Create file
-touch ~/.homelab-skills/.env
+touch ~/.claude-homelab/.env
 
 # Add credentials
-cat >> ~/.homelab-skills/.env <<EOF
+cat >> ~/.claude-homelab/.env <<EOF
 PAPERLESS_URL="https://paperless.example.com"
 PAPERLESS_API_TOKEN="your-token-here"
 EOF
 
 # Set permissions
-chmod 600 ~/.homelab-skills/.env
+chmod 600 ~/.claude-homelab/.env
 ```
 
 **2. Verify path:**
 ```bash
 # Check file exists
-ls -la ~/.homelab-skills/.env
+ls -la ~/.claude-homelab/.env
 
 # View contents (be careful - contains secrets!)
-cat ~/.homelab-skills/.env
+cat ~/.claude-homelab/.env
 ```
 
 ## Performance Issues

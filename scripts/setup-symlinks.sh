@@ -53,15 +53,8 @@ create_symlink() {
         return 1
     fi
 
-    # Create target directory if it doesn't exist
-    local target_dir
-    if [ "$type" = "directory" ]; then
-        target_dir=$(dirname "$target")
-    else
-        target_dir=$(dirname "$target")
-    fi
-
-    mkdir -p "$target_dir"
+    # Create target parent directory if it doesn't exist
+    mkdir -p "$(dirname "$target")"
 
     # Check if target already exists
     if [ -e "$target" ] || [ -L "$target" ]; then
@@ -145,10 +138,10 @@ main() {
         done < <(find "$REPO_ROOT/commands" -mindepth 1 -maxdepth 1 -type d -print0)
     fi
 
-    # Setup ~/.homelab-skills/
+    # Setup ~/.claude-homelab/
     echo ""
-    log_info "Setting up ~/.homelab-skills/ ..."
-    local homelab_dir="$HOME/.homelab-skills"
+    log_info "Setting up ~/.claude-homelab/ ..."
+    local homelab_dir="$HOME/.claude-homelab"
     mkdir -p "$homelab_dir"
 
     # Install load-env.sh
@@ -163,7 +156,7 @@ main() {
         echo ""
         log_warn "┌─────────────────────────────────────────────────────────┐"
         log_warn "│  Next step: add your credentials                        │"
-        log_warn "│  \$EDITOR ~/.homelab-skills/.env                        │"
+        log_warn "│  \$EDITOR ~/.claude-homelab/.env                        │"
         log_warn "└─────────────────────────────────────────────────────────┘"
     else
         log_warn "Skipped:   $homelab_dir/.env (already exists)"
@@ -184,7 +177,7 @@ main() {
     fi
     echo ""
     log_success "✓ Setup complete!"
-    log_info "Credentials: ~/.homelab-skills/.env"
+    log_info "Credentials: ~/.claude-homelab/.env"
     log_info "Verify with: ./scripts/verify-symlinks.sh"
     echo ""
 }

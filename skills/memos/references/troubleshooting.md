@@ -19,7 +19,7 @@ Common issues and their solutions.
 **Solutions:**
 1. Verify token in `.env` file:
    ```bash
-   grep "^MEMOS_API_TOKEN" ~/.homelab-skills/.env
+   grep "^MEMOS_API_TOKEN" ~/.claude-homelab/.env
    ```
 
 2. Regenerate token in Memos UI:
@@ -62,7 +62,7 @@ curl: (7) Failed to connect to memos.example.com port 443
 **Solutions:**
 1. Verify URL:
    ```bash
-   grep "^MEMOS_URL" ~/.homelab-skills/.env
+   grep "^MEMOS_URL" ~/.claude-homelab/.env
    ```
 
 2. Test connectivity:
@@ -150,19 +150,19 @@ curl: (60) SSL certificate problem: unable to get local issuer certificate
 
 **Error Message:**
 ```json
-{"error": "Environment file not found", "path": "/home/user/.homelab-skills/.env"}
+{"error": "Environment file not found", "path": "/home/user/.claude-homelab/.env"}
 ```
 
 **Solution:**
 1. Create `.env` file:
    ```bash
-   touch ~/.homelab-skills/.env
-   chmod 600 ~/.homelab-skills/.env
+   touch ~/.claude-homelab/.env
+   chmod 600 ~/.claude-homelab/.env
    ```
 
 2. Add credentials:
    ```bash
-   cat >> ~/.homelab-skills/.env <<'EOF'
+   cat >> ~/.claude-homelab/.env <<'EOF'
    MEMOS_URL="https://memos.example.com"
    MEMOS_API_TOKEN="your-token-here"
    EOF
@@ -178,7 +178,7 @@ curl: (60) SSL certificate problem: unable to get local issuer certificate
 **Solution:**
 1. Check `.env` contains both variables:
    ```bash
-   grep "^MEMOS" ~/.homelab-skills/.env
+   grep "^MEMOS" ~/.claude-homelab/.env
    ```
 
 2. Ensure no typos in variable names (case-sensitive)
@@ -357,7 +357,7 @@ curl -v -H "Authorization: Bearer $MEMOS_API_TOKEN" \
 
 3. Verify API access directly:
    ```bash
-   source ~/.homelab-skills/.env
+   source ~/.claude-homelab/.env
    curl -H "Authorization: Bearer $MEMOS_API_TOKEN" \
      "https://memos.example.com/api/v1/users/1"
    ```

@@ -19,7 +19,7 @@ Send push notifications to your Gotify server when long-running tasks complete o
 
 ## Purpose
 
-This skill enables Clawdbot to send push notifications via Gotify, useful for:
+This skill enables Claude to send push notifications via Gotify, useful for:
 - Alerting when long-running tasks complete
 - Sending status updates for background operations
 - Notifying of important events or errors
@@ -48,7 +48,7 @@ All notifications MUST include:
 
 ## Setup
 
-Add credentials to `.env` file: `~/.homelab-skills/.env`
+Add credentials to `.env` file: `~/.claude-homelab/.env`
 
 ```bash
 GOTIFY_URL="https://gotify.example.com"
@@ -101,7 +101,7 @@ bash scripts/send.sh --title "Deploy Summary" --markdown --message "
 
 ### Option 2: Hook Integration (Future)
 
-When Clawdbot supports task completion hooks, this skill can be triggered automatically:
+When Claude supports task completion hooks, this skill can be triggered automatically:
 
 ```bash
 # Example hook configuration (conceptual)

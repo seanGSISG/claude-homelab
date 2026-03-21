@@ -5,15 +5,15 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$HOME/.homelab-skills/load-env.sh"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
 
 QUERY_SCRIPT="$SCRIPT_DIR/unraid-query.sh"
 OUTPUT_FILE="$HOME/memory/bank/unraid-inventory.md"
 
 # Load credentials from .env for all servers
 load_env_file || exit 1
-for server in "TOOTIE" "SHART"; do
+for server in ${UNRAID_SERVERS:-"TOOTIE SHART"}; do
     url_var="UNRAID_${server}_URL"
     key_var="UNRAID_${server}_API_KEY"
     name_var="UNRAID_${server}_NAME"
@@ -198,7 +198,7 @@ process_server() {
 }
 
 # Main loop - process each server from environment variables
-for server in "TOOTIE" "SHART"; do
+for server in ${UNRAID_SERVERS:-"TOOTIE SHART"}; do
     name_var="UNRAID_${server}_NAME"
     url_var="UNRAID_${server}_URL"
     key_var="UNRAID_${server}_API_KEY"

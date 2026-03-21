@@ -31,7 +31,7 @@ All operations are **GET-only** and safe for monitoring/browsing.
 
 ## Setup
 
-Add your Plex server credentials to `~/.homelab-skills/.env`:
+Add your Plex server credentials to `~/.claude-homelab/.env`:
 
 ```bash
 # Plex Media Server
@@ -215,6 +215,11 @@ PLEX_URL="http://server2:32400" PLEX_TOKEN="token2" curl ...
 
 - [Plex Media Server API](https://www.plexopedia.com/plex-media-server/api/)
 - [Plex Web App](https://app.plex.tv/)
+
+For detailed local reference, see:
+- **[API Endpoints](./references/api-endpoints.md)** - Complete endpoint reference with parameters
+- **[Quick Reference](./references/quick-reference.md)** - Common operations with copy-paste examples
+- **[Troubleshooting](./references/troubleshooting.md)** - Authentication, connection, and error solutions
 
 ---
 

@@ -263,7 +263,7 @@ SERVICE2_API_KEY="key2"
 
 **.env.example Template:**
 
-Copy `.env.example` to `.env` and fill in your actual credentials:
+The installer copies `.env.example` to `~/.claude-homelab/.env`. Template contents:
 
 ```bash
 # =============================================================================
@@ -307,18 +307,16 @@ TAILSCALE_TAILNET=your_tailnet_or_dash
 ```
 
 **Security Checklist:**
-- [ ] `.env` is in `.gitignore`
-- [ ] `.env` has `chmod 600` permissions
+- [ ] `~/.claude-homelab/.env` has `chmod 600` permissions
 - [ ] No credentials in code, docs, or commit history
 - [ ] `.env.example` has placeholder values only
-- [ ] All team members have their own `.env` file
 
 ### 2. Shared Library (lib/load-env.sh)
 
 The `lib/load-env.sh` library provides centralized environment loading:
 
 ```bash
-# Auto-detects .env in repository root
+# Loads ~/.claude-homelab/.env by default (or an explicit override)
 load_env_file [/optional/path/to/.env]
 
 # Validate required variables exist
@@ -721,12 +719,12 @@ SERVICE_URL="" ./scripts/script.sh  # Should fail gracefully
 ### Common Issues
 
 **".env file not found"**
-- Ensure `.env` exists at repository root
-- Copy from `.env.example` and add credentials
+- Run `scripts/setup-symlinks.sh` to create `~/.claude-homelab/.env` from `.env.example`
+- Or manually: `cp .env.example ~/.claude-homelab/.env && chmod 600 ~/.claude-homelab/.env`
 
 **"Permission denied"**
 - Make scripts executable: `chmod +x scripts/*.sh`
-- Check .env permissions: `chmod 600 .env`
+- Check .env permissions: `chmod 600 ~/.claude-homelab/.env`
 
 **"Command not found"**
 - Install required dependencies (jq, curl, etc.)

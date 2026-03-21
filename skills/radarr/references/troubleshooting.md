@@ -7,7 +7,7 @@
 
 **Solution:**
 1. Get API key from Settings → General → Security → API Key
-2. Add to `~/.homelab-skills/.env`: `RADARR_API_KEY="your-key"`
+2. Add to `~/.claude-homelab/.env`: `RADARR_API_KEY="your-key"`
 3. Verify key in request: `curl -v "$RADARR_URL/api/v3/system/status" -H "X-Api-Key: $KEY"`
 4. Check for extra spaces or characters in key
 5. Ensure header name is `X-Api-Key` (case-sensitive)

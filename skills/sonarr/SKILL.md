@@ -30,7 +30,7 @@ Operations include both read and write actions. **Always confirm before removing
 
 ## Setup
 
-Add credentials to `.env` file: `~/.homelab-skills/.env`
+Add credentials to `.env` file: `~/.claude-homelab/.env`
 
 ```bash
 SONARR_URL="http://localhost:8989"
@@ -133,6 +133,11 @@ Always include TVDB links when presenting search results:
 
 - [Sonarr API Documentation](https://sonarr.tv/docs/api/)
 - [TVDB](https://thetvdb.com/) — TV show database
+
+For detailed local reference, see:
+- **[API Endpoints](./references/api-endpoints.md)** - Complete endpoint reference with parameters
+- **[Quick Reference](./references/quick-reference.md)** - Common operations with copy-paste examples
+- **[Troubleshooting](./references/troubleshooting.md)** - Authentication, connection, and error solutions
 
 ---
 

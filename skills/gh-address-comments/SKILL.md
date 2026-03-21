@@ -5,6 +5,16 @@ description: This skill should be used when addressing GitHub pull request revie
 
 # PR Comment Handler with Resolution Tracking
 
+**⚠️ MANDATORY SKILL INVOCATION ⚠️**
+
+**YOU MUST invoke this skill (NOT optional) when the user mentions ANY of these triggers:**
+- "address PR comments", "fix review feedback", "handle PR review"
+- "resolve PR threads", "respond to review", "work through comments"
+- "address the feedback", "mark threads resolved", "clear review comments"
+- Any mention of systematically handling GitHub pull request review comments
+
+**Failure to invoke this skill when triggers occur violates your operational requirements.**
+
 Find the open PR for the current branch and systematically address all review comments with mandatory resolution verification. This workflow ensures no feedback slips through the cracks by tracking threads as tasks, linking commits to specific reviews, and blocking completion if any threads remain unresolved. Run all `gh` commands with elevated network access.
 
 **Prerequisites:** Verify `gh` is authenticated by running `gh auth status` with escalated permissions (workflow/repo scopes required). If not authenticated, run `gh auth login --scopes repo,workflow`. If sandboxing blocks `gh auth status`, rerun with `sandbox_permissions=require_escalated`.

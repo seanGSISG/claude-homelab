@@ -29,7 +29,7 @@ curl "http://localhost:8080/api/v2/torrents/info" \
 
 ## Quick Start
 
-**Prerequisites:** Add credentials to `~/.homelab-skills/.env`:
+**Prerequisites:** Add credentials to `~/.claude-homelab/.env`:
 ```bash
 QBITTORRENT_URL="http://localhost:8080"
 QBITTORRENT_USERNAME="admin"
@@ -39,7 +39,7 @@ QBITTORRENT_PASSWORD="yourpassword"
 **Manual API Access:**
 ```bash
 # Load credentials from .env
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # Login
 curl -X POST "$QBITTORRENT_URL/api/v2/auth/login" \

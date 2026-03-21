@@ -7,9 +7,8 @@ set -euo pipefail
 
 # === Configuration ===
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILL_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-REPO_ROOT="$(cd "$SKILL_DIR/../.." && pwd)"
-source "$HOME/.homelab-skills/load-env.sh"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
 
 # === Functions ===
 

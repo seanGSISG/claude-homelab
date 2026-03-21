@@ -1,12 +1,6 @@
 ---
 name: notebooklm
 description: Programmatic access to Google NotebookLM for creating notebooks, adding sources (URLs, YouTube, PDFs, audio, video, images), chatting with content, generating artifacts (podcasts, videos, reports, quizzes, mind maps, flashcards, infographics), and downloading results. Includes capabilities beyond the web UI.
-metadata:
-  clawdbot:
-    emoji: "📓"
-    requires:
-      bins:
-        - notebooklm
 ---
 
 # NotebookLM Automation Skill

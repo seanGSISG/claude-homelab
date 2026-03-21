@@ -1,6 +1,6 @@
 # Linkding Skill
 
-Manage bookmarks via Linkding REST API from Clawdbot.
+Manage bookmarks via Linkding REST API.
 
 ## What It Does
 
@@ -20,7 +20,7 @@ Manage bookmarks via Linkding REST API from Clawdbot.
 
 ### 2. Add Credentials to .env
 
-Add these variables to `~/.homelab-skills/.env`:
+Add these variables to `~/.claude-homelab/.env`:
 
 ```bash
 LINKDING_URL="http://localhost:9090"
@@ -111,7 +111,7 @@ linkding-api.sh bundle-create "Work Resources" \
 
 ## Environment Variables
 
-The script automatically loads credentials from `~/.homelab-skills/.env`. You can also set them in your shell environment:
+The script automatically loads credentials from `~/.claude-homelab/.env`. You can also set them in your shell environment:
 
 ```bash
 export LINKDING_URL="https://linkding.example.com"
@@ -127,13 +127,13 @@ Detailed API documentation is available in the `references/` directory:
 ## Troubleshooting
 
 **"LINKDING_URL and LINKDING_API_KEY must be set"**
-→ Check that `~/.homelab-skills/.env` exists and contains these variables
+→ Check that `~/.claude-homelab/.env` exists and contains these variables
 
 **401 Unauthorized**
 → Your API token is invalid — regenerate it in Linkding settings
 
 **"No such file or directory: .env"**
-→ Create the `.env` file at `~/.homelab-skills/.env` with your credentials
+→ Create the `.env` file at `~/.claude-homelab/.env` with your credentials
 
 ## License
 

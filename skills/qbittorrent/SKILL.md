@@ -32,7 +32,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Add credentials to `~/.homelab-skills/.env`:
+Add credentials to `~/.claude-homelab/.env`:
 
 ```bash
 QBITTORRENT_URL="http://localhost:8080"
@@ -42,7 +42,7 @@ QBITTORRENT_PASSWORD="adminadmin"
 
 Set file permissions:
 ```bash
-chmod 600 ~/.homelab-skills/.env
+chmod 600 ~/.claude-homelab/.env
 ```
 
 ## Quick Reference
@@ -163,3 +163,10 @@ Without PTY mode, command output will not be visible even though commands execut
 <parameter name="pty">true</parameter>
 </invoke>
 ```
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `qbit-api.sh` | Main API wrapper — all torrent operations |
+| `qbit-api-wrapper.sh` | Thin PTY shim — captures and re-prints `qbit-api.sh` output via `printf` to ensure visibility in environments where stdout buffering may suppress output |

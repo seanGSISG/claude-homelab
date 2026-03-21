@@ -352,3 +352,19 @@ Find more with: `nugs list --json standard | jq '.artists[] | {id, name, showCou
 - Verify FFmpeg is installed for videos
 - Run `nugs update` if catalog seems stale
 - Check Nugs.net subscription status if downloads fail
+
+---
+
+## 🔧 Agent Tool Usage Requirements
+
+**CRITICAL:** When invoking the nugs binary via the zsh-tool, **ALWAYS use `pty: true`**.
+
+Without PTY mode, command output will not be visible even though commands execute successfully.
+
+**Correct invocation pattern:**
+```typescript
+<invoke name="mcp__plugin_zsh-tool_zsh-tool__zsh">
+<parameter name="command">nugs [command] [args]</parameter>
+<parameter name="pty">true</parameter>
+</invoke>
+```

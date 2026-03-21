@@ -30,7 +30,7 @@ All operations are **GET-only** and safe for monitoring/reporting.
 
 ## Setup
 
-Add credentials to `~/.homelab-skills/.env`:
+Add credentials to `~/.claude-homelab/.env`:
 
 ```bash
 UNIFI_URL="https://10.1.0.1"
@@ -131,11 +131,11 @@ Always confirm the output looks reasonable before presenting it to the user (che
 - Requires network access to your UniFi gateway
 - Uses UniFi OS login + `/proxy/network` API path
 - All calls are **read-only GET requests**
-- Tested endpoints are documented in `references/unifi-readonly-endpoints.md`
+- Tested endpoints are documented in `references/api-endpoints.md`
 
 ## Reference
 
-- [Tested Endpoints](references/unifi-readonly-endpoints.md) — Full catalog of verified read-only API calls on your Cloud Gateway Max
+- [Tested Endpoints](references/api-endpoints.md) — Full catalog of verified read-only API calls on your Cloud Gateway Max
 
 ---
 

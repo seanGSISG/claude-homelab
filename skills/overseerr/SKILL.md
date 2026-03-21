@@ -30,7 +30,7 @@ This skill enables media request management through Overseerr:
 
 ## Setup
 
-Add credentials to `.env` file: `~/.homelab-skills/.env`
+Add credentials to `.env` file: `~/.claude-homelab/.env`
 
 ```bash
 OVERSEERR_URL="http://localhost:5055"

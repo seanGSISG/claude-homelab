@@ -61,7 +61,7 @@ Follow instructions at https://github.com/Tautulli/Tautulli#installation
 
 ### 4. Add to Environment Variables
 
-Add your Tautulli credentials to `~/.homelab-skills/.env`:
+Add your Tautulli credentials to `~/.claude-homelab/.env`:
 
 ```bash
 # Tautulli Analytics

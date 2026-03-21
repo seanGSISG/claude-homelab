@@ -60,10 +60,10 @@ notify_alert() {
             ;;
             
         message)
-            # Send via Clawdbot message tool
+            # Send via message tool
             # Requires CRONJOB_NOTIFY_CHANNEL env var (e.g., "webchat" or phone number)
             if [[ -n "${CRONJOB_NOTIFY_CHANNEL:-}" ]]; then
-                clawdbot message send \
+                claude message send \
                     --target "$CRONJOB_NOTIFY_CHANNEL" \
                     --message "[$PRIORITY] $TITLE
 

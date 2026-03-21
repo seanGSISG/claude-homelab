@@ -19,7 +19,7 @@ Usage:
     python radicale-api.py contacts delete --addressbook "Contacts" --uid "contact-uid-here"
 
 Credentials:
-    Reads from ~/.homelab-skills/.env:
+    Reads from ~/.claude-homelab/.env:
         RADICALE_URL="http://localhost:5232"
         RADICALE_USERNAME="admin"
         RADICALE_PASSWORD="password"
@@ -54,8 +54,8 @@ def load_env() -> Dict[str, str]:
     with open(env_path) as f:
         for line in f:
             line = line.strip()
-            if line and not line.startswith('#') and '=' in line:
-                key, value = line.split('=', 1)
+            if line and not line.startswith("#") and "=" in line:
+                key, value = line.split("=", 1)
                 # Remove quotes if present
                 value = value.strip().strip('"').strip("'")
                 env_vars[key.strip()] = value
@@ -67,12 +67,15 @@ def get_radicale_client() -> caldav.DAVClient:
     """Create and return a CalDAV client connected to Radicale."""
     env = load_env()
 
-    url = env.get('RADICALE_URL')
-    username = env.get('RADICALE_USERNAME')
-    password = env.get('RADICALE_PASSWORD')
+    url = env.get("RADICALE_URL")
+    username = env.get("RADICALE_USERNAME")
+    password = env.get("RADICALE_PASSWORD")
 
     if not all([url, username, password]):
-        print("ERROR: RADICALE_URL, RADICALE_USERNAME, and RADICALE_PASSWORD must be set in .env", file=sys.stderr)
+        print(
+            "ERROR: RADICALE_URL, RADICALE_USERNAME, and RADICALE_PASSWORD must be set in .env",
+            file=sys.stderr,
+        )
         sys.exit(1)
 
     try:
@@ -89,6 +92,7 @@ def get_radicale_client() -> caldav.DAVClient:
 # Calendar Operations
 # ============================================================================
 
+
 def list_calendars(client: caldav.DAVClient) -> List[Dict[str, Any]]:
     """List all calendars."""
     principal = client.principal()
@@ -96,16 +100,17 @@ def list_calendars(client: caldav.DAVClient) -> List[Dict[str, Any]]:
 
     result = []
     for cal in calendars:
-        result.append({
-            'name': cal.name,
-            'url': str(cal.url),
-            'id': cal.id
-        })
+        result.append({"name": cal.name, "url": str(cal.url), "id": cal.id})
 
     return result
 
 
-def list_events(client: caldav.DAVClient, calendar_name: str, start: Optional[str] = None, end: Optional[str] = None) -> List[Dict[str, Any]]:
+def list_events(
+    client: caldav.DAVClient,
+    calendar_name: str,
+    start: Optional[str] = None,
+    end: Optional[str] = None,
+) -> List[Dict[str, Any]]:
     """
     List events in a calendar within a date range.
 
@@ -131,12 +136,12 @@ def list_events(client: caldav.DAVClient, calendar_name: str, start: Optional[st
 
     # Parse date range
     if start:
-        start_dt = datetime.fromisoformat(start.replace('Z', '+00:00'))
+        start_dt = datetime.fromisoformat(start.replace("Z", "+00:00"))
     else:
         start_dt = datetime.now()
 
     if end:
-        end_dt = datetime.fromisoformat(end.replace('Z', '+00:00'))
+        end_dt = datetime.fromisoformat(end.replace("Z", "+00:00"))
     else:
         end_dt = start_dt + timedelta(days=7)  # Default to 1 week
 
@@ -146,23 +151,40 @@ def list_events(client: caldav.DAVClient, calendar_name: str, start: Optional[st
     result = []
     for event in events:
         cal_data = Calendar.from_ical(event.data)
-        for component in cal_data.walk('VEVENT'):
-            result.append({
-                'uid': str(component.get('uid')),
-                'summary': str(component.get('summary', '')),
-                'description': str(component.get('description', '')),
-                'location': str(component.get('location', '')),
-                'start': component.get('dtstart').dt.isoformat() if component.get('dtstart') else None,
-                'end': component.get('dtend').dt.isoformat() if component.get('dtend') else None,
-                'created': component.get('created').dt.isoformat() if component.get('created') else None,
-                'last_modified': component.get('last-modified').dt.isoformat() if component.get('last-modified') else None,
-            })
+        for component in cal_data.walk("VEVENT"):
+            result.append(
+                {
+                    "uid": str(component.get("uid")),
+                    "summary": str(component.get("summary", "")),
+                    "description": str(component.get("description", "")),
+                    "location": str(component.get("location", "")),
+                    "start": component.get("dtstart").dt.isoformat()
+                    if component.get("dtstart")
+                    else None,
+                    "end": component.get("dtend").dt.isoformat()
+                    if component.get("dtend")
+                    else None,
+                    "created": component.get("created").dt.isoformat()
+                    if component.get("created")
+                    else None,
+                    "last_modified": component.get("last-modified").dt.isoformat()
+                    if component.get("last-modified")
+                    else None,
+                }
+            )
 
     return result
 
 
-def create_event(client: caldav.DAVClient, calendar_name: str, title: str, start: str, end: str,
-                 location: str = '', description: str = '') -> Dict[str, Any]:
+def create_event(
+    client: caldav.DAVClient,
+    calendar_name: str,
+    title: str,
+    start: str,
+    end: str,
+    location: str = "",
+    description: str = "",
+) -> Dict[str, Any]:
     """
     Create a new event in a calendar.
 
@@ -196,34 +218,37 @@ def create_event(client: caldav.DAVClient, calendar_name: str, title: str, start
     # Create event
     cal = Calendar()
     event = Event()
-    event.add('summary', title)
-    event.add('dtstart', start_dt)
-    event.add('dtend', end_dt)
+    event.add("summary", title)
+    event.add("dtstart", start_dt)
+    event.add("dtend", end_dt)
 
     if location:
-        event.add('location', location)
+        event.add("location", location)
     if description:
-        event.add('description', description)
+        event.add("description", description)
 
     # Generate UID
     import uuid
-    event.add('uid', str(uuid.uuid4()))
-    event.add('dtstamp', datetime.now())
+
+    event.add("uid", str(uuid.uuid4()))
+    event.add("dtstamp", datetime.now())
 
     cal.add_component(event)
 
     # Save to server
-    calendar.save_event(cal.to_ical().decode('utf-8'))
+    calendar.save_event(cal.to_ical().decode("utf-8"))
 
     return {
-        'status': 'created',
-        'title': title,
-        'start': start_dt.isoformat(),
-        'end': end_dt.isoformat()
+        "status": "created",
+        "title": title,
+        "start": start_dt.isoformat(),
+        "end": end_dt.isoformat(),
     }
 
 
-def delete_event(client: caldav.DAVClient, calendar_name: str, uid: str) -> Dict[str, str]:
+def delete_event(
+    client: caldav.DAVClient, calendar_name: str, uid: str
+) -> Dict[str, str]:
     """Delete an event by UID."""
     principal = client.principal()
     calendars = principal.calendars()
@@ -243,17 +268,18 @@ def delete_event(client: caldav.DAVClient, calendar_name: str, uid: str) -> Dict
     events = calendar.events()
     for event in events:
         cal_data = Calendar.from_ical(event.data)
-        for component in cal_data.walk('VEVENT'):
-            if str(component.get('uid')) == uid:
+        for component in cal_data.walk("VEVENT"):
+            if str(component.get("uid")) == uid:
                 event.delete()
-                return {'status': 'deleted', 'uid': uid}
+                return {"status": "deleted", "uid": uid}
 
-    return {'status': 'not_found', 'uid': uid}
+    return {"status": "not_found", "uid": uid}
 
 
 # ============================================================================
 # Contact Operations
 # ============================================================================
+
 
 def list_addressbooks(client: caldav.DAVClient) -> List[Dict[str, Any]]:
     """List all addressbooks."""
@@ -264,11 +290,7 @@ def list_addressbooks(client: caldav.DAVClient) -> List[Dict[str, Any]]:
 
         result = []
         for ab in addressbooks:
-            result.append({
-                'name': ab.name,
-                'url': str(ab.url),
-                'id': ab.id
-            })
+            result.append({"name": ab.name, "url": str(ab.url), "id": ab.id})
 
         return result
     except Exception as e:
@@ -276,7 +298,9 @@ def list_addressbooks(client: caldav.DAVClient) -> List[Dict[str, Any]]:
         return []
 
 
-def list_contacts(client: caldav.DAVClient, addressbook_name: str) -> List[Dict[str, Any]]:
+def list_contacts(
+    client: caldav.DAVClient, addressbook_name: str
+) -> List[Dict[str, Any]]:
     """List all contacts in an addressbook."""
     principal = client.principal()
     addressbooks = principal.addressbooks()
@@ -300,41 +324,57 @@ def list_contacts(client: caldav.DAVClient, addressbook_name: str) -> List[Dict[
         vcard = vobject.readOne(contact.data)
 
         # Extract contact info
-        name = str(vcard.fn.value) if hasattr(vcard, 'fn') else ''
-        email = ''
-        if hasattr(vcard, 'email'):
-            email = str(vcard.email.value) if hasattr(vcard.email, 'value') else str(vcard.email)
+        name = str(vcard.fn.value) if hasattr(vcard, "fn") else ""
+        email = ""
+        if hasattr(vcard, "email"):
+            email = (
+                str(vcard.email.value)
+                if hasattr(vcard.email, "value")
+                else str(vcard.email)
+            )
 
-        phone = ''
-        if hasattr(vcard, 'tel'):
-            phone = str(vcard.tel.value) if hasattr(vcard.tel, 'value') else str(vcard.tel)
+        phone = ""
+        if hasattr(vcard, "tel"):
+            phone = (
+                str(vcard.tel.value) if hasattr(vcard.tel, "value") else str(vcard.tel)
+            )
 
-        result.append({
-            'uid': str(vcard.uid.value) if hasattr(vcard, 'uid') else '',
-            'name': name,
-            'email': email,
-            'phone': phone
-        })
+        result.append(
+            {
+                "uid": str(vcard.uid.value) if hasattr(vcard, "uid") else "",
+                "name": name,
+                "email": email,
+                "phone": phone,
+            }
+        )
 
     return result
 
 
-def search_contacts(client: caldav.DAVClient, addressbook_name: str, query: str) -> List[Dict[str, Any]]:
+def search_contacts(
+    client: caldav.DAVClient, addressbook_name: str, query: str
+) -> List[Dict[str, Any]]:
     """Search contacts by name or email."""
     contacts = list_contacts(client, addressbook_name)
 
     # Simple case-insensitive search
     query_lower = query.lower()
     results = [
-        c for c in contacts
-        if query_lower in c['name'].lower() or query_lower in c['email'].lower()
+        c
+        for c in contacts
+        if query_lower in c["name"].lower() or query_lower in c["email"].lower()
     ]
 
     return results
 
 
-def create_contact(client: caldav.DAVClient, addressbook_name: str, name: str,
-                   email: str = '', phone: str = '') -> Dict[str, Any]:
+def create_contact(
+    client: caldav.DAVClient,
+    addressbook_name: str,
+    name: str,
+    email: str = "",
+    phone: str = "",
+) -> Dict[str, Any]:
     """Create a new contact in an addressbook."""
     principal = client.principal()
     addressbooks = principal.addressbooks()
@@ -352,36 +392,34 @@ def create_contact(client: caldav.DAVClient, addressbook_name: str, name: str,
 
     # Create vCard
     vcard = vobject.vCard()
-    vcard.add('fn')
+    vcard.add("fn")
     vcard.fn.value = name
 
     if email:
-        vcard.add('email')
+        vcard.add("email")
         vcard.email.value = email
-        vcard.email.type_param = 'INTERNET'
+        vcard.email.type_param = "INTERNET"
 
     if phone:
-        vcard.add('tel')
+        vcard.add("tel")
         vcard.tel.value = phone
-        vcard.tel.type_param = 'CELL'
+        vcard.tel.type_param = "CELL"
 
     # Generate UID
     import uuid
-    vcard.add('uid')
+
+    vcard.add("uid")
     vcard.uid.value = str(uuid.uuid4())
 
     # Save to server
     addressbook.save_contact(vcard.serialize())
 
-    return {
-        'status': 'created',
-        'name': name,
-        'email': email,
-        'phone': phone
-    }
+    return {"status": "created", "name": name, "email": email, "phone": phone}
 
 
-def delete_contact(client: caldav.DAVClient, addressbook_name: str, uid: str) -> Dict[str, str]:
+def delete_contact(
+    client: caldav.DAVClient, addressbook_name: str, uid: str
+) -> Dict[str, str]:
     """Delete a contact by UID."""
     principal = client.principal()
     addressbooks = principal.addressbooks()
@@ -403,69 +441,78 @@ def delete_contact(client: caldav.DAVClient, addressbook_name: str, uid: str) ->
         vcard = vobject.readOne(contact.data)
         if str(vcard.uid.value) == uid:
             contact.delete()
-            return {'status': 'deleted', 'uid': uid}
+            return {"status": "deleted", "uid": uid}
 
-    return {'status': 'not_found', 'uid': uid}
+    return {"status": "not_found", "uid": uid}
 
 
 # ============================================================================
 # CLI Interface
 # ============================================================================
 
-def main():
-    parser = argparse.ArgumentParser(description='Radicale CalDAV/CardDAV API Wrapper')
-    parser.add_argument('--json', action='store_true', help='Output as JSON')
 
-    subparsers = parser.add_subparsers(dest='command', help='Command to execute')
+def main():
+    parser = argparse.ArgumentParser(description="Radicale CalDAV/CardDAV API Wrapper")
+    parser.add_argument("--json", action="store_true", help="Output as JSON")
+
+    subparsers = parser.add_subparsers(dest="command", help="Command to execute")
 
     # Calendar commands
-    cal_parser = subparsers.add_parser('calendars', help='Calendar operations')
-    cal_subparsers = cal_parser.add_subparsers(dest='action')
-    cal_subparsers.add_parser('list', help='List all calendars')
+    cal_parser = subparsers.add_parser("calendars", help="Calendar operations")
+    cal_subparsers = cal_parser.add_subparsers(dest="action")
+    cal_subparsers.add_parser("list", help="List all calendars")
 
     # Event commands
-    event_parser = subparsers.add_parser('events', help='Event operations')
-    event_subparsers = event_parser.add_subparsers(dest='action')
+    event_parser = subparsers.add_parser("events", help="Event operations")
+    event_subparsers = event_parser.add_subparsers(dest="action")
 
-    event_list = event_subparsers.add_parser('list', help='List events')
-    event_list.add_argument('--calendar', required=True, help='Calendar name')
-    event_list.add_argument('--start', help='Start date (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)')
-    event_list.add_argument('--end', help='End date (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)')
+    event_list = event_subparsers.add_parser("list", help="List events")
+    event_list.add_argument("--calendar", required=True, help="Calendar name")
+    event_list.add_argument(
+        "--start", help="Start date (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)"
+    )
+    event_list.add_argument(
+        "--end", help="End date (YYYY-MM-DD or YYYY-MM-DDTHH:MM:SS)"
+    )
 
-    event_create = event_subparsers.add_parser('create', help='Create event')
-    event_create.add_argument('--calendar', required=True, help='Calendar name')
-    event_create.add_argument('--title', required=True, help='Event title')
-    event_create.add_argument('--start', required=True, help='Start datetime (YYYY-MM-DDTHH:MM:SS)')
-    event_create.add_argument('--end', required=True, help='End datetime (YYYY-MM-DDTHH:MM:SS)')
-    event_create.add_argument('--location', default='', help='Event location')
-    event_create.add_argument('--description', default='', help='Event description')
+    event_create = event_subparsers.add_parser("create", help="Create event")
+    event_create.add_argument("--calendar", required=True, help="Calendar name")
+    event_create.add_argument("--title", required=True, help="Event title")
+    event_create.add_argument(
+        "--start", required=True, help="Start datetime (YYYY-MM-DDTHH:MM:SS)"
+    )
+    event_create.add_argument(
+        "--end", required=True, help="End datetime (YYYY-MM-DDTHH:MM:SS)"
+    )
+    event_create.add_argument("--location", default="", help="Event location")
+    event_create.add_argument("--description", default="", help="Event description")
 
-    event_delete = event_subparsers.add_parser('delete', help='Delete event')
-    event_delete.add_argument('--calendar', required=True, help='Calendar name')
-    event_delete.add_argument('--uid', required=True, help='Event UID')
+    event_delete = event_subparsers.add_parser("delete", help="Delete event")
+    event_delete.add_argument("--calendar", required=True, help="Calendar name")
+    event_delete.add_argument("--uid", required=True, help="Event UID")
 
     # Contact commands
-    contact_parser = subparsers.add_parser('contacts', help='Contact operations')
-    contact_subparsers = contact_parser.add_subparsers(dest='action')
+    contact_parser = subparsers.add_parser("contacts", help="Contact operations")
+    contact_subparsers = contact_parser.add_subparsers(dest="action")
 
-    contact_subparsers.add_parser('addressbooks', help='List all addressbooks')
+    contact_subparsers.add_parser("addressbooks", help="List all addressbooks")
 
-    contact_list = contact_subparsers.add_parser('list', help='List contacts')
-    contact_list.add_argument('--addressbook', required=True, help='Addressbook name')
+    contact_list = contact_subparsers.add_parser("list", help="List contacts")
+    contact_list.add_argument("--addressbook", required=True, help="Addressbook name")
 
-    contact_search = contact_subparsers.add_parser('search', help='Search contacts')
-    contact_search.add_argument('--addressbook', required=True, help='Addressbook name')
-    contact_search.add_argument('--query', required=True, help='Search query')
+    contact_search = contact_subparsers.add_parser("search", help="Search contacts")
+    contact_search.add_argument("--addressbook", required=True, help="Addressbook name")
+    contact_search.add_argument("--query", required=True, help="Search query")
 
-    contact_create = contact_subparsers.add_parser('create', help='Create contact')
-    contact_create.add_argument('--addressbook', required=True, help='Addressbook name')
-    contact_create.add_argument('--name', required=True, help='Contact name')
-    contact_create.add_argument('--email', default='', help='Email address')
-    contact_create.add_argument('--phone', default='', help='Phone number')
+    contact_create = contact_subparsers.add_parser("create", help="Create contact")
+    contact_create.add_argument("--addressbook", required=True, help="Addressbook name")
+    contact_create.add_argument("--name", required=True, help="Contact name")
+    contact_create.add_argument("--email", default="", help="Email address")
+    contact_create.add_argument("--phone", default="", help="Phone number")
 
-    contact_delete = contact_subparsers.add_parser('delete', help='Delete contact')
-    contact_delete.add_argument('--addressbook', required=True, help='Addressbook name')
-    contact_delete.add_argument('--uid', required=True, help='Contact UID')
+    contact_delete = contact_subparsers.add_parser("delete", help="Delete contact")
+    contact_delete.add_argument("--addressbook", required=True, help="Addressbook name")
+    contact_delete.add_argument("--uid", required=True, help="Contact UID")
 
     args = parser.parse_args()
 
@@ -479,30 +526,38 @@ def main():
     # Execute command
     result = None
 
-    if args.command == 'calendars':
-        if args.action == 'list':
+    if args.command == "calendars":
+        if args.action == "list":
             result = list_calendars(client)
 
-    elif args.command == 'events':
-        if args.action == 'list':
+    elif args.command == "events":
+        if args.action == "list":
             result = list_events(client, args.calendar, args.start, args.end)
-        elif args.action == 'create':
-            result = create_event(client, args.calendar, args.title, args.start,
-                                  args.end, args.location, args.description)
-        elif args.action == 'delete':
+        elif args.action == "create":
+            result = create_event(
+                client,
+                args.calendar,
+                args.title,
+                args.start,
+                args.end,
+                args.location,
+                args.description,
+            )
+        elif args.action == "delete":
             result = delete_event(client, args.calendar, args.uid)
 
-    elif args.command == 'contacts':
-        if args.action == 'addressbooks':
+    elif args.command == "contacts":
+        if args.action == "addressbooks":
             result = list_addressbooks(client)
-        elif args.action == 'list':
+        elif args.action == "list":
             result = list_contacts(client, args.addressbook)
-        elif args.action == 'search':
+        elif args.action == "search":
             result = search_contacts(client, args.addressbook, args.query)
-        elif args.action == 'create':
-            result = create_contact(client, args.addressbook, args.name,
-                                    args.email, args.phone)
-        elif args.action == 'delete':
+        elif args.action == "create":
+            result = create_contact(
+                client, args.addressbook, args.name, args.email, args.phone
+            )
+        elif args.action == "delete":
             result = delete_contact(client, args.addressbook, args.uid)
 
     # Output result
@@ -516,5 +571,5 @@ def main():
         sys.exit(1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

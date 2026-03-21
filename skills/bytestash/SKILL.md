@@ -33,7 +33,7 @@ ByteStash is a self-hosted code snippet management service with multi-file suppo
 
 ## Setup
 
-**Required credentials in `~/.homelab-skills/.env`:**
+**Required credentials in `~/.claude-homelab/.env`:**
 
 ```bash
 BYTESTASH_URL="https://bytestash.example.com"
@@ -47,7 +47,7 @@ BYTESTASH_API_KEY="your-api-key-here"
 4. Copy the generated key to `.env` file
 
 **Security:**
-- Set permissions: `chmod 600 ~/.homelab-skills/.env`
+- Set permissions: `chmod 600 ~/.claude-homelab/.env`
 - API keys are scoped to your user account
 - NEVER commit `.env` to version control
 
@@ -236,3 +236,19 @@ ByteStash supports snippets with multiple code fragments (files). Each fragment 
 - **Troubleshooting**: See `references/troubleshooting.md` for common failures
 - **Official Docs**: API documentation at `{BYTESTASH_URL}/api-docs/`
 - **Web Interface**: Full-featured UI at `{BYTESTASH_URL}`
+
+---
+
+## 🔧 Agent Tool Usage Requirements
+
+**CRITICAL:** When invoking scripts from this skill via the zsh-tool, **ALWAYS use `pty: true`**.
+
+Without PTY mode, command output will not be visible even though commands execute successfully.
+
+**Correct invocation pattern:**
+```typescript
+<invoke name="mcp__plugin_zsh-tool_zsh-tool__zsh">
+<parameter name="command">./skills/bytestash/scripts/bytestash-api.sh [args]</parameter>
+<parameter name="pty">true</parameter>
+</invoke>
+```

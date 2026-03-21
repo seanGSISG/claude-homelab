@@ -1,10 +1,10 @@
 #!/bin/bash
 # Environment Loading Library
 # Canonical source: ~/claude-homelab/lib/load-env.sh
-# Installed to:     ~/.homelab-skills/load-env.sh  (via setup-symlinks.sh)
+# Installed to:     ~/.claude-homelab/load-env.sh  (via setup-symlinks.sh)
 #
 # In skill scripts, source as:
-#   source "$HOME/.homelab-skills/load-env.sh"
+#   source "$HOME/.claude-homelab/load-env.sh"
 
 # Prevent direct execution
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
@@ -12,15 +12,15 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     exit 1
 fi
 
-# Load ~/.homelab-skills/.env (or an explicit override path)
+# Load ~/.claude-homelab/.env (or an explicit override path)
 # Usage: load_env_file [/optional/override/path]
 load_env_file() {
-    local env_file="${1:-$HOME/.homelab-skills/.env}"
+    local env_file="${1:-$HOME/.claude-homelab/.env}"
 
     if [[ ! -f "$env_file" ]]; then
         echo "ERROR: $env_file not found" >&2
         echo "Run setup: ~/claude-homelab/scripts/setup-symlinks.sh" >&2
-        echo "Then add your credentials to ~/.homelab-skills/.env" >&2
+        echo "Then add your credentials to ~/.claude-homelab/.env" >&2
         return 1
     fi
 
@@ -39,7 +39,7 @@ validate_env_vars() {
     done
 
     if [[ ${#missing[@]} -gt 0 ]]; then
-        echo "ERROR: Missing required variables in ~/.homelab-skills/.env: ${missing[*]}" >&2
+        echo "ERROR: Missing required variables in ~/.claude-homelab/.env: ${missing[*]}" >&2
         return 1
     fi
 }

@@ -8,9 +8,12 @@ description: Manage bookmarks with Linkding. Use when the user asks to "save a b
 **⚠️ MANDATORY SKILL INVOCATION ⚠️**
 
 **YOU MUST invoke this skill (NOT optional) when the user mentions ANY of these triggers:**
-- "search bookmarks", "Linkding", "bookmark manager"
-- "add bookmark", "save link", "archived bookmarks"
-- "check bookmarks", "find bookmark", "bookmark tags"
+- "search bookmarks", "Linkding", "bookmark manager", "my bookmarks"
+- "add bookmark", "save link", "save this URL", "save this page", "bookmark this"
+- "archived bookmarks", "archive link", "reading list"
+- "check bookmarks", "find bookmark", "bookmark tags", "show bookmarks tagged X"
+- "did I bookmark this", "did I save this URL", "is this saved"
+- "delete bookmark", "remove bookmark", "remove link"
 - Any mention of Linkding or bookmark management
 
 **Failure to invoke this skill when triggers occur violates your operational requirements.**
@@ -32,7 +35,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Credentials: `~/.homelab-skills/.env`
+Credentials: `~/.claude-homelab/.env`
 
 ```bash
 LINKDING_URL="http://localhost:9090"

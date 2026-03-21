@@ -9,13 +9,13 @@ Common operations for quick copy-paste usage.
 # No setup needed - uses local Tailscale daemon
 
 # API operations (tailnet-wide)
-# Add to ~/.homelab-skills/.env:
+# Add to ~/.claude-homelab/.env:
 TAILSCALE_API_KEY="tskey-api-xxxxx"
 TAILSCALE_TAILNET="-"  # or your organization name
 
 # Scripts automatically load from .env
 # For manual commands, source the file:
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 ```
 
 ## File Transfer (Taildrop)
@@ -193,7 +193,7 @@ tailscale ip
 
 ```bash
 # Load credentials
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # List all devices
 curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/devices" \
@@ -230,7 +230,7 @@ curl -s "https://api.tailscale.com/api/v2/device/12345" \
 
 ```bash
 # Load credentials
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # Create reusable key (multiple devices)
 curl -X POST "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/keys" \
@@ -291,7 +291,7 @@ curl -X POST "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/keys" 
 
 ```bash
 # Load credentials
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # Get all keys
 curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/keys" \
@@ -302,7 +302,7 @@ curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/keys" \
 
 ```bash
 # Load credentials
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 curl -X DELETE "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/keys/k123" \
   -H "Authorization: Bearer $TAILSCALE_API_KEY"
@@ -355,7 +355,7 @@ tailscale status | grep direct
 
 ```bash
 # Load credentials
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # Get DNS configuration
 curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/dns/preferences" \
@@ -394,7 +394,7 @@ tailscale status --json | jq '.MagicDNSSuffix'
 1. **Create auth key:**
    ```bash
    # Load credentials
-   source ~/.homelab-skills/.env
+   source ~/.claude-homelab/.env
 
    AUTH_KEY=$(curl -X POST "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/keys" \
      -H "Authorization: Bearer $TAILSCALE_API_KEY" \
@@ -487,7 +487,7 @@ tailscale funnel reset
 tailscale status | grep -v offline
 
 # List online devices (API)
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/devices" \
   -H "Authorization: Bearer $TAILSCALE_API_KEY" | \
   jq '.devices[] | select(.lastSeen != null) | select((now - (.lastSeen | fromdateiso8601)) < 300) | {name, lastSeen}'
@@ -497,7 +497,7 @@ curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/devices" \
 
 ```bash
 # Load credentials
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # List all devices with details
 curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/devices" \
@@ -552,7 +552,7 @@ echo "Server IP: $IP"
 
 ```bash
 # Load credentials
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # Get all unauthorized devices
 curl -s "https://api.tailscale.com/api/v2/tailnet/$TAILSCALE_TAILNET/devices" \

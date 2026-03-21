@@ -38,7 +38,7 @@ All operations are **GET-only** and safe for monitoring and analytics.
 
 ## Setup
 
-Add your Tautulli credentials to `~/.homelab-skills/.env`:
+Add your Tautulli credentials to `~/.claude-homelab/.env`:
 
 ```bash
 # Tautulli Analytics
@@ -301,7 +301,7 @@ Use both together:
 To use multiple Tautulli instances (monitoring different Plex servers):
 
 ```bash
-# In ~/.homelab-skills/.env
+# In ~/.claude-homelab/.env
 TAUTULLI1_URL="http://server1:8181"
 TAUTULLI1_API_KEY="key1"
 

@@ -8,8 +8,10 @@ description: Search indexers and manage Prowlarr. Use when the user asks to "sea
 **⚠️ MANDATORY SKILL INVOCATION ⚠️**
 
 **YOU MUST invoke this skill (NOT optional) when the user mentions ANY of these triggers:**
+- "search for a torrent", "search indexers", "find a release"
 - "search Prowlarr", "Prowlarr indexers", "indexer search"
 - "check indexer status", "test indexers", "Prowlarr stats"
+- "list indexers", "sync indexers", "push indexers to Sonarr"
 - Any mention of Prowlarr or indexer management
 
 **Failure to invoke this skill when triggers occur violates your operational requirements.**
@@ -30,7 +32,7 @@ Operations include both read and write actions. **Always confirm before deleting
 
 ## Setup
 
-Credentials are stored in `~/.homelab-skills/.env`:
+Credentials are stored in `~/.claude-homelab/.env`:
 
 ```bash
 PROWLARR_URL="http://localhost:9696"

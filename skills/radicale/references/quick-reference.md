@@ -12,7 +12,7 @@ pip install caldav vobject icalendar
 
 ### Configure Credentials
 
-Add to `~/.homelab-skills/.env`:
+Add to `~/.claude-homelab/.env`:
 
 ```bash
 RADICALE_URL="http://localhost:5232"

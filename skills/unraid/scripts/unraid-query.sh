@@ -2,7 +2,12 @@
 # Unraid GraphQL API Query Helper
 # Makes it easy to query the Unraid API from the command line
 
-set -e
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
+load_env_file || true  # non-fatal: CLI flags can override env vars
 
 # Usage function
 usage() {

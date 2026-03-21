@@ -1,6 +1,6 @@
 # Gotify Skill
 
-Send push notifications via Gotify from Clawdbot.
+Send push notifications via Gotify.
 
 ## What It Does
 
@@ -20,7 +20,7 @@ Send push notifications via Gotify from Clawdbot.
 
 ### 2. Add Credentials to .env
 
-Add the following to `~/.homelab-skills/.env`:
+Add the following to `~/.claude-homelab/.env`:
 
 ```bash
 GOTIFY_URL="https://gotify.example.com"
@@ -33,7 +33,7 @@ GOTIFY_TOKEN="your-app-token-here"
 ### 3. Test It
 
 ```bash
-bash scripts/send.sh "Hello from Clawdbot!"
+bash scripts/send.sh "Hello!"
 ```
 
 ## Usage Examples
@@ -100,7 +100,7 @@ bash scripts/send.sh --markdown -t "Deploy Summary" -m "
 
 ## Credentials Management
 
-Gotify uses centralized `.env` file at `~/.homelab-skills/.env` for credential management.
+Gotify uses centralized `.env` file at `~/.claude-homelab/.env` for credential management.
 
 **Required variables:**
 ```bash
@@ -119,7 +119,7 @@ Detailed documentation is available in the `references/` directory:
 ## Quick Troubleshooting
 
 **"Gotify not configured"**
-→ Check that `GOTIFY_URL` and `GOTIFY_TOKEN` are set in `~/.homelab-skills/.env`
+→ Check that `GOTIFY_URL` and `GOTIFY_TOKEN` are set in `~/.claude-homelab/.env`
 
 **Connection refused**
 → Verify your Gotify server URL is correct

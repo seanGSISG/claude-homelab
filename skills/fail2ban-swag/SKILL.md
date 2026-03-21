@@ -356,9 +356,6 @@ Add `--json` flag before any command for machine-readable output:
 
 ## Reference
 
-**Research Documentation:**
-- See `../docs/research/swag-fail2ban-integration/` for detailed setup documentation and research findings
-
 **Official Documentation:**
 - [fail2ban Manual](https://fail2ban.readthedocs.io/)
 - [LinuxServer.io SWAG Documentation](https://docs.linuxserver.io/images/docker-swag)
@@ -368,3 +365,25 @@ Add `--json` flag before any command for machine-readable output:
 - [references/quick-reference.md](references/quick-reference.md) - Quick command examples for common operations
 - [references/filter-examples.md](references/filter-examples.md) - Pre-built filter patterns for common attack types
 - [references/troubleshooting.md](references/troubleshooting.md) - Detailed troubleshooting procedures
+
+---
+
+## 🔧 Agent Tool Usage Requirements
+
+**CRITICAL:** When invoking scripts from this skill via the zsh-tool, **ALWAYS use `pty: true`**.
+
+Without PTY mode, command output will not be visible even though commands execute successfully.
+
+**Correct invocation pattern:**
+```typescript
+<invoke name="mcp__plugin_zsh-tool_zsh-tool__zsh">
+<parameter name="command">./skills/fail2ban-swag/scripts/fail2ban-swag.sh [args]</parameter>
+<parameter name="pty">true</parameter>
+</invoke>
+```
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `fail2ban-swag.sh` | Main wrapper — all fail2ban operations via SSH into SWAG container |

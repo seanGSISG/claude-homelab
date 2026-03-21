@@ -1,6 +1,6 @@
 # Plex Skill
 
-Control and monitor your Plex Media Server from Clawdbot.
+Control and monitor your Plex Media Server.
 
 ## What It Does
 
@@ -33,26 +33,26 @@ All operations are read-only and use the Plex Media Server API.
 Create your Plex configuration:
 
 ```bash
-export PLEX_SERVER="http://192.168.1.100:32400"
+export PLEX_URL="http://192.168.1.100:32400"
 export PLEX_TOKEN="your-plex-token-here"
 ```
 
 Or add to your shell profile (`~/.bashrc`, `~/.zshrc`):
 
 ```bash
-echo 'export PLEX_SERVER="http://192.168.1.100:32400"' >> ~/.bashrc
+echo 'export PLEX_URL="http://192.168.1.100:32400"' >> ~/.bashrc
 echo 'export PLEX_TOKEN="your-token"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 **Configuration options:**
-- `PLEX_SERVER`: Your Plex server URL (format: `http://IP:PORT`, default port: 32400)
+- `PLEX_URL`: Your Plex server URL (format: `http://IP:PORT`, default port: 32400)
 - `PLEX_TOKEN`: Your Plex authentication token
 
 ### 3. Test It
 
 ```bash
-curl -s "$PLEX_SERVER/?X-Plex-Token=$PLEX_TOKEN" -H "Accept: application/json"
+curl -s "$PLEX_URL/?X-Plex-Token=$PLEX_TOKEN" -H "Accept: application/json"
 ```
 
 ## Usage Examples
@@ -62,7 +62,7 @@ All examples use `curl` with your environment variables.
 ### Get Server Info
 
 ```bash
-curl -s "$PLEX_SERVER/?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
@@ -71,7 +71,7 @@ curl -s "$PLEX_SERVER/?X-Plex-Token=$PLEX_TOKEN" \
 List all library sections (Movies, TV Shows, Music, etc.):
 
 ```bash
-curl -s "$PLEX_SERVER/library/sections?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/library/sections?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
@@ -79,7 +79,7 @@ curl -s "$PLEX_SERVER/library/sections?X-Plex-Token=$PLEX_TOKEN" \
 
 ```bash
 # Replace 1 with your library section key from browse above
-curl -s "$PLEX_SERVER/library/sections/1/all?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/library/sections/1/all?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
@@ -88,7 +88,7 @@ curl -s "$PLEX_SERVER/library/sections/1/all?X-Plex-Token=$PLEX_TOKEN" \
 Search across all libraries:
 
 ```bash
-curl -s "$PLEX_SERVER/search?query=Inception&X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/search?query=Inception&X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
@@ -97,14 +97,14 @@ curl -s "$PLEX_SERVER/search?query=Inception&X-Plex-Token=$PLEX_TOKEN" \
 View the latest content added to your libraries:
 
 ```bash
-curl -s "$PLEX_SERVER/library/recentlyAdded?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/library/recentlyAdded?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
 ### Get On Deck (Continue Watching)
 
 ```bash
-curl -s "$PLEX_SERVER/library/onDeck?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/library/onDeck?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
@@ -113,7 +113,7 @@ curl -s "$PLEX_SERVER/library/onDeck?X-Plex-Token=$PLEX_TOKEN" \
 See what's currently playing:
 
 ```bash
-curl -s "$PLEX_SERVER/status/sessions?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/status/sessions?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
@@ -122,7 +122,7 @@ curl -s "$PLEX_SERVER/status/sessions?X-Plex-Token=$PLEX_TOKEN" \
 See all connected Plex clients/players:
 
 ```bash
-curl -s "$PLEX_SERVER/clients?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/clients?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json" | jq
 ```
 
@@ -161,7 +161,7 @@ Detailed API documentation is available in the `references/` directory:
 Add `-H "Accept: application/json"` for JSON responses (default is XML):
 
 ```bash
-curl -s "$PLEX_SERVER/endpoint?X-Plex-Token=$PLEX_TOKEN" \
+curl -s "$PLEX_URL/endpoint?X-Plex-Token=$PLEX_TOKEN" \
   -H "Accept: application/json"
 ```
 

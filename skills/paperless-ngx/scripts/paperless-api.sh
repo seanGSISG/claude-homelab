@@ -6,13 +6,10 @@
 set -euo pipefail
 
 # Load credentials from .env
-source "$HOME/.homelab-skills/load-env.sh"
-load_env_file || exit 1
-# Validate required credentials
-if [[ -z "${PAPERLESS_URL:-}" ]] || [[ -z "${PAPERLESS_API_TOKEN:-}" ]]; then
-    echo '{"error": "Missing credentials", "required": ["PAPERLESS_URL", "PAPERLESS_API_TOKEN"]}' >&2
-    exit 1
-fi
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
+load_service_credentials "paperless-ngx" "PAPERLESS_URL" "PAPERLESS_API_TOKEN"
 
 # API configuration
 API_BASE="${PAPERLESS_URL}/api"

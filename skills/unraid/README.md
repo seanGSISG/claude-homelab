@@ -13,9 +13,9 @@ skills/unraid/
 ├── SKILL.md                           # Main skill documentation
 ├── README.md                          # This file
 ├── scripts/
-│   └── unraid-query.sh               # GraphQL query helper script
+│   ├── unraid-query.sh               # GraphQL query helper script
+│   └── dashboard.sh                  # Complete multi-server dashboard
 ├── examples/
-│   ├── monitoring-dashboard.sh       # Complete system dashboard
 │   ├── disk-health.sh                # Disk temperature & health check
 │   └── read-logs.sh                  # Log file reader
 └── references/
@@ -39,7 +39,7 @@ skills/unraid/
 
 3. **Run examples:**
    ```bash
-   ./examples/monitoring-dashboard.sh
+   ./scripts/dashboard.sh
    ./examples/disk-health.sh
    ```
 
@@ -126,7 +126,7 @@ This skill activates when you mention:
 
 ### Complete Dashboard
 ```bash
-./examples/monitoring-dashboard.sh
+./scripts/dashboard.sh
 ```
 
 ### Read Logs

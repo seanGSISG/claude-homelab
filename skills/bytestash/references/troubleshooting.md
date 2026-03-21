@@ -25,7 +25,7 @@ curl -I https://bytestash.example.com
 
 ### Checks
 ```bash
-grep '^BYTESTASH_' ~/.homelab-skills/.env
+grep '^BYTESTASH_' ~/.claude-homelab/.env
 ```
 
 ### Fixes

@@ -30,7 +30,7 @@ Operations include both read and write actions. **Always confirm before removing
 
 ## Setup
 
-Add credentials to `~/.homelab-skills/.env`:
+Add credentials to `~/.claude-homelab/.env`:
 
 ```bash
 RADARR_URL="http://localhost:7878"
@@ -148,6 +148,11 @@ Always include TMDB links when presenting search results:
 
 - [Radarr API Documentation](https://radarr.video/docs/api/)
 - [TMDB](https://themoviedb.org/) — The Movie Database
+
+For detailed local reference, see:
+- **[API Endpoints](./references/api-endpoints.md)** - Complete endpoint reference with parameters
+- **[Quick Reference](./references/quick-reference.md)** - Common operations with copy-paste examples
+- **[Troubleshooting](./references/troubleshooting.md)** - Authentication, connection, and error solutions
 
 ---
 

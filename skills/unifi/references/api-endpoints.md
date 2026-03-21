@@ -85,7 +85,7 @@ These *can* be writable via PUT/POST in general, but are safe if you only **GET*
 
 - UniFi’s local API is largely **undocumented** and varies by Network app version.
 - Some endpoints support POST “filters” (e.g., `stat/device` filter by macs). Those can still be read-only, but we should treat *all POSTs as suspicious* unless we confirm they don’t mutate state.
-- For a Clawdbot skill, safest posture is:
+- For this skill, safest posture is:
   - Use **GET-only** to the `stat/*` and selected `rest/*` endpoints
   - Avoid anything under `/cmd/*` and any `PUT/POST/DELETE`
 

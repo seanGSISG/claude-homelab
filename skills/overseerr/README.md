@@ -1,6 +1,6 @@
 # Overseerr Skill
 
-Request movies and TV shows via your Overseerr instance from Clawdbot.
+Request movies and TV shows via your Overseerr instance.
 
 ## What It Does
 
@@ -24,7 +24,7 @@ All operations use the Overseerr API (stable version, not the beta Seerr rewrite
 
 ### 2. Add Credentials to .env File
 
-Add your Overseerr configuration to `~/.homelab-skills/.env`:
+Add your Overseerr configuration to `~/.claude-homelab/.env`:
 
 ```bash
 OVERSEERR_URL="http://localhost:5055"
@@ -32,9 +32,9 @@ OVERSEERR_API_KEY="your-api-key-here"
 ```
 
 **Important:**
-- The `.env` file must be located at `~/.homelab-skills/.env`
+- The `.env` file must be located at `~/.claude-homelab/.env`
 - This file is gitignored (never committed)
-- Set file permissions: `chmod 600 ~/.homelab-skills/.env`
+- Set file permissions: `chmod 600 ~/.claude-homelab/.env`
 
 **Configuration options:**
 - `OVERSEERR_URL`: Your Overseerr server URL (no trailing slash)

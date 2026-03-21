@@ -5,12 +5,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-source "$HOME/.homelab-skills/load-env.sh"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
 
 # Load credentials from .env
-load_env_file || exit 1
-validate_env_vars "PLEX_URL" "PLEX_TOKEN"
+load_service_credentials "plex" "PLEX_URL" "PLEX_TOKEN"
 
 # Map to script's internal variable names
 PLEX_URL="${PLEX_URL%/}"  # Remove trailing slash

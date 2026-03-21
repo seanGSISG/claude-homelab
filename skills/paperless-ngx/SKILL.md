@@ -46,7 +46,7 @@ This skill provides **read-write** access to a self-hosted Paperless-ngx instanc
 
 ### Credential Configuration
 
-Add these variables to `~/.homelab-skills/.env`:
+Add these variables to `~/.claude-homelab/.env`:
 
 ```bash
 # Paperless-ngx - Document management system
@@ -63,7 +63,7 @@ PAPERLESS_API_TOKEN="your-api-token-here"
 
 **Security:**
 - `.env` file is gitignored (never commit)
-- Set permissions: `chmod 600 ~/.homelab-skills/.env`
+- Set permissions: `chmod 600 ~/.claude-homelab/.env`
 - Token has same permissions as your user account
 
 ## Commands
@@ -187,6 +187,11 @@ bash scripts/bulk-api.sh remove-tag <tag-id> --documents "1,2,3"
 **Bulk set correspondent:**
 ```bash
 bash scripts/bulk-api.sh set-correspondent <correspondent-id> --documents "1,2,3"
+```
+
+**Bulk set document type:**
+```bash
+bash scripts/bulk-api.sh set-document-type <type-id> --documents "1,2,3"
 ```
 
 **Bulk delete documents:**

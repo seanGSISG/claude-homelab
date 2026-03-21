@@ -5,10 +5,16 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
+load_env_file || exit 1
+validate_env_vars "SWAG_HOST" "SWAG_CONTAINER_NAME" "SWAG_APPDATA_PATH"
+
 # === Configuration ===
-SWAG_HOST="${SWAG_HOST:-your-hostname}"
-SWAG_CONTAINER_NAME="${SWAG_CONTAINER_NAME:-swag}"
-SWAG_APPDATA_PATH="${SWAG_APPDATA_PATH:-/path/to/appdata/swag}"
+SWAG_HOST="${SWAG_HOST}"
+SWAG_CONTAINER_NAME="${SWAG_CONTAINER_NAME}"
+SWAG_APPDATA_PATH="${SWAG_APPDATA_PATH}"
 OUTPUT_FORMAT="${OUTPUT_FORMAT:-text}"
 
 # SSH command wrapper

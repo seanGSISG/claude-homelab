@@ -61,7 +61,7 @@ python scripts/radicale-api.py --help
 
 ### Credentials
 
-Add to `~/.homelab-skills/.env`:
+Add to `~/.claude-homelab/.env`:
 
 ```bash
 RADICALE_URL="http://localhost:5232"
@@ -71,7 +71,7 @@ RADICALE_PASSWORD="password"
 
 **Security:**
 - `.env` file is gitignored (never commit credentials)
-- Set permissions: `chmod 600 ~/.homelab-skills/.env`
+- Set permissions: `chmod 600 ~/.claude-homelab/.env`
 
 ## Core Operations
 
@@ -376,8 +376,19 @@ All operations return JSON with status. Check for:
 - [RFC 4791 - CalDAV](https://www.rfc-editor.org/rfc/rfc4791) (embedded in vector DB)
 - [RFC 6352 - CardDAV](https://www.rfc-editor.org/rfc/rfc6352) (embedded in vector DB)
 
-**Query embedded documentation:**
-```bash
-cd /home/jmagar/claude-homelab/skills/firecrawl
-firecrawl query "CalDAV create event example"
+---
+
+## 🔧 Agent Tool Usage Requirements
+
+**CRITICAL:** When invoking scripts from this skill via the zsh-tool, **ALWAYS use `pty: true`**.
+
+Without PTY mode, command output will not be visible even though commands execute successfully.
+
+**Correct invocation pattern:**
+```typescript
+<invoke name="mcp__plugin_zsh-tool_zsh-tool__zsh">
+<parameter name="command">python ./skills/radicale/scripts/radicale-api.py [args]</parameter>
+<parameter name="pty">true</parameter>
+</invoke>
 ```
+

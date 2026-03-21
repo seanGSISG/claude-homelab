@@ -1,6 +1,6 @@
 # Tailscale Skill
 
-Manage your Tailscale tailnet from Clawdbot.
+Manage your Tailscale tailnet.
 
 ## What It Does
 
@@ -39,7 +39,7 @@ tailscale file cp document.pdf my-phone:
 
 #### 2. Add to .env File
 
-Add these variables to `~/.homelab-skills/.env`:
+Add these variables to `~/.claude-homelab/.env`:
 
 ```bash
 TAILSCALE_API_KEY="tskey-api-your-key-here"
@@ -107,7 +107,7 @@ ts-api.sh magic-dns on
 
 ## Environment Variables
 
-All configuration is managed via `~/.homelab-skills/.env`:
+All configuration is managed via `~/.claude-homelab/.env`:
 
 ```bash
 TAILSCALE_API_KEY="tskey-api-..."
@@ -125,7 +125,7 @@ Detailed API documentation is available in the `references/` directory:
 ## Troubleshooting
 
 **"No API key configured"**
-→ Add `TAILSCALE_API_KEY` and `TAILSCALE_TAILNET` to `~/.homelab-skills/.env`
+→ Add `TAILSCALE_API_KEY` and `TAILSCALE_TAILNET` to `~/.claude-homelab/.env`
 
 **401 Unauthorized**
 → API key is invalid or expired — generate a new one

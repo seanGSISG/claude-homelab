@@ -41,7 +41,7 @@ Common issues and solutions when using the Tautulli skill.
 
 3. **Update .env file:**
    ```bash
-   # Edit ~/.homelab-skills/.env
+   # Edit ~/.claude-homelab/.env
    TAUTULLI_API_KEY="correct-key-here"
 
    # NO quotes around value if contains special chars
@@ -64,12 +64,12 @@ Common issues and solutions when using the Tautulli skill.
 
 1. **Check .env file exists:**
    ```bash
-   ls -la ~/.homelab-skills/.env
+   ls -la ~/.claude-homelab/.env
    ```
 
 2. **Check variable is set:**
    ```bash
-   cat ~/.homelab-skills/.env | grep TAUTULLI
+   cat ~/.claude-homelab/.env | grep TAUTULLI
    ```
 
 3. **Verify format:**
@@ -84,7 +84,7 @@ Common issues and solutions when using the Tautulli skill.
 
 4. **Source the file manually:**
    ```bash
-   source ~/.homelab-skills/.env
+   source ~/.claude-homelab/.env
    echo $TAUTULLI_API_KEY  # Should print your key
    ```
 

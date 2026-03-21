@@ -38,19 +38,29 @@ if [[ ! -d "$HOMELAB_DIR" ]]; then
     mkdir -p "$HOMELAB_DIR"
 fi
 
+# Detect non-interactive mode (e.g., curl | bash)
+INTERACTIVE=true
+if [[ ! -t 0 ]]; then
+    INTERACTIVE=false
+fi
+
 # Check if .env already exists
 if [[ -f "$ENV_FILE" ]]; then
-    echo -e "${YELLOW}⚠ .env file already exists at: $ENV_FILE${NC}"
-    read -p "Do you want to backup and recreate it? (y/N) " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        BACKUP="${ENV_FILE}.backup.$(date +%Y%m%d-%H%M%S)"
-        echo -e "${YELLOW}Backing up to: $BACKUP${NC}"
-        cp "$ENV_FILE" "$BACKUP"
+    if [[ "$INTERACTIVE" == true ]]; then
+        echo -e "${YELLOW}⚠ .env file already exists at: $ENV_FILE${NC}"
+        read -p "Do you want to backup and recreate it? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            BACKUP="${ENV_FILE}.backup.$(date +%Y%m%d-%H%M%S)"
+            echo -e "${YELLOW}Backing up to: $BACKUP${NC}"
+            cp "$ENV_FILE" "$BACKUP"
+        else
+            echo -e "${GREEN}Keeping existing .env file${NC}"
+            echo -e "${BLUE}To view the template: cat $ENV_EXAMPLE${NC}"
+            exit 0
+        fi
     else
-        echo -e "${GREEN}Keeping existing .env file${NC}"
-        echo -e "${BLUE}To view the template: cat $ENV_EXAMPLE${NC}"
-        exit 0
+        echo -e "${GREEN}✓ Keeping existing .env file (non-interactive mode)${NC}"
     fi
 fi
 
@@ -68,60 +78,66 @@ chmod 600 "$ENV_FILE"
 echo -e "${GREEN}✓ Set secure permissions (600) on .env${NC}"
 echo
 
-# Interactive configuration (optional)
-echo -e "${BLUE}=== Interactive Configuration ===${NC}"
-echo
-echo "Would you like to configure services now?"
-echo "You can also edit $ENV_FILE manually later."
-echo
-read -p "Configure now? (y/N) " -n 1 -r
-echo
-echo
-
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo -e "${BLUE}Let's configure some common services...${NC}"
+# Interactive configuration (optional — skipped in non-interactive mode)
+if [[ "$INTERACTIVE" == true ]]; then
+    echo -e "${BLUE}=== Interactive Configuration ===${NC}"
+    echo
+    echo "Would you like to configure services now?"
+    echo "You can also edit $ENV_FILE manually later."
+    echo
+    read -p "Configure now? (y/N) " -n 1 -r
+    echo
     echo
 
-    # Firecrawl
-    echo -e "${YELLOW}[Firecrawl - Web Scraping]${NC}"
-    read -p "Do you have a Firecrawl API key? (y/N) " -n 1 -r
-    echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-        read -p "Enter Firecrawl API key: " FIRECRAWL_KEY
-        sed -i "s|FIRECRAWL_API_KEY=.*|FIRECRAWL_API_KEY=$FIRECRAWL_KEY|g" "$ENV_FILE"
-        sed -i "s|#FIRECRAWL_API_KEY=|FIRECRAWL_API_KEY=|g" "$ENV_FILE"
-        echo -e "${GREEN}✓ Firecrawl configured${NC}"
-    fi
-    echo
+        echo -e "${BLUE}Let's configure some common services...${NC}"
+        echo
 
-    # Gotify
-    echo -e "${YELLOW}[Gotify - Notifications]${NC}"
-    read -p "Do you have a Gotify server? (y/N) " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        read -p "Enter Gotify URL: " GOTIFY_URL
-        read -p "Enter Gotify token: " GOTIFY_TOKEN
-        sed -i "s|GOTIFY_URL=.*|GOTIFY_URL=$GOTIFY_URL|g" "$ENV_FILE"
-        sed -i "s|GOTIFY_TOKEN=.*|GOTIFY_TOKEN=$GOTIFY_TOKEN|g" "$ENV_FILE"
-        sed -i "s|#GOTIFY_URL=|GOTIFY_URL=|g" "$ENV_FILE"
-        sed -i "s|#GOTIFY_TOKEN=|GOTIFY_TOKEN=|g" "$ENV_FILE"
-        echo -e "${GREEN}✓ Gotify configured${NC}"
-    fi
-    echo
+        # Firecrawl
+        echo -e "${YELLOW}[Firecrawl - Web Scraping]${NC}"
+        read -p "Do you have a Firecrawl API key? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            read -p "Enter Firecrawl API key: " FIRECRAWL_KEY
+            sed -i "s|FIRECRAWL_API_KEY=.*|FIRECRAWL_API_KEY=$FIRECRAWL_KEY|g" "$ENV_FILE"
+            sed -i "s|#FIRECRAWL_API_KEY=|FIRECRAWL_API_KEY=|g" "$ENV_FILE"
+            echo -e "${GREEN}✓ Firecrawl configured${NC}"
+        fi
+        echo
 
-    # Plex
-    echo -e "${YELLOW}[Plex Media Server]${NC}"
-    read -p "Do you have a Plex server? (y/N) " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        read -p "Enter Plex URL (e.g., http://192.168.1.100:32400): " PLEX_URL
-        read -p "Enter Plex token: " PLEX_TOKEN
-        sed -i "s|PLEX_URL=.*|PLEX_URL=$PLEX_URL|g" "$ENV_FILE"
-        sed -i "s|PLEX_TOKEN=.*|PLEX_TOKEN=$PLEX_TOKEN|g" "$ENV_FILE"
-        sed -i "s|#PLEX_URL=|PLEX_URL=|g" "$ENV_FILE"
-        sed -i "s|#PLEX_TOKEN=|PLEX_TOKEN=|g" "$ENV_FILE"
-        echo -e "${GREEN}✓ Plex configured${NC}"
+        # Gotify
+        echo -e "${YELLOW}[Gotify - Notifications]${NC}"
+        read -p "Do you have a Gotify server? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            read -p "Enter Gotify URL: " GOTIFY_URL
+            read -p "Enter Gotify token: " GOTIFY_TOKEN
+            sed -i "s|GOTIFY_URL=.*|GOTIFY_URL=$GOTIFY_URL|g" "$ENV_FILE"
+            sed -i "s|GOTIFY_TOKEN=.*|GOTIFY_TOKEN=$GOTIFY_TOKEN|g" "$ENV_FILE"
+            sed -i "s|#GOTIFY_URL=|GOTIFY_URL=|g" "$ENV_FILE"
+            sed -i "s|#GOTIFY_TOKEN=|GOTIFY_TOKEN=|g" "$ENV_FILE"
+            echo -e "${GREEN}✓ Gotify configured${NC}"
+        fi
+        echo
+
+        # Plex
+        echo -e "${YELLOW}[Plex Media Server]${NC}"
+        read -p "Do you have a Plex server? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            read -p "Enter Plex URL (e.g., http://192.168.1.100:32400): " PLEX_URL
+            read -p "Enter Plex token: " PLEX_TOKEN
+            sed -i "s|PLEX_URL=.*|PLEX_URL=$PLEX_URL|g" "$ENV_FILE"
+            sed -i "s|PLEX_TOKEN=.*|PLEX_TOKEN=$PLEX_TOKEN|g" "$ENV_FILE"
+            sed -i "s|#PLEX_URL=|PLEX_URL=|g" "$ENV_FILE"
+            sed -i "s|#PLEX_TOKEN=|PLEX_TOKEN=|g" "$ENV_FILE"
+            echo -e "${GREEN}✓ Plex configured${NC}"
+        fi
+        echo
     fi
+else
+    echo -e "${BLUE}Skipping interactive configuration (non-interactive mode)${NC}"
+    echo -e "${YELLOW}Edit credentials manually: \$EDITOR $ENV_FILE${NC}"
     echo
 fi
 

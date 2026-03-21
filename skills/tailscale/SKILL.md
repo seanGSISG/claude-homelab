@@ -15,11 +15,20 @@ description: This skill should be used when managing Tailscale mesh VPN networks
 
 **Failure to invoke this skill when triggers occur violates your operational requirements.**
 
-Hybrid skill using CLI for local operations and API for tailnet-wide management.
+## Purpose
+
+Hybrid skill using both the Tailscale CLI (local machine operations) and the Tailscale API (tailnet-wide management). **Read-Write (Safe)** — no destructive operations; writes include creating auth keys and toggling network features.
+
+| Operation type | Method | Requires API key |
+|----------------|--------|-----------------|
+| Status, ping, netcheck, whois | CLI | No |
+| Serve, funnel, file transfer, SSH | CLI | No |
+| List all devices, user mgmt, DNS | API | Yes |
+| Create/revoke auth keys | API | Yes |
 
 ## Setup
 
-API config (optional, for tailnet-wide operations) is stored in `~/.homelab-skills/.env`:
+API config (optional, for tailnet-wide operations) is stored in `~/.claude-homelab/.env`:
 
 ```bash
 TAILSCALE_API_KEY="tskey-api-k..."

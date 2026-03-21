@@ -4,13 +4,10 @@
 
 set -euo pipefail
 
-# Source repository environment loader
-# Detect skill root, then repository root
-SKILL_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-REPO_ROOT="${REPO_ROOT:-$(cd "$SKILL_ROOT/../.." && pwd)}"
-
 # Load environment if available (ZFS doesn't require credentials, but supports standardized env loading)
-source "$HOME/.homelab-skills/load-env.sh"
+SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
+source "$PLUGIN_ROOT/lib/load-env.sh"
 
 # Colors for output
 RED='\033[0;31m'

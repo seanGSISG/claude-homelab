@@ -44,7 +44,6 @@ Every skill MUST have a `SKILL.md` file with YAML frontmatter and markdown docum
 ```yaml
 ---
 name: service-name                # lowercase, no spaces, matches directory name
-version: 1.0.0                    # semantic versioning (x.y.z)
 description: Detailed description with trigger phrases. Use when the user asks to "trigger phrase 1", "trigger phrase 2", or mentions [context].
 ---
 ```
@@ -230,7 +229,7 @@ All skills MUST use `.env` file for credentials. NO JSON config files.
 
 **Required pattern:**
 ```bash
-# In ~/.homelab-skills/.env
+# In ~/.claude-homelab/.env
 SERVICE_URL="http://localhost:PORT"
 SERVICE_API_KEY="your-api-key"
 ```
@@ -266,10 +265,10 @@ SERVICE2_API_KEY="key2"
 Bash:
 ```bash
 # Source the .env file
-if [[ -f ~/.homelab-skills/.env ]]; then
-    source ~/.homelab-skills/.env
+if [[ -f ~/.claude-homelab/.env ]]; then
+    source ~/.claude-homelab/.env
 else
-    echo "ERROR: .env file not found at ~/.homelab-skills/.env" >&2
+    echo "ERROR: .env file not found at ~/.claude-homelab/.env" >&2
     exit 1
 fi
 
@@ -285,7 +284,7 @@ Node.js:
 import { readFile } from 'fs/promises';
 
 async function loadEnv() {
-    const envPath = `${process.env.HOME}/.homelab-skills/.env`;
+    const envPath = `${process.env.HOME}/.claude-homelab/.env`;
     const content = await readFile(envPath, 'utf8');
 
     for (const line of content.split('\n')) {
@@ -300,7 +299,7 @@ async function loadEnv() {
 
 **Security requirements:**
 - ✅ `.env` file is gitignored (NEVER commit)
-- ✅ Set file permissions: `chmod 600 ~/.homelab-skills/.env`
+- ✅ Set file permissions: `chmod 600 ~/.claude-homelab/.env`
 - ✅ NEVER log credentials (even in debug mode)
 - ✅ Always validate credentials exist before use
 - ✅ Document exact variable names in Setup section
@@ -391,7 +390,7 @@ main "$@"
 #!/usr/bin/env node
 import { readFile } from 'fs/promises';
 
-const ENV_PATH = `${process.env.HOME}/.homelab-skills/.env`;
+const ENV_PATH = `${process.env.HOME}/.claude-homelab/.env`;
 
 async function loadEnv() {
     try {
@@ -549,54 +548,9 @@ command subcommand -o custom file.txt
 **Solution:** Start service with `docker compose up service`
 ```
 
-### 6. Versioning and Updates
+### 6. Updates
 
-**CRITICAL REQUIREMENT: All skill modifications MUST include version bumps.**
-
-#### Semantic Versioning
-
-Skills use semantic versioning (MAJOR.MINOR.PATCH):
-- **MAJOR** (x.0.0): Breaking changes (API changes, removed features, incompatible updates)
-- **MINOR** (1.x.0): New features, enhancements, new commands (backward compatible)
-- **PATCH** (1.0.x): Bug fixes, documentation updates, minor tweaks (backward compatible)
-
-#### When to Bump Versions
-
-**YOU MUST bump the version number when:**
-- ✅ Adding mandatory skill invocation language → MINOR bump
-- ✅ Adding new commands or scripts → MINOR bump
-- ✅ Updating documentation sections → PATCH bump
-- ✅ Fixing bugs or errors → PATCH bump
-- ✅ Changing API patterns or breaking compatibility → MAJOR bump
-- ✅ Adding new required dependencies → MINOR bump
-- ✅ Updating trigger phrases in description → PATCH bump
-
-**Examples:**
-```yaml
-# Adding mandatory language enforcement
-version: 1.1.0 → 1.2.0  # MINOR bump (enhanced documentation)
-
-# Fixing a bug in script
-version: 1.1.0 → 1.1.1  # PATCH bump (bug fix)
-
-# Adding new API endpoint support
-version: 1.1.0 → 1.2.0  # MINOR bump (new feature)
-
-# Breaking change to credential format
-version: 1.2.0 → 2.0.0  # MAJOR bump (breaking change)
-```
-
-#### Version Update Workflow
-
-**MANDATORY process when updating any skill:**
-
-1. **Make your changes** to SKILL.md, scripts, or documentation
-2. **Determine version bump type** (MAJOR, MINOR, or PATCH)
-3. **Update version in YAML frontmatter** in SKILL.md
-4. **Commit with version in message**: `git commit -m "skillname: description (v1.2.0)"`
-5. **Update CLAUDE.md Current Skills section** if needed
-
-**Failure to bump versions when updating skills violates documentation requirements.**
+When updating a skill, commit with a descriptive message referencing the skill name and what changed: `git commit -m "skillname: description of change"`.
 
 ## Skill Types
 
@@ -776,9 +730,9 @@ chmod +x scripts/*.sh
 ./scripts/list.sh | jq .
 
 # Test error handling (without credentials)
-mv ~/.homelab-skills/.env{,.bak}
+mv ~/.claude-homelab/.env{,.bak}
 ./scripts/list.sh  # Should fail gracefully with clear message
-mv ~/.homelab-skills/.env{.bak,}
+mv ~/.claude-homelab/.env{.bak,}
 
 # Test with debug logging
 DEBUG=1 ./scripts/list.sh
@@ -820,7 +774,7 @@ DEBUG=1 ./scripts/list.sh
    ```
 
 4. **Edit SKILL.md:**
-   - Update YAML frontmatter (name, version, description)
+   - Update YAML frontmatter (name, description)
    - Add mandatory skill invocation section (see Core Principles #1)
    - Update all sections with service-specific information
    - Include 5-10 trigger phrases in description
@@ -863,7 +817,7 @@ Skills that support multiple instances of the same service use numbered environm
 
 **Pattern: Multiple servers in .env**
 ```bash
-# In ~/.homelab-skills/.env
+# In ~/.claude-homelab/.env
 
 # Server 1
 SERVICE1_URL="http://server1.local:PORT"
@@ -881,7 +835,7 @@ SERVICE3_API_KEY="key3"
 **Script implementation:**
 ```bash
 #!/bin/bash
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 
 # Default to server 1 if SERVER_NUM not specified
 SERVER_NUM="${SERVER_NUM:-1}"
@@ -1019,15 +973,6 @@ Manage Tailscale tailnet via CLI and API.
 - **Credentials:** `.env` (TAILSCALE_API_KEY, TAILSCALE_TAILNET)
 - **Status:** ✅ Production ready
 
-#### glances
-Monitor system health via Glances REST API.
-- **Path:** `skills/glances/`
-- **Type:** Read-Only
-- **Scripts:** Bash (.sh)
-- **Credentials:** `.env` (GLANCES_URL, GLANCES_USERNAME, GLANCES_PASSWORD)
-- **Version:** 1.3.0
-- **Status:** ✅ Production ready
-
 ### Utilities
 
 #### gotify
@@ -1045,17 +990,6 @@ Manage bookmarks with Linkding API.
 - **Type:** Read-Write (Safe + Destructive)
 - **Scripts:** Bash (.sh)
 - **Credentials:** `.env` (LINKDING_URL, LINKDING_API_KEY)
-- **Status:** ✅ Production ready
-
-#### firecrawl
-Web scraping and crawling with Firecrawl API.
-- **Path:** `skills/firecrawl/`
-- **Type:** Read-Only
-- **Scripts:** Bash (.sh) wrapping npx firecrawl-cli
-- **Credentials:** `.env` (FIRECRAWL_API_KEY, FIRECRAWL_API_URL optional)
-- **Features:** Scrape pages, search web, map sites, crawl websites
-- **Important:** NO artificial limits - user controls all constraints (--limit, --max-depth)
-- **Version:** 2.3.0
 - **Status:** ✅ Production ready
 
 #### memos
@@ -1115,24 +1049,11 @@ Manage calendars and contacts on self-hosted Radicale CalDAV/CardDAV server.
 - **Version:** 1.0.0
 - **Status:** ✅ Production ready
 
-### Security & Authentication
-
-#### authelia
-Monitor authentication security and user sessions via Authelia REST API.
-- **Path:** `skills/authelia/`
-- **Type:** Read-Only + Limited Write (user preferences only)
-- **Scripts:** Bash (.sh)
-- **Credentials:** `.env` (AUTHELIA_URL, AUTHELIA_USERNAME, AUTHELIA_PASSWORD, AUTHELIA_API_TOKEN optional)
-- **Features:** Health monitoring, authentication state tracking, user session status, 2FA status checking, security dashboard
-- **Important:** This is an authentication system - extra security restrictions apply. No password changes, no authentication bypass. Limited write operations for user preferences only.
-- **Version:** 1.0.0
-- **Status:** ✅ Production ready
-
 ## Migration Checklist
 
 For existing skills that need updating to match current patterns:
 
-- [ ] SKILL.md has complete YAML frontmatter (name, version, description)
+- [ ] SKILL.md has complete YAML frontmatter (name, description)
 - [ ] SKILL.md includes 5-10 trigger phrases in description
 - [ ] SKILL.md has all required sections (Purpose, Setup, Commands, Workflow, Notes, Reference)
 - [ ] README.md exists with user-facing documentation
@@ -1154,7 +1075,7 @@ For existing skills that need updating to match current patterns:
 
 ### General Guidelines
 
-- ✅ **DO:** Store ALL credentials in `~/.homelab-skills/.env` file
+- ✅ **DO:** Store ALL credentials in `~/.claude-homelab/.env` file
 - ✅ **DO:** Use environment variable pattern: `SERVICE_URL`, `SERVICE_API_KEY`
 - ✅ **DO:** Include trigger phrases in SKILL.md descriptions
 - ✅ **DO:** Document all commands with copy-paste examples
@@ -1177,7 +1098,7 @@ For existing skills that need updating to match current patterns:
 
 - Never log credentials (even in debug mode)
 - Use ONLY `.env` file for secrets (NO JSON config files)
-- Set restrictive permissions: `chmod 600 ~/.homelab-skills/.env`
+- Set restrictive permissions: `chmod 600 ~/.claude-homelab/.env`
 - Include security notes in SKILL.md for sensitive operations
 - Warn users about API key permissions in documentation
 - Always validate environment variables exist before use

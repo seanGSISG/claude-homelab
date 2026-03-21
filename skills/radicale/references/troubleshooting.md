@@ -59,7 +59,7 @@ ERROR: Failed to connect to Radicale: Connection refused
 2. **Wrong URL:**
    ```bash
    # Verify URL in .env
-   grep RADICALE_URL ~/.env ~/.homelab-skills/.env
+   grep RADICALE_URL ~/.env ~/.claude-homelab/.env
 
    # Test connection manually
    curl http://localhost:5232
@@ -84,7 +84,7 @@ caldav.lib.error.AuthorizationError
 
 1. **Verify credentials in .env:**
    ```bash
-   cat ~/.homelab-skills/.env | grep RADICALE
+   cat ~/.claude-homelab/.env | grep RADICALE
    ```
 
 2. **Test credentials manually:**
@@ -108,20 +108,20 @@ caldav.lib.error.AuthorizationError
 
 **Error:**
 ```
-ERROR: .env file not found at /home/user/.homelab-skills/.env
+ERROR: .env file not found at /home/user/.claude-homelab/.env
 ```
 
 **Solution:**
 ```bash
 # Create .env file
-cat > ~/.homelab-skills/.env <<EOF
+cat > ~/.claude-homelab/.env <<EOF
 RADICALE_URL="http://localhost:5232"
 RADICALE_USERNAME="admin"
 RADICALE_PASSWORD="your-password-here"
 EOF
 
 # Set permissions
-chmod 600 ~/.homelab-skills/.env
+chmod 600 ~/.claude-homelab/.env
 ```
 
 ## Calendar Issues
@@ -273,7 +273,7 @@ chmod +x /home/jmagar/claude-homelab/skills/radicale/scripts/radicale-api.py
 
 **Solution:**
 ```bash
-chmod 600 ~/.homelab-skills/.env
+chmod 600 ~/.claude-homelab/.env
 ```
 
 ## Data Format Issues

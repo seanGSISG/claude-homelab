@@ -8,7 +8,7 @@ Common operations and copy-paste examples.
 # Navigate to skill directory
 cd ~/claude-homelab/skills/memos
 
-# All scripts source credentials from ~/.homelab-skills/.env
+# All scripts source credentials from ~/.claude-homelab/.env
 # No additional configuration needed
 ```
 

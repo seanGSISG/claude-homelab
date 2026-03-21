@@ -4,7 +4,7 @@ Common operations for quick copy-paste usage.
 
 ## Setup
 
-Add credentials to `~/.homelab-skills/.env`:
+Add credentials to `~/.claude-homelab/.env`:
 
 ```bash
 SONARR_URL="http://localhost:8989"
@@ -14,7 +14,7 @@ SONARR_API_KEY="your-api-key-here"
 Load in scripts:
 
 ```bash
-source ~/.homelab-skills/.env
+source ~/.claude-homelab/.env
 ```
 
 ## System Information
