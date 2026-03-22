@@ -37,8 +37,8 @@ Media           plex             ✓ reachable   https://plex.example.com:32400
 Downloads       qbittorrent      ✓ reachable   https://qbit.example.com
                 sabnzbd          ✓ reachable   https://sabnzbd.example.com
 
-Infrastructure  unraid-tootie    ✓ reachable   https://unraid1.example.com/graphql
-                unraid-shart     ○ not configured
+Infrastructure  unraid-server1   ✓ reachable   https://unraid1.example.com/graphql
+                unraid-server2   ○ not configured
                 unifi            ✓ reachable   https://unifi.example.com
                 tailscale        ✓ reachable   (API)
 

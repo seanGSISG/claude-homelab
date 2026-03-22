@@ -69,13 +69,13 @@ check_service "qbittorrent" "${QBITTORRENT_URL:-}" ""
 check_service "sabnzbd"    "${SABNZBD_URL:-}" ""
 
 # --- Infrastructure ---
-# Unraid: check SERVER1 and SERVER2 vars; fall back to legacy TOOTIE/SHART names for compatibility
-_unraid1_name="${UNRAID_SERVER1_NAME:-${UNRAID_TOOTIE_NAME:-unraid-server1}}"
-_unraid1_url="${UNRAID_SERVER1_URL:-${UNRAID_TOOTIE_URL:-}}"
-_unraid1_key="${UNRAID_SERVER1_API_KEY:-${UNRAID_TOOTIE_API_KEY:-}}"
-_unraid2_name="${UNRAID_SERVER2_NAME:-${UNRAID_SHART_NAME:-unraid-server2}}"
-_unraid2_url="${UNRAID_SERVER2_URL:-${UNRAID_SHART_URL:-}}"
-_unraid2_key="${UNRAID_SERVER2_API_KEY:-${UNRAID_SHART_API_KEY:-}}"
+# Unraid: check SERVER1 and SERVER2 vars
+_unraid1_name="${UNRAID_SERVER1_NAME:-unraid-server1}"
+_unraid1_url="${UNRAID_SERVER1_URL:-}"
+_unraid1_key="${UNRAID_SERVER1_API_KEY:-}"
+_unraid2_name="${UNRAID_SERVER2_NAME:-unraid-server2}"
+_unraid2_url="${UNRAID_SERVER2_URL:-}"
+_unraid2_key="${UNRAID_SERVER2_API_KEY:-}"
 check_service "$_unraid1_name" "$_unraid1_url" "${_unraid1_key:+X-Api-Key: $_unraid1_key}"
 check_service "$_unraid2_name" "$_unraid2_url" "${_unraid2_key:+X-Api-Key: $_unraid2_key}"
 check_service "unifi"      "${UNIFI_URL:-}" ""

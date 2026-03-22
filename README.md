@@ -200,14 +200,14 @@ PLEX_TOKEN=your_plex_token
 RADARR_URL=https://radarr.example.com
 RADARR_API_KEY=your_radarr_api_key
 
-# Multi-instance services (Unraid supports two servers)
-UNRAID_TOOTIE_NAME=tootie
-UNRAID_TOOTIE_URL=https://tootie.example.com/graphql
-UNRAID_TOOTIE_API_KEY=your_api_key
+# Unraid (supports two servers; SERVER2 is optional)
+UNRAID_SERVER1_NAME=your_server1_name
+UNRAID_SERVER1_URL=https://your-unraid-server1/graphql
+UNRAID_SERVER1_API_KEY=your_api_key
 
-UNRAID_SHART_NAME=shart
-UNRAID_SHART_URL=https://shart.example.com/graphql
-UNRAID_SHART_API_KEY=your_api_key
+UNRAID_SERVER2_NAME=your_server2_name
+UNRAID_SERVER2_URL=https://your-unraid-server2/graphql
+UNRAID_SERVER2_API_KEY=your_api_key
 ```
 
 ### How scripts load credentials
