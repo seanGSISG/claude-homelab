@@ -2,61 +2,121 @@
 
 Comprehensive Claude Code skills, agents, and commands for homelab service management.
 
-## 🎯 What This Is
+## Install
 
-A production-ready collection of Claude Code integrations for self-hosted homelab services, providing:
+Two paths — pick one.
 
-- **30+ Skills** - API wrappers for media servers, download clients, infrastructure, and utilities
-- **Agents** - Specialized AI agents for complex multi-step workflows
-- **Commands** - Reusable command definitions for common operations
-- **Shared Libraries** - Common functionality for credential management and environment loading
+### Plugin path (Claude Code native)
 
-## Repository Structure
+```bash
+# In Claude Code:
+/plugin marketplace add jmagar/claude-homelab
 
-```
-claude-homelab/
-├── .env.example                 # Credential template
-├── lib/                         # Shared libraries
-│   └── load-env.sh              # Environment variable loading
-├── scripts/                     # Setup and install scripts
-│   ├── install.sh               # One-liner installer
-│   ├── setup-symlinks.sh        # Symlink skills into ~/.claude/
-│   ├── setup-homelab.sh         # Interactive credential setup
-│   └── verify-symlinks.sh       # Verify symlink health
-├── agents/                      # Agent definitions
-├── commands/                    # Slash command definitions
-│   ├── homelab/                 # /homelab:* commands
-│   ├── firecrawl/               # /firecrawl:* commands
-│   └── notebooklm/              # /notebooklm:* commands
-└── skills/                      # Individual skills (30+)
-    └── [service]/
-        ├── SKILL.md             # Skill definition
-        ├── README.md            # User documentation
-        ├── scripts/             # Executable scripts
-        └── references/          # API docs, troubleshooting
+# Install core (agents, commands, setup + health skills)
+/plugin install homelab-core@jmagar-claude-homelab
+
+# Install the services you run (repeat for each)
+/plugin install plex@jmagar-claude-homelab
+/plugin install radarr@jmagar-claude-homelab
+/plugin install sonarr@jmagar-claude-homelab
+# ... see full list below
+
+# One-time credential setup
+curl -sSL https://raw.githubusercontent.com/jmagar/claude-homelab/main/scripts/setup-creds.sh | bash
+
+# Then in Claude Code — interactive wizard:
+/homelab-core:setup
 ```
 
-Credentials live in `~/.claude-homelab/.env` (created by the installer).
-
-## Quick Start
-
-### One-liner install
+### Bash path (fresh machine)
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/jmagar/claude-homelab/main/scripts/install.sh | bash
 ```
 
-This clones the repo, symlinks skills/agents/commands into `~/.claude/`, and stubs your credentials file.
+Clones the repo, sets up credentials, symlinks everything into `~/.claude/`, and verifies the install. Then open Claude Code and run `/homelab-core:setup` to configure your service credentials.
 
-### Manual install
+---
+
+## After Install
 
 ```bash
-git clone https://github.com/jmagar/claude-homelab.git ~/claude-homelab
-cd ~/claude-homelab
-./scripts/setup-symlinks.sh
+/homelab-core:setup    # interactive credential wizard
+/homelab-core:health   # unified service health dashboard
 ```
 
-### Add your credentials
+---
+
+## What's Included
+
+### Core (`homelab-core`)
+- **Agents**: agentic-orchestrator, exa-specialist, firecrawl-specialist, notebooklm-specialist
+- **Commands**: `/agentic-research`, `/homelab:*`, `/notebooklm:*`
+- **Skills**: `/homelab-core:setup` (credential wizard), `/homelab-core:health` (health dashboard)
+
+### Service Plugins (install individually)
+
+| Plugin | Category | What it does |
+|--------|----------|-------------|
+| `plex` | media | Browse libraries, search, now playing |
+| `radarr` | media | Movie management |
+| `sonarr` | media | TV show management |
+| `overseerr` | media | Media request management |
+| `prowlarr` | media | Indexer management |
+| `tautulli` | media | Plex analytics |
+| `qbittorrent` | downloads | Torrent management |
+| `sabnzbd` | downloads | Usenet downloads |
+| `unraid` | infrastructure | Unraid server monitoring (GraphQL) |
+| `unifi` | infrastructure | UniFi network monitoring |
+| `tailscale` | infrastructure | Tailscale VPN management |
+| `zfs` | infrastructure | ZFS pool management |
+| `fail2ban-swag` | security | Fail2ban + SWAG intrusion prevention |
+| `gotify` | utilities | Push notifications |
+| `linkding` | utilities | Bookmark management |
+| `memos` | utilities | Note-taking |
+| `bytestash` | utilities | Code snippet storage |
+| `paperless-ngx` | utilities | Document management |
+| `radicale` | utilities | Calendar + contacts (CalDAV/CardDAV) |
+| `nugs` | utilities | Live music downloads (Nugs.net) |
+| `notebooklm` | research | Google NotebookLM integration |
+| `gh-address-comments` | development | GitHub PR review comment handling |
+
+---
+
+## Repository Structure
+
+```
+claude-homelab/
+├── .claude-plugin/
+│   ├── marketplace.json         # Plugin catalog (add this repo as a marketplace)
+│   └── plugin.json              # homelab-core plugin manifest
+├── agents/                      # Specialized AI agents
+├── commands/                    # Slash commands (/homelab:*, /notebooklm:*, etc.)
+├── lib/
+│   └── load-env.sh              # Shared credential loader
+├── skills/                      # homelab-core skills
+│   ├── setup/SKILL.md           # /homelab-core:setup wizard
+│   └── health/                  # /homelab-core:health dashboard
+│       ├── SKILL.md
+│       └── scripts/check-health.sh
+├── service-plugins/             # Per-service plugins (22 services)
+│   └── [service]/
+│       ├── .claude-plugin/plugin.json
+│       ├── skills/[service]/SKILL.md
+│       ├── scripts/             # API client scripts
+│       └── references/          # API docs, troubleshooting
+└── scripts/
+    ├── install.sh               # Bash path entry point
+    ├── setup-creds.sh           # Credential bootstrap
+    ├── setup-symlinks.sh        # Symlink service-plugins/ into ~/.claude/
+    └── verify.sh                # Installation health check
+```
+
+Credentials live in `~/.claude-homelab/.env` — never committed, always `chmod 600`.
+
+---
+
+## Add your credentials
 
 ```bash
 $EDITOR ~/.claude-homelab/.env

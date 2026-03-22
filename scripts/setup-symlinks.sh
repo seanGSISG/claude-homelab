@@ -61,12 +61,12 @@ create_symlink() {
         # Check if it's already a valid symlink to the correct source
         if [ -L "$target" ] && [ "$(readlink -f "$target")" = "$(readlink -f "$source")" ]; then
             log_warn "Skipped (already linked): $target"
-            ((skipped++))
+            skipped=$((skipped + 1))
             return 0
         else
             # Invalid symlink or regular file/directory
             log_warn "Exists (not overwriting): $target"
-            ((skipped++))
+            skipped=$((skipped + 1))
             return 0
         fi
     fi
@@ -74,10 +74,10 @@ create_symlink() {
     # Create symlink
     if ln -sf "$source" "$target"; then
         log_success "Created: $target → $source"
-        ((created++))
+        created=$((created + 1))
     else
         log_error "Failed to create: $target"
-        ((errors++))
+        errors=$((errors + 1))
         return 1
     fi
 }
@@ -96,17 +96,16 @@ main() {
     log_info "Creating base directories..."
     mkdir -p "$CLAUDE_DIR"/{skills,agents,commands}
 
-    # Setup skills
+    # Setup service plugins (symlinked into ~/.claude/skills/ for bash-path users)
     echo ""
-    log_info "Setting up skills..."
-    if [ -d "$REPO_ROOT/skills" ]; then
-        while IFS= read -r -d '' skill_dir; do
-            skill_name=$(basename "$skill_dir")
-            # Skip CLAUDE.md file
-            if [ "$skill_name" != "CLAUDE.md" ] && [ -d "$skill_dir" ]; then
-                create_symlink "$skill_dir" "$CLAUDE_DIR/skills/$skill_name" "directory"
+    log_info "Setting up service plugins..."
+    if [ -d "$REPO_ROOT/service-plugins" ]; then
+        while IFS= read -r -d '' plugin_dir; do
+            plugin_name=$(basename "$plugin_dir")
+            if [ -d "$plugin_dir" ]; then
+                create_symlink "$plugin_dir" "$CLAUDE_DIR/skills/$plugin_name" "directory"
             fi
-        done < <(find "$REPO_ROOT/skills" -mindepth 1 -maxdepth 1 -print0)
+        done < <(find "$REPO_ROOT/service-plugins" -mindepth 1 -maxdepth 1 -type d -print0)
     fi
 
     # Setup agents

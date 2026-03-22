@@ -7,9 +7,10 @@
 # What this does:
 #   1. Checks prerequisites (git, jq, curl)
 #   2. Clones repo to ~/claude-homelab (or git pull if it exists)
-#   3. Runs setup-symlinks.sh (symlinks skills/agents/commands into ~/.claude/)
-#   4. Stubs ~/.claude-homelab/.env from .env.example with chmod 600
-#   5. Prints next steps
+#   3. Runs setup-creds.sh (creates ~/.claude-homelab/.env with chmod 600)
+#   4. Runs setup-symlinks.sh (symlinks service-plugins/agents/commands into ~/.claude/)
+#   5. Runs verify.sh (confirms everything is in place)
+#   6. Prints next steps
 #
 # Non-interactive — safe for curl | bash (no read -p prompts)
 # =============================================================================
@@ -72,7 +73,21 @@ clone_or_pull() {
 }
 
 # -------------------------------------------------------------------
-# Step 3: Run setup-symlinks.sh
+# Step 3: Set up credentials
+# -------------------------------------------------------------------
+run_setup_creds() {
+    local script="$INSTALL_DIR/scripts/setup-creds.sh"
+    if [[ ! -f "$script" ]]; then
+        log_error "setup-creds.sh not found at $script"
+        exit 1
+    fi
+    chmod +x "$script"
+    log_info "Setting up credentials..."
+    bash "$script"
+}
+
+# -------------------------------------------------------------------
+# Step 4: Run setup-symlinks.sh
 # -------------------------------------------------------------------
 run_symlinks() {
     local script="$INSTALL_DIR/scripts/setup-symlinks.sh"
@@ -86,29 +101,19 @@ run_symlinks() {
 }
 
 # -------------------------------------------------------------------
-# Step 4: Stub ~/.claude-homelab/.env
+# Step 5: Verify
 # -------------------------------------------------------------------
-stub_env() {
-    mkdir -p "$HOMELAB_DIR"
-
-    if [[ -f "$HOMELAB_DIR/.env" ]]; then
-        log_warn "~/.claude-homelab/.env already exists — not overwriting"
-        return 0
+run_verify() {
+    local script="$INSTALL_DIR/scripts/verify.sh"
+    if [[ -f "$script" ]]; then
+        chmod +x "$script"
+        log_info "Verifying installation..."
+        bash "$script" || log_warn "Verification had warnings — see above"
     fi
-
-    local example="$INSTALL_DIR/.env.example"
-    if [[ ! -f "$example" ]]; then
-        log_warn ".env.example not found — creating empty .env"
-        touch "$HOMELAB_DIR/.env"
-    else
-        cp "$example" "$HOMELAB_DIR/.env"
-    fi
-    chmod 600 "$HOMELAB_DIR/.env"
-    log_success "Created ~/.claude-homelab/.env (chmod 600)"
 }
 
 # -------------------------------------------------------------------
-# Step 5: Print next steps
+# Step 6: Print next steps
 # -------------------------------------------------------------------
 print_next_steps() {
     echo ""
@@ -116,16 +121,15 @@ print_next_steps() {
     echo ""
     echo "Next steps:"
     echo ""
-    echo -e "  1. ${YELLOW}Add your credentials:${NC}"
-    echo "     \$EDITOR ~/.claude-homelab/.env"
+    echo -e "  1. ${YELLOW}Configure credentials (interactive wizard):${NC}"
+    echo "     Open Claude Code and run: /homelab-core:setup"
+    echo ""
+    echo -e "     Or edit manually:  \$EDITOR ~/.claude-homelab/.env"
     echo ""
     echo -e "  2. ${YELLOW}Restart Claude Code${NC} to pick up the new skills"
     echo ""
-    echo -e "  3. ${YELLOW}Verify setup:${NC}"
-    echo "     ~/claude-homelab/scripts/verify-symlinks.sh"
-    echo ""
-    echo -e "  4. ${YELLOW}Try a command:${NC}"
-    echo "     /homelab:system-resources"
+    echo -e "  3. ${YELLOW}Check service health:${NC}"
+    echo "     /homelab-core:health"
     echo ""
 }
 
@@ -138,6 +142,7 @@ echo ""
 
 check_prereqs
 clone_or_pull
+run_setup_creds
 run_symlinks
-stub_env
+run_verify
 print_next_steps
