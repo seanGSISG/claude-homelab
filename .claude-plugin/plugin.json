@@ -1,7 +1,7 @@
 {
   "name": "homelab-core",
   "description": "Core homelab agents, commands, and setup/health skills for self-hosted service management. Includes interactive credential setup wizard and unified service health dashboard.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

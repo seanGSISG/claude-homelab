@@ -97,13 +97,17 @@ main() {
     mkdir -p "$CLAUDE_DIR"/{skills,agents,commands}
 
     # Setup service plugins (symlinked into ~/.claude/skills/ for bash-path users)
+    # Must point to skills/<name>/ subdirectory so SKILL.md is at ~/.claude/skills/<name>/SKILL.md
     echo ""
     log_info "Setting up service plugins..."
     if [ -d "$REPO_ROOT/service-plugins" ]; then
         while IFS= read -r -d '' plugin_dir; do
             plugin_name=$(basename "$plugin_dir")
-            if [ -d "$plugin_dir" ]; then
-                create_symlink "$plugin_dir" "$CLAUDE_DIR/skills/$plugin_name" "directory"
+            skill_dir="$plugin_dir/skills/$plugin_name"
+            if [ -d "$skill_dir" ]; then
+                create_symlink "$skill_dir" "$CLAUDE_DIR/skills/$plugin_name" "directory"
+            else
+                log_warn "No skill dir found for $plugin_name (expected: $skill_dir)"
             fi
         done < <(find "$REPO_ROOT/service-plugins" -mindepth 1 -maxdepth 1 -type d -print0)
     fi

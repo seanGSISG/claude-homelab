@@ -13,12 +13,7 @@ OUTPUT_FILE="$HOME/memory/bank/unraid-inventory.md"
 
 # Load credentials from .env for all servers
 load_env_file || exit 1
-for server in ${UNRAID_SERVERS:-"TOOTIE SHART"}; do
-    url_var="UNRAID_${server}_URL"
-    key_var="UNRAID_${server}_API_KEY"
-    name_var="UNRAID_${server}_NAME"
-    validate_env_vars "$url_var" "$key_var" || exit 1
-done
+validate_env_vars "UNRAID_SERVER1_URL" "UNRAID_SERVER1_API_KEY" || exit 1
 
 # Ensure output directory exists
 mkdir -p "$(dirname "$OUTPUT_FILE")"
@@ -197,17 +192,15 @@ process_server() {
     echo "" >> "$OUTPUT_FILE"
 }
 
-# Main loop - process each server from environment variables
-for server in ${UNRAID_SERVERS:-"TOOTIE SHART"}; do
-    name_var="UNRAID_${server}_NAME"
-    url_var="UNRAID_${server}_URL"
-    key_var="UNRAID_${server}_API_KEY"
+# Process each configured server (SERVER2 is optional)
+for n in 1 2; do
+    url_var="UNRAID_SERVER${n}_URL"
+    key_var="UNRAID_SERVER${n}_API_KEY"
+    name_var="UNRAID_SERVER${n}_NAME"
 
-    NAME="${!name_var}"
-    URL="${!url_var}"
-    KEY="${!key_var}"
+    [[ -z "${!url_var:-}" ]] && continue
 
-    process_server "$NAME" "$URL" "$KEY"
+    process_server "${!name_var}" "${!url_var}" "${!key_var}"
 done
 
 echo "Dashboard saved to: $OUTPUT_FILE"
