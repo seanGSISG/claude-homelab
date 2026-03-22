@@ -80,8 +80,8 @@ echo
 echo "All skills processed!"
 echo
 echo "Next steps:"
-echo "1. Test locally: claude --plugin-dir ./skills/fail2ban-swag"
+echo "1. Test locally: claude --plugin-dir ./service-plugins/gotify"
 echo "2. Commit changes: git add . && git commit -m 'fix: restructure all skills for proper plugin format'"
 echo "3. Push to repo: git push"
 echo "4. On other machine: /plugin marketplace update jmagar/claude-homelab"
-echo "5. On other machine: /plugin update fail2ban-swag@claude-homelab"
+echo "5. On other machine: /plugin update gotify@claude-homelab"

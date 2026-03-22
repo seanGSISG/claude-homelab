@@ -30,9 +30,8 @@ A comprehensive collection of Claude Code skills and agents for homelab service 
 - **glances** - System health monitoring
 - **zfs** - ZFS pool management with Sanoid/Syncoid
 
-#### 🔒 Security (2 skills)
+#### 🔒 Security (1 skill)
 - **authelia** - Authentication monitoring
-- **fail2ban-swag** - Intrusion prevention
 
 #### 🛠️ Utilities (8 skills)
 - **gotify** - Push notifications

@@ -70,7 +70,6 @@ The plugin path uses Claude Code's built-in plugin system. Plugins are copied to
 /plugin install unifi@jmagar-claude-homelab
 /plugin install tailscale@jmagar-claude-homelab
 /plugin install zfs@jmagar-claude-homelab
-/plugin install fail2ban-swag@jmagar-claude-homelab
 /plugin install gotify@jmagar-claude-homelab
 /plugin install linkding@jmagar-claude-homelab
 /plugin install memos@jmagar-claude-homelab
@@ -266,12 +265,6 @@ Install only the services you run. Each plugin is independent — install as man
 | `tailscale` | `/plugin install tailscale@jmagar-claude-homelab` | List tailnet devices, check connectivity, manage ACLs, view device details | `TAILSCALE_API_KEY`, `TAILSCALE_TAILNET` |
 | `zfs` | `/plugin install zfs@jmagar-claude-homelab` | Check pool health, scrub status, snapshot management, dataset info — uses local CLI, no credentials needed | (none) |
 
-### Security
-
-| Plugin | Install command | What it does | Credentials needed |
-|--------|----------------|--------------|-------------------|
-| `fail2ban-swag` | `/plugin install fail2ban-swag@jmagar-claude-homelab` | Check fail2ban jail status, banned IPs, SWAG proxy logs, unban IPs | (SSH/local access) |
-
 ### Utilities
 
 | Plugin | Install command | What it does | Credentials needed |
@@ -406,7 +399,7 @@ claude-homelab/
 │       └── scripts/
 │           └── check-health.sh # Curl-checks all configured services, outputs JSON array
 │
-├── service-plugins/            # Per-service plugins (22 services, each independent)
+├── service-plugins/            # Per-service plugins (21 services, each independent)
 │   └── [service]/              # e.g., plex/, radarr/, sonarr/, unraid/, ...
 │       ├── .claude-plugin/
 │       │   └── plugin.json     # Plugin manifest: name, description, version, author
@@ -582,7 +575,7 @@ The bash path is for users who prefer a traditional install, want live-updating 
 ~/.claude/skills/plex           →  ~/claude-homelab/service-plugins/plex
 ~/.claude/skills/radarr         →  ~/claude-homelab/service-plugins/radarr
 ~/.claude/skills/sonarr         →  ~/claude-homelab/service-plugins/sonarr
-... (all 22 service plugins)
+... (all 21 service plugins)
 
 ~/.claude/agents/agentic-orchestrator.md   →  ~/claude-homelab/agents/agentic-orchestrator.md
 ~/.claude/agents/exa-specialist.md         →  ~/claude-homelab/agents/exa-specialist.md
@@ -638,7 +631,7 @@ Plugin path:
 - `marketplace.json` parses as valid JSON
 - All `source` paths in marketplace.json point to existing directories in the repo
 - `homelab-core` `plugin.json` exists and has a valid `name` field
-- All 22 service plugin directories have a `.claude-plugin/plugin.json`
+- All 21 service plugin directories have a `.claude-plugin/plugin.json`
 
 Homelab-core skills:
 - `skills/setup/SKILL.md` present
@@ -656,15 +649,15 @@ Credentials
   ✓  load-env.sh installed at /home/user/.claude-homelab/load-env.sh
 
 Bash Path (symlinks)
-  ✓  22 skill symlinks (all valid)
+  ✓  21 skill symlinks (all valid)
   ✓  4 agent symlinks
   ✓  7 command files
 
 Plugin Path
-  ✓  marketplace.json valid (23 plugins listed)
+  ✓  marketplace.json valid (22 plugins listed)
   ✓  All marketplace source paths exist
   ✓  homelab-core plugin.json valid (name: homelab-core)
-  ✓  22 service plugins with valid manifests
+  ✓  21 service plugins with valid manifests
 
 Homelab-Core Skills
   ✓  /homelab-core:setup skill present

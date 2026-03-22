@@ -127,15 +127,6 @@
       "homepage": "https://github.com/jmagar/claude-homelab"
     },
     {
-      "name": "fail2ban-swag",
-      "source": "./service-plugins/fail2ban-swag",
-      "description": "Manage fail2ban intrusion prevention inside SWAG reverse proxy container - ban/unban IPs, jail management, filter testing",
-      "version": "1.1.0",
-      "category": "security",
-      "tags": ["fail2ban", "security", "swag", "reverse-proxy", "intrusion-prevention"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
       "name": "gotify",
       "source": "./service-plugins/gotify",
       "description": "Send push notifications via Gotify for task completion alerts and system notifications",

@@ -88,6 +88,9 @@ build/
 # Docker
 docker-compose.override.yml
 
+# Plugin registry artifacts
+.clawdhub/
+
 # Cache and Temporary Files
 .cache/
 *.log

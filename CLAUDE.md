@@ -61,7 +61,7 @@ This repository provides production-ready integrations for self-hosted homelab s
 - **Bash path** (`curl -sSL .../install.sh | bash`) — symlinks into `~/.claude/`
 
 - **homelab-core plugin** — agents, commands, setup wizard, health dashboard (repo root IS the plugin)
-- **Service plugins** (`service-plugins/`) — 22 per-service plugins, each independently installable
+- **Service plugins** (`service-plugins/`) — 21 service plugins, each independently installable (22 total including homelab-core)
 - **Shared library** (`lib/load-env.sh`) — credential loading, installed to `~/.claude-homelab/`
 
 ## Repository Structure
@@ -95,7 +95,7 @@ claude-homelab/
 │       ├── SKILL.md                 # /homelab-core:health — service health dashboard
 │       └── scripts/check-health.sh # Curl-checks all services, outputs JSON
 │
-├── service-plugins/                 # Per-service plugins (22 services)
+├── service-plugins/                 # Per-service plugins (21 services)
 │   └── [service]/                   # e.g., plex/, radarr/, unraid/, ...
 │       ├── .claude-plugin/
 │       │   └── plugin.json          # Plugin manifest
@@ -290,7 +290,7 @@ TAILSCALE_API_KEY=your_api_key
 TAILSCALE_TAILNET=your_tailnet_or_dash
 ```
 
-The full template is in `.env.example`. It covers all 22 service plugins grouped by category.
+The full template is in `.env.example`. It covers all 21 service plugins grouped by category.
 
 **Security Checklist:**
 - [ ] `~/.claude-homelab/.env` has `chmod 600` permissions
