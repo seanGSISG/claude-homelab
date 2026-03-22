@@ -56,73 +56,59 @@ Comprehensive Claude Code skills, agents, and commands for homelab service manag
 
 ## Repository Overview
 
-This repository provides production-ready integrations for self-hosted homelab services:
+This repository provides production-ready integrations for self-hosted homelab services via a dual-path install:
+- **Plugin path** (`/plugin marketplace add jmagar/claude-homelab`) — Claude Code native plugin system
+- **Bash path** (`curl -sSL .../install.sh | bash`) — symlinks into `~/.claude/`
 
-- **Individual Skills** (30+) - API wrappers for specific services (root level)
-- **Agents** (`agents/`) - Specialized AI agents for complex workflows
-- **Commands** (`commands/`) - Reusable command definitions
-- **Shared Libraries** (`lib/`) - Common credential and environment management
+- **homelab-core plugin** — agents, commands, setup wizard, health dashboard (repo root IS the plugin)
+- **Service plugins** (`service-plugins/`) — 22 per-service plugins, each independently installable
+- **Shared library** (`lib/load-env.sh`) — credential loading, installed to `~/.claude-homelab/`
 
 ## Repository Structure
 
 ```
 claude-homelab/
-├── README.md                    # User-facing documentation
-├── CLAUDE.md                    # This file - development guidelines
-├── AGENTS.md                    # Symlink to CLAUDE.md
-├── GEMINI.md                    # Symlink to CLAUDE.md
-├── .env                         # Credentials (gitignored, NEVER commit)
-├── .env.example                 # Credential template (tracked)
-├── .gitignore                   # Git ignore patterns
+├── README.md                        # User-facing documentation (comprehensive)
+├── CLAUDE.md                        # This file - development guidelines
+├── .env.example                     # Credential template (tracked, no secrets)
+├── .claude-plugin/
+│   ├── marketplace.json             # Plugin catalog (23 plugins)
+│   └── plugin.json                  # homelab-core manifest (root IS the plugin)
 │
-├── lib/                         # Shared libraries
-│   └── load-env.sh              # Environment variable loading
+├── lib/
+│   └── load-env.sh                  # Credential loader — installed to ~/.claude-homelab/
 │
-├── agents/                      # Agent definitions
-│   ├── agentic-orchestrator.md  # Multi-agent research coordinator
-│   ├── exa-specialist.md        # ExaAI semantic search specialist
-│   ├── firecrawl-specialist.md  # Web scraping specialist
-│   └── notebooklm-specialist.md # NotebookLM research specialist
+├── agents/                          # homelab-core agents (4 specialist agents)
+│   ├── agentic-orchestrator.md
+│   ├── exa-specialist.md
+│   ├── firecrawl-specialist.md
+│   └── notebooklm-specialist.md
 │
-├── commands/                    # Slash commands (symlinked to ~/.claude/commands/)
-│   ├── agentic-research.md      # /agentic-research command
-│   ├── firecrawl/               # /firecrawl:* namespace
-│   │   ├── scrape.md            # /firecrawl:scrape
-│   │   ├── crawl.md             # /firecrawl:crawl
-│   │   ├── map.md               # /firecrawl:map
-│   │   ├── batch.md             # /firecrawl:batch
-│   │   ├── extract.md           # /firecrawl:extract
-│   │   ├── query.md             # /firecrawl:query
-│   │   └── retrieve.md          # /firecrawl:retrieve
-│   ├── homelab/                 # /homelab:* namespace
-│   │   ├── system-resources.md  # /homelab:system-resources
-│   │   ├── docker-health.md     # /homelab:docker-health
-│   │   ├── disk-space.md        # /homelab:disk-space
-│   │   └── zfs-health.md        # /homelab:zfs-health
-│   └── notebooklm/              # /notebooklm:* namespace
-│       ├── create.md            # /notebooklm:create
-│       ├── ask.md               # /notebooklm:ask
-│       ├── source.md            # /notebooklm:source
-│       ├── generate.md          # /notebooklm:generate
-│       ├── download.md          # /notebooklm:download
-│       ├── list.md              # /notebooklm:list
-│       └── research.md          # /notebooklm:research
+├── commands/                        # homelab-core slash commands
+│   ├── agentic-research.md          # /agentic-research
+│   ├── homelab/                     # /homelab:system-resources, docker-health, disk-space, zfs-health
+│   └── notebooklm/                  # /notebooklm:create, ask, source, generate, download, list, research
 │
-├── skills/                      # Organized skill collection
-│   ├── CLAUDE.md                # Skill development guidelines
-│   ├── authelia/                # Individual skill directories
-│   ├── bytestash/
-│   ├── firecrawl/
-│   ├── ... (30+ services)
-│   └── [service]/
-│       ├── SKILL.md             # Skill definition
-│       ├── README.md            # User documentation
-│       ├── scripts/             # Executable scripts
-│       ├── references/          # Detailed documentation
-│       └── examples/            # Usage examples
+├── skills/                          # homelab-core skills (NOT service plugins)
+│   ├── setup/SKILL.md               # /homelab-core:setup — interactive credential wizard
+│   └── health/
+│       ├── SKILL.md                 # /homelab-core:health — service health dashboard
+│       └── scripts/check-health.sh # Curl-checks all services, outputs JSON
 │
-└── [service]/                   # Additional skills (root level - legacy)
-    └── ... (exa, notebooklm, agentic-research-orchestration)
+├── service-plugins/                 # Per-service plugins (22 services)
+│   └── [service]/                   # e.g., plex/, radarr/, unraid/, ...
+│       ├── .claude-plugin/
+│       │   └── plugin.json          # Plugin manifest
+│       ├── skills/[service]/
+│       │   └── SKILL.md             # Skill definition at correct spec path
+│       ├── scripts/                 # Bash/Python/Node API scripts
+│       └── references/              # API docs, quick-reference, troubleshooting
+│
+└── scripts/                         # Install and maintenance scripts
+    ├── install.sh                   # Bash path entry point
+    ├── setup-creds.sh               # Creates ~/.claude-homelab/.env (both paths)
+    ├── setup-symlinks.sh            # Bash path: symlinks service-plugins/ → ~/.claude/skills/
+    └── verify.sh                    # Dual-path verification (exits 0 if clean)
 ```
 
 ## Source of Truth
@@ -133,6 +119,8 @@ All definitions live here and are symlinked into `~/.claude/` for Claude Code di
 
 ### Symlink Architecture
 
+Bash path only — plugin path uses `~/.claude/plugins/cache/`, no symlinks.
+
 ```
 ~/.claude/
 ├── agents/
@@ -141,15 +129,17 @@ All definitions live here and are symlinked into `~/.claude/` for Claude Code di
 │   ├── firecrawl-specialist.md  → ~/claude-homelab/agents/firecrawl-specialist.md
 │   └── notebooklm-specialist.md → ~/claude-homelab/agents/notebooklm-specialist.md
 ├── skills/
-│   ├── firecrawl/               → ~/claude-homelab/skills/firecrawl/
-│   ├── notebooklm/              → ~/claude-homelab/skills/notebooklm/
-│   ├── plex/                    → ~/claude-homelab/skills/plex/
-│   └── ...                      (all homelab skills)
+│   ├── plex/                    → ~/claude-homelab/service-plugins/plex/
+│   ├── radarr/                  → ~/claude-homelab/service-plugins/radarr/
+│   └── ...                      (all 22 service-plugins/)
 └── commands/
     ├── agentic-research.md      → ~/claude-homelab/commands/agentic-research.md
-    ├── firecrawl/               → ~/claude-homelab/commands/firecrawl/
     ├── homelab/                 → ~/claude-homelab/commands/homelab/
     └── notebooklm/              → ~/claude-homelab/commands/notebooklm/
+
+~/.claude-homelab/
+├── .env                         # Credentials (chmod 600, never committed)
+└── load-env.sh                  # Copied from lib/load-env.sh
 ```
 
 ### How Slash Commands Work
@@ -185,19 +175,19 @@ Key fields:
 
 ### Adding New Symlinks
 
-When adding a new skill, agent, or command to this repo:
+Service plugins live in `service-plugins/`, not `skills/`. When adding a new service plugin:
 
 ```bash
-# Skills (directory symlink)
-ln -sf ~/claude-homelab/skills/new-service ~/.claude/skills/new-service
+# New service plugin (directory symlink)
+ln -sf ~/claude-homelab/service-plugins/new-service ~/.claude/skills/new-service
 
-# Agents (file symlink)
+# New agent (file symlink)
 ln -sf ~/claude-homelab/agents/new-agent.md ~/.claude/agents/new-agent.md
 
-# Commands - single file
+# New command - single file
 ln -sf ~/claude-homelab/commands/new-cmd.md ~/.claude/commands/new-cmd.md
 
-# Commands - namespaced directory
+# New command - namespaced directory
 ln -sf ~/claude-homelab/commands/service-name ~/.claude/commands/service-name
 ```
 
@@ -209,17 +199,18 @@ Run the setup script to create all required symlinks automatically:
 # Create all symlinks
 ./scripts/setup-symlinks.sh
 
-# Verify symlinks are correct
-./scripts/verify-symlinks.sh
+# Verify everything is in place
+./scripts/verify.sh
 ```
 
-The setup script will:
-- Create `~/.claude/` directories if they don't exist
-- Symlink all skills from `skills/` to `~/.claude/skills/`
-- Symlink all agents from `agents/` to `~/.claude/agents/`
-- Symlink all commands from `commands/` to `~/.claude/commands/`
-- Report any errors or conflicts
-- Skip existing valid symlinks
+The setup script:
+- Creates `~/.claude/` directories if missing
+- Symlinks all `service-plugins/*/` → `~/.claude/skills/`
+- Symlinks all `agents/*.md` → `~/.claude/agents/`
+- Symlinks all `commands/` files/dirs → `~/.claude/commands/`
+- Copies `lib/load-env.sh` → `~/.claude-homelab/load-env.sh`
+- Creates `~/.claude-homelab/.env` from `.env.example` if missing
+- Skips existing valid symlinks, never overwrites `.env`
 
 ## Core Principles
 
@@ -293,18 +284,13 @@ GOTIFY_URL=https://your-gotify-url
 GOTIFY_TOKEN=your_token
 
 # =============================================================================
-# FIRECRAWL (WEB SCRAPING/CRAWLING)
-# =============================================================================
-# Cloud API (recommended)
-FIRECRAWL_API_KEY=fc-your_api_key
-FIRECRAWL_API_URL=https://api.firecrawl.dev
-
-# =============================================================================
 # TAILSCALE (VPN/MESH NETWORK)
 # =============================================================================
 TAILSCALE_API_KEY=your_api_key
 TAILSCALE_TAILNET=your_tailnet_or_dash
 ```
+
+The full template is in `.env.example`. It covers all 22 service plugins grouped by category.
 
 **Security Checklist:**
 - [ ] `~/.claude-homelab/.env` has `chmod 600` permissions
@@ -330,11 +316,15 @@ load_service_credentials "service-name" "URL_VAR" "API_KEY_VAR"
 
 ### 3. Directory Organization
 
-**Skills** - Organized in `skills/` subdirectory for clarity:
-- Each skill in its own directory under `skills/`
-- See `skills/CLAUDE.md` for skill development guidelines
+**Service plugins** — In `service-plugins/`, one directory per service:
+- Each plugin at `service-plugins/<name>/` with `.claude-plugin/plugin.json` and `skills/<name>/SKILL.md`
+- This is the correct location for all service-specific skills (NOT `skills/`)
 
-**Agents** - Specialized AI agents in `agents/`:
+**homelab-core skills** — In `skills/` at repo root:
+- Only two skills live here: `skills/setup/` and `skills/health/`
+- These are homelab-core's own skills, not service plugins
+
+**Agents** — Specialized AI agents in `agents/`:
 - Markdown files defining agent behavior
 - Used by orchestration systems
 - Named `*-specialist.md` or `*-orchestrator.md`

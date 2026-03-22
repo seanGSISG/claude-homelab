@@ -98,10 +98,11 @@ Always ensure `chmod 600 ~/.claude-homelab/.env` after writing.
 - URL: the SABnzbd web interface URL
 - API key: Config → General → API Key
 
-**Unraid** (`UNRAID_*_NAME`, `UNRAID_*_URL`, `UNRAID_*_API_KEY`)
+**Unraid** (`UNRAID_SERVER1_NAME`, `UNRAID_SERVER1_URL`, `UNRAID_SERVER1_API_KEY`, and optionally `UNRAID_SERVER2_*`)
 - URL: `https://your-unraid-ip/graphql`
-- API key: Unraid Settings → Management Access → API Keys
-- Supports two servers (TOOTIE and SHART are just placeholder names — ask the user for their server names)
+- API key: Unraid Settings → Management Access → API Keys → Create (Viewer role is sufficient)
+- Ask the user what they want to name each server (used as the display label in health checks)
+- Supports two servers; skip SERVER2 if they only have one
 
 **UniFi** (`UNIFI_URL`, `UNIFI_USERNAME`, `UNIFI_PASSWORD`, `UNIFI_SITE`)
 - URL: `https://your-unifi-controller-ip`

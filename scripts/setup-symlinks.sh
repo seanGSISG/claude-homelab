@@ -177,7 +177,7 @@ main() {
     echo ""
     log_success "✓ Setup complete!"
     log_info "Credentials: ~/.claude-homelab/.env"
-    log_info "Verify with: ./scripts/verify-symlinks.sh"
+    log_info "Verify with: ./scripts/verify.sh"
     echo ""
 }
 
