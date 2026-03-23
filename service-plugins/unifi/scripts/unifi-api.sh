@@ -4,7 +4,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
-source "$PLUGIN_ROOT/lib/load-env.sh"
+source "${HOME}/.claude-homelab/load-env.sh"
 
 # Load credentials from .env (UniFi uses username/password, not API key)
 load_env_file || exit 1

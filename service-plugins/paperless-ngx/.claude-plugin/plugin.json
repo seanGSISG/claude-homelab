@@ -1,7 +1,7 @@
 {
   "name": "paperless-ngx",
   "description": "Manage documents in Paperless-ngx - upload with auto-OCR, full-text search, tag management, bulk operations",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

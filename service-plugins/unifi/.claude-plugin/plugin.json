@@ -1,7 +1,7 @@
 {
   "name": "unifi",
   "description": "Monitor UniFi network via local gateway API - device status, client monitoring, network health, DPI statistics",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

@@ -1,7 +1,7 @@
 {
   "name": "gotify",
   "description": "Send push notifications via Gotify for task completion alerts and system notifications",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

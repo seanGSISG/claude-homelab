@@ -1,7 +1,7 @@
 {
   "name": "bytestash",
   "description": "Manage code snippets in ByteStash - multi-file support, share management, auto-categorization for 30+ languages",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

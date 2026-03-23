@@ -1,7 +1,7 @@
 {
   "name": "radarr",
   "description": "Search and add movies to Radarr library with collection support. Includes both safe operations and destructive operations (with confirmation)",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

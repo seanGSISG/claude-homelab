@@ -1,7 +1,7 @@
 {
   "name": "linkding",
   "description": "Manage bookmarks with Linkding API - save, search, tag, archive bookmarks and create bundles",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

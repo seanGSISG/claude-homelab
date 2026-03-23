@@ -6,7 +6,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$SCRIPT_DIR/../../.." && pwd)}"
-source "$PLUGIN_ROOT/lib/load-env.sh"
+source "${HOME}/.claude-homelab/load-env.sh"
 
 API_BASE="https://api.tailscale.com/api/v2"
 

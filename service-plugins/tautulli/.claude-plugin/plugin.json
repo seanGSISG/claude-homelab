@@ -1,7 +1,7 @@
 {
   "name": "tautulli",
   "description": "Monitor and analyze Plex Media Server usage via Tautulli analytics API - viewing history, user statistics, stream analytics",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

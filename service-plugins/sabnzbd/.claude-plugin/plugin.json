@@ -1,7 +1,7 @@
 {
   "name": "sabnzbd",
   "description": "Manage Usenet downloads with SABnzbd API - queue management, NZB handling, download monitoring",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"

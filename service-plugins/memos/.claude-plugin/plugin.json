@@ -1,7 +1,7 @@
 {
   "name": "memos",
   "description": "Manage notes and memos in self-hosted Memos service - create, search, tag, and organize personal notes",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"
